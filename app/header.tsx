@@ -6,6 +6,7 @@ export default function Header() {
     const pathname = usePathname();
 
     const navItems = [
+        { href: "/", label: "Home" },
         { href: "/calendar", label: "Calendar" },
         { href: "/newsletter", label: "Newsletters" },
         { href: "/code-of-conduct", label: "Code of Conduct" },
