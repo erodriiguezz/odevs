@@ -1,9 +1,16 @@
-"use client"
+"use client";
 
-import { usePathname } from 'next/navigation'
+import { useIsMobile } from "../hooks/isMobile";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Header() {
-    const pathname = usePathname();
+    const pathname = usePathname(); // to show current location
+    const isMobile = useIsMobile(); // to choose which menu
+
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const navItems = [
         { href: "/", label: "Home" },
@@ -21,19 +28,74 @@ export default function Header() {
 
     return  <div className="sticky top-0 z-40 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-900">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                        <img
-                            src="/images/logo.png"
-                            alt="Orlando Devs"
-                            className="w-9 h-9 rounded-full object-cover border border-zinc-800"
-                        />
-                    </div>
-
-                    <nav className="hidden md:flex items-center gap-1 bg-zinc-900 p-0.5 rounded-lg border border-zinc-800">
-                        {navItems.map(({ href, label }) => (
-                            <a key={href} href={href} className={linkClass(href)}>{label}</a>
-                        ))}
-                    </nav>
+                    {isMobile ?
+                        <div className="relative flex items-center">
+                            <button
+                                type="button"
+                                className="md:hidden relative flex h-10 w-10 items-center justify-center rounded-lg text-zinc-200 transition-[color,transform] duration-200 hover:bg-zinc-900 active:scale-95"
+                                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                                aria-expanded={isMenuOpen}
+                                aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                            >
+                                {/* 3 lines of menu hamburger, middle fades top/bottom become X*/}
+                                <span className="relative block h-4 w-5">
+                                    <span
+                                        className={[
+                                            "absolute left-0 h-0.5 w-5 rounded-full bg-current transition-all duration-300 ease-in-out",
+                                            isMenuOpen ? "top-[7px] rotate-45" : "top-0",
+                                        ].join(" ")}/>
+                                    <span
+                                        className={[
+                                            "absolute left-0 top-[7px] h-0.5 w-5 rounded-full bg-current transition-all duration-300 ease-in-out",
+                                            isMenuOpen ? "scale-x-0 opacity-0" : "scale-x-100 opacity-100",
+                                        ].join(" ")}/>
+                                    <span
+                                        className={[
+                                            "absolute left-0 h-0.5 w-5 rounded-full bg-current transition-all duration-300 ease-in-out",
+                                            isMenuOpen ? "top-[7px] -rotate-45" : "top-[14px]",
+                                        ].join(" ")}/>
+                                </span>
+                            </button>
+                            
+                            <div
+                                aria-hidden={!isMenuOpen}
+                                className={[
+                                    "absolute top-full left-0 z-50 mt-2 flex min-w-44 flex-col overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950 py-1 shadow-lg shadow-black/40 origin-top-left transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+                                    isMenuOpen
+                                        ? "pointer-events-auto visible opacity-100 scale-100 translate-y-0"
+                                        : "pointer-events-none invisible opacity-0 scale-80 -translate-y-10",
+                                ].join(" ")}
+                            >
+                                {navItems.map(({ href, label }, index) => (
+                                    <Link
+                                        key={href}
+                                        href={href}
+                                        tabIndex={isMenuOpen ? 0 : -1}
+                                        onClick={() => setIsMenuOpen(false)}
+                                        style={{
+                                            transitionDelay: isMenuOpen
+                                                ? `${index*40 + 75}ms`
+                                                : `${(navItems.length - index - 1) * 25}ms`,
+                                        }}
+                                        className={[
+                                            linkClass(href),
+                                            "text-left transition-all duration-300 ease-out",
+                                            isMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-3 opacity-0",
+                                        ].join(" ")}
+                                    >{label}</Link>))}
+                            </div>
+                        </div>
+                     :
+                        <>
+                            <div className="flex items-center gap-3">
+                                <Image src="/images/logo.png" alt="Orlando Devs" width={36} height={36} className="w-9 h-9 rounded-full object-cover border border-zinc-800" />
+                            </div>
+                            <nav className="hidden md:flex items-center gap-1 bg-zinc-900 p-0.5 rounded-lg border border-zinc-800">
+                                {navItems.map(({ href, label }) => (
+                                    <Link key={href} href={href} className={linkClass(href)}>{label}</Link>
+                                ))}
+                            </nav>
+                        </>}
 
                     <div className="flex items-center">
                         <a
@@ -42,11 +104,13 @@ export default function Header() {
                             rel="noreferrer"
                             className="flex items-center bg-[#5865F2] hover:bg-[#4e5dEC] text-white px-4 py-2.5 rounded-lg text-sm font-medium transition duration-150 shadow-sm"
                         >
-                            <img
+                            <Image
                                 src="/images/discord.svg"
                                 alt="Discord Logo"
                                 aria-hidden="true"
                                 className="w-4 h-4 mr-2"
+                                width={16}
+                                height={16}
                             />
 
                             <span>Join Discord</span>
