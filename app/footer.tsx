@@ -1,8 +1,8 @@
 export default function Footer() {
     const footerItems = [
         { href: "https://www.linkedin.com/company/odevs/", label: "LinkedIn" },
-        { href: "https://github.com/OrlandoDevs", label: "GitHub" },
-        { href: "https://discord.gg/v6gchdH43K", label: "Discord" },
+        { href: "https://github.com/OrlandoDevs",          label: "GitHub" },
+        { href: "https://discord.gg/v6gchdH43K",           label: "Discord" },
     ] as const;
 
     return  <footer className="bg-zinc-950 border-t border-zinc-900 text-zinc-500 py-14 text-sm mt-12">
