@@ -2,7 +2,7 @@
 
 import { useIsMobile } from "../hooks/isMobile";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -26,6 +26,41 @@ export default function Header() {
             : "text-zinc-400 hover:text-zinc-200",
     ].join(" ");
 
+    const discordButton = (style: CSSProperties | undefined, onClick: () => void, className: string[]) =>
+        <a
+            href="https://discord.gg/v6gchdH43K"
+            target="_blank"
+            rel="noreferrer"
+            className={["flex items-center bg-[#5865F2] hover:bg-[#4e5dEC] text-white px-4 py-2.5 rounded-lg text-sm font-medium shadow-sm", ...className].join(" ")}
+            onClick={onClick}
+            style={style}
+        >
+            <Image
+                src="/images/discord.svg"
+                alt="Discord Logo"
+                aria-hidden="true"
+                className="w-4 h-4 mr-2"
+                width={16}
+                height={16}
+            />
+
+            <span>Join Discord</span>
+        </a>;
+
+    const delayStyle: (index: number) => CSSProperties = (index: number) => ({
+        transitionDelay: isMenuOpen
+            ? `${index*40 + 75}ms`
+            : `${(navItems.length+1 - index) * 25}ms`
+    });
+
+    const hamburger = (open: string, closed: string, always: string) =>
+        <span className={[
+            `absolute left-0 h-0.5 w-5 rounded-full bg-current transition-all duration-300 ease-in-out ${always}`,
+            isMenuOpen ? open : closed,
+        ].join(" ")}/>;
+
+    const hamburgerTopBottom = (rotate: string, top: string) => hamburger(`top-[7px] ${rotate}`, top, "");
+
     return  <div className="sticky top-0 z-40 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-900">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -42,21 +77,9 @@ export default function Header() {
                             >
                                 {/* 3 lines of menu hamburger, middle fades top/bottom become X*/}
                                 <span className="relative block h-4 w-5">
-                                    <span
-                                        className={[
-                                            "absolute left-0 h-0.5 w-5 rounded-full bg-current transition-all duration-300 ease-in-out",
-                                            isMenuOpen ? "top-[7px] rotate-45" : "top-0",
-                                        ].join(" ")}/>
-                                    <span
-                                        className={[
-                                            "absolute left-0 top-[7px] h-0.5 w-5 rounded-full bg-current transition-all duration-300 ease-in-out",
-                                            isMenuOpen ? "scale-x-0 opacity-0" : "scale-x-100 opacity-100",
-                                        ].join(" ")}/>
-                                    <span
-                                        className={[
-                                            "absolute left-0 h-0.5 w-5 rounded-full bg-current transition-all duration-300 ease-in-out",
-                                            isMenuOpen ? "top-[7px] -rotate-45" : "top-[14px]",
-                                        ].join(" ")}/>
+                                    {hamburgerTopBottom("rotate-45", "top-0")}
+                                    {hamburger("scale-x-0 opacity-0", "scale-x-100 opacity-100", "top-[7px]")}
+                                    {hamburgerTopBottom("-rotate-45", "top-[14px]")}
                                 </span>
                             </button>
                             
@@ -75,11 +98,7 @@ export default function Header() {
                                         href={href}
                                         tabIndex={isMenuOpen ? 0 : -1}
                                         onClick={() => setIsMenuOpen(false)}
-                                        style={{
-                                            transitionDelay: isMenuOpen
-                                                ? `${index*40 + 75}ms`
-                                                : `${(navItems.length+1 - index) * 25}ms`,
-                                        }}
+                                        style={delayStyle(index)}
                                         className={[
                                             linkClass(href),
                                             "text-left duration-300 ease-out",
@@ -87,35 +106,12 @@ export default function Header() {
                                         ].join(" ")}
                                     >{label}</Link>))}
                                     
-                                    <a
-                                        href="https://discord.gg/v6gchdH43K"
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className={[
-                                            "flex items-center bg-[#5865F2] hover:bg-[#4e5dEC] text-white px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 ease-out shadow-sm",
-                                            isMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-3 opacity-0",
-                                        ].join(" ")}
-                                        onClick={() => setIsMenuOpen(false)}
-                                        style={{
-                                            transitionDelay: isMenuOpen
-                                                ? `${navItems.length*40 + 75}ms`
-                                                : `${25}ms`,
-                                        }}
-                                    >
-                                        <Image
-                                            src="/images/discord.svg"
-                                            alt="Discord Logo"
-                                            aria-hidden="true"
-                                            className="w-4 h-4 mr-2"
-                                            width={16}
-                                            height={16}
-                                        />
-
-                                        <span>Join Discord</span>
-                                    </a>
+                                    {discordButton(delayStyle(navItems.length),
+                                        () => setIsMenuOpen(false), ["transition-all duration-300 ease-out",
+                                                                     isMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-3 opacity-0",])}
                             </div>
                         </div>
-                     :
+                     : // desktop
                         <>
                             <nav className="hidden md:flex items-center gap-1 bg-zinc-900 p-0.5 rounded-lg border border-zinc-800">
                                 {navItems.map(({ href, label }) => (
@@ -123,25 +119,9 @@ export default function Header() {
                                 ))}
                             </nav>
                             <div className="flex items-center">
-                                <a
-                                    href="https://discord.gg/v6gchdH43K"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="flex items-center bg-[#5865F2] hover:bg-[#4e5dEC] text-white px-4 py-2.5 rounded-lg text-sm font-medium transition duration-150 shadow-sm"
-                                >
-                                    <Image
-                                        src="/images/discord.svg"
-                                        alt="Discord Logo"
-                                        aria-hidden="true"
-                                        className="w-4 h-4 mr-2"
-                                        width={16}
-                                        height={16}
-                                    />
-
-                                    <span>Join Discord</span>
-                                </a>
+                                {discordButton(undefined, () => {}, ["transition duration-150"])}
                             </div>
                         </>}
                 </div>
-            </div>
+            </div>;
 }
