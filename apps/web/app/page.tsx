@@ -1,6 +1,15 @@
 import { Button } from '@/components/ui/button'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default function HomePage() {
+  const sponsors = [
+    { name: "Bluewave", href: "https://bluewave.com", logo: "/images/bluewave-logo.svg", contrib: ""},
+    { name: "Informulate", href: "https://informulate.com", logo: "/images/informulate-logo.png", contrib: ""},
+    { name: "Envy Labs", href: "https://envylabs.com", logo: "/images/envy-logo.svg", contrib: ""},
+    { name: "Worth", href: "https://worthai.com", logo: "/images/worth-logo.svg", contrib: ""}
+  ] as const;
+  
   return (
     <>
       {/* Hero */}
@@ -240,13 +249,19 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
-            {Array.from({ length: 5 }, (_, i) => (
+          <div className={`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-${sponsors.length} gap-5`}>
+            {sponsors.map(({ href, logo, name, contrib}, i) => (
               <div
                 key={i}
-                className="h-16 border border-zinc-200 rounded-md bg-white flex items-center justify-center text-zinc-400 text-xs font-semibold"
+                className="h-64 border border-zinc-200 rounded-md bg-white flex items-center justify-center text-zinc-400 text-xs font-semibold"
               >
-                Logo
+                <div className="flex flex-col items-center justify-center">
+                  <Link href={href} className ="p-1 flex items-center justify-center w-full h-full">
+                    <Image src={logo} alt={name + " logo"} width={203.27} height={62} className="max-w-full max-h-full object-contain"/>
+                  </Link>
+
+                  <p className="mt-8 text-center">Contribution to community: {contrib}</p>
+                </div>
               </div>
             ))}
           </div>
