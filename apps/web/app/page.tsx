@@ -244,25 +244,19 @@ export default function HomePage() {
               Made possible by our supporters
             </h2>
             <p className="text-base text-zinc-500 max-w-md mx-auto mt-2.5 leading-relaxed">
-              Placeholder — sponsor logos will appear here. Final copy will acknowledge each
-              partner's contribution to the community.
+              Thank you to our community sponsors!
             </p>
           </div>
 
           <div className={`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-${sponsors.length} gap-5`}>
             {sponsors.map(({ href, logo, name, contrib}, i) => (
-              <div
+              <Link
                 key={i}
-                className="h-64 border border-zinc-200 rounded-md bg-white flex items-center justify-center text-zinc-400 text-xs font-semibold"
+                href={href}
+                className="h-32 border border-zinc-200 rounded-lg bg-white flex items-center justify-center text-zinc-400 text-xs font-semibold"
               >
-                <div className="flex flex-col items-center justify-center">
-                  <Link href={href} className ="p-1 flex items-center justify-center w-full h-full">
-                    <Image src={logo} alt={name + " logo"} width={203.27} height={62} className="max-w-full max-h-full object-contain"/>
-                  </Link>
-
-                  <p className="mt-8 text-center">Contribution to community: {contrib}</p>
-                </div>
-              </div>
+                <Image src={logo} alt={name + " logo"} width={203.27} height={62} className="max-w-full max-h-full object-contain"/>
+              </Link>
             ))}
           </div>
 
