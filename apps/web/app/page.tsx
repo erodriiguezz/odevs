@@ -4,10 +4,10 @@ import Link from 'next/link'
 
 export default function HomePage() {
   const sponsors = [
-    { name: "Bluewave", href: "https://bluewave.com", logo: "/images/bluewave-logo.svg", contrib: ""},
-    { name: "Informulate", href: "https://informulate.com", logo: "/images/informulate-logo.png", contrib: ""},
-    { name: "Envy Labs", href: "https://envylabs.com", logo: "/images/envy-logo.svg", contrib: ""},
-    { name: "Worth", href: "https://worthai.com", logo: "/images/worth-logo.svg", contrib: ""}
+    { name: "Bluewave", href: "https://bluewave.com", logo: "/images/bluewave-logo.svg"},
+    { name: "Informulate", href: "https://informulate.com", logo: "/images/informulate-logo.svg"},
+    { name: "Envy Labs", href: "https://envylabs.com", logo: "/images/envy-logo.svg"},
+    { name: "Worth", href: "https://worthai.com", logo: "/images/worth-logo.svg"}
   ] as const;
   
   return (
@@ -249,13 +249,13 @@ export default function HomePage() {
           </div>
 
           <div className={`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-${sponsors.length} gap-5`}>
-            {sponsors.map(({ href, logo, name, contrib}, i) => (
+            {sponsors.map(({ href, logo, name }, i) => (
               <Link
                 key={i}
                 href={href}
                 className="h-32 border border-zinc-200 rounded-lg bg-white flex items-center justify-center text-zinc-400 text-xs font-semibold"
               >
-                <Image src={logo} alt={name + " logo"} width={203.27} height={62} className="max-w-full max-h-full object-contain"/>
+                <Image src={logo} alt={name + " logo"} width={240} height={96} className="max-w-full max-h-full object-contain"/>
               </Link>
             ))}
           </div>
