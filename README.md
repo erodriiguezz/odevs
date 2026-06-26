@@ -25,8 +25,6 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
----
-
 ## Contributing
 
 ### 1. Pick an issue
@@ -109,8 +107,6 @@ chore: upgrade Next.js to 15.2
 
 - Address feedback with new commits — do not force-push while a review is in progress.
 - Once approved, a maintainer will squash-merge into `main`.
-
----
 
 ## Learn More
 
