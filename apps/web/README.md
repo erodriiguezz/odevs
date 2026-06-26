@@ -1,4 +1,4 @@
-# odevs-front
+# @odevs/web
 
 The frontend for next, open source, **odevs** website — a Next.js application that displays and surfaces community events through views including List, Calendar, Search, and Recommendations.
 
