@@ -25,13 +25,13 @@ export default function Header() {
             ? "bg-zinc-850 text-white shadow-sm"
             : "text-zinc-400 hover:text-zinc-200",
     ].join(" ");
-
+    
     const discordButton = (style: CSSProperties | undefined, onClick: () => void, className: string[]) =>
-        <a
+        <Link
             href="https://discord.gg/v6gchdH43K"
             target="_blank"
             rel="noreferrer"
-            className={["flex items-center bg-[#5865F2] hover:bg-[#4e5dEC] text-white px-4 py-2.5 rounded-lg text-sm font-medium shadow-sm", ...className].join(" ")}
+            className={["flex items-center bg-[#5865F2] hover:bg-[#4e5dEC] text-white px-4 py-2 rounded-lg text-sm font-medium shadow-sm", ...className].join(" ")}
             onClick={onClick}
             style={style}
         >
@@ -45,7 +45,7 @@ export default function Header() {
             />
 
             <span>Join Discord</span>
-        </a>;
+        </Link>;
 
     const delayStyle: (index: number) => CSSProperties = (index: number) => ({
         transitionDelay: isMenuOpen
@@ -86,7 +86,7 @@ export default function Header() {
                             <div
                                 aria-hidden={!isMenuOpen}
                                 className={[
-                                    "absolute top-full right-0 z-50 mt-2 flex min-w-44 flex-col overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950 py-4 px-4 shadow-lg shadow-black/40 origin-top-right transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+                                    "absolute top-full right-0 z-50 mt-2 flex-col min-w-44 overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950 py-4 px-4 shadow-lg shadow-black/40 origin-top-right transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
                                     isMenuOpen
                                         ? "pointer-events-auto visible opacity-100 scale-100 translate-y-0"
                                         : "pointer-events-none invisible opacity-0 scale-80 -translate-y-10",
@@ -101,13 +101,13 @@ export default function Header() {
                                         style={delayStyle(index)}
                                         className={[
                                             linkClass(href),
-                                            "text-left duration-300 ease-out",
+                                            "text-left duration-300 ease-out inline-flex",
                                             isMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-3 opacity-0",
                                         ].join(" ")}
                                     >{label}</Link>))}
                                     
-                                    {discordButton(delayStyle(navItems.length),
-                                        () => setIsMenuOpen(false), ["transition-all duration-300 ease-out",
+                                    {discordButton(delayStyle(navItems.length), // geist sans is 0.71% font height  font-sm is 0.875rem
+                                        () => setIsMenuOpen(false), [`transition-all duration-300 ease-out mt-[${(0.71*0.875/2+0.5).toFixed(6)}rem]`,
                                                                      isMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-3 opacity-0",])}
                             </div>
                         </div>
@@ -119,7 +119,7 @@ export default function Header() {
                                 ))}
                             </nav>
                             <div className="flex items-center">
-                                {discordButton(undefined, () => {}, ["transition duration-150"])}
+                                {discordButton(undefined, () => {}, ["transition duration-150 py-2.5"])}
                             </div>
                         </>}
                 </div>
