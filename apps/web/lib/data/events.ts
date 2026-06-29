@@ -2,7 +2,7 @@ import type { Event } from '@/lib/types/event'
 
 export const events: Event[] = [
   {
-    id: 'odevs-june-meetup-2025',
+    id: 'odevs-june-meetup-2026',
     title: 'Orlando Devs June Meetup: Agentic Engineering Series Kickoff',
     description:
       'Join ODevs for a summer of learning and career development! This first session is an AI Skills Lab. Bring your laptop with Docker running for a hands-on agent-building workshop. Doors open at 6:30, event kicks off at 7:00 PM with speakers and networking.',
@@ -12,7 +12,7 @@ export const events: Event[] = [
       { name: 'Envy Labs', url: 'https://envylabs.com/' },
       { name: 'Worth AI', url: 'https://worthai.com/' },
     ],
-    date: '2025-06-22',
+    date: '2026-06-22',
     time: '6:30 PM - 9:00 PM EDT',
     location: 'Tech Hub, 36 W. Pine St, Orlando, FL',
     eventType: 'meetup',
@@ -34,7 +34,7 @@ export const events: Event[] = [
     featured: true,
   },
   {
-    id: 'odevs-tech-and-beer-june-2025',
+    id: 'odevs-tech-and-beer-june-2026',
     title: 'Orlando Devs Social & Orlando Tech and Beer in June!',
     description:
       'Join the Orlando Devs network for the monthly Orlando Tech and Beer — a networking and social event hosted by the team that leads Accelerate Orlando. First drinks and light bites provided by sponsors.',
@@ -44,7 +44,7 @@ export const events: Event[] = [
       { name: 'Envy Labs', url: 'https://envylabs.com/' },
       { name: 'Worth AI', url: 'https://worthai.com/' },
     ],
-    date: '2025-06-30',
+    date: '2026-06-30',
     time: '6:00 PM - 9:00 PM EDT',
     location: 'Twelve Talons Beerworks, 2807 E South Street, Orlando, FL',
     eventType: 'social',
@@ -66,12 +66,12 @@ export const events: Event[] = [
     featured: false,
   },
   {
-    id: 'accelerate-orlando-post-agi-may-2025',
+    id: 'accelerate-orlando-post-agi-may-2026',
     title: 'Accelerate Orlando + Build the Future May Meetup: Post-AGI Economics Discussion',
     description:
       'A meetup focused on principles from the techno-optimist and e/acc movements. This session explores post-AGI economics with the Accelerate Orlando and Build the Future communities.',
     sponsors: [],
-    date: '2025-05-19',
+    date: '2026-05-19',
     time: '6:30 PM EDT',
     location: '1550 S Lakemont Ave, Orlando, FL',
     eventType: 'meetup',
@@ -93,12 +93,12 @@ export const events: Event[] = [
     featured: false,
   },
   {
-    id: 'accelerate-orlando-openclaw-mar-2025',
+    id: 'accelerate-orlando-openclaw-mar-2026',
     title: 'Accelerate Orlando + Build the Future: A Night of OpenClaw Exploration',
     description:
       'Explore OpenClaw with the Accelerate Orlando and Build the Future communities. A hands-on evening of experimentation and discussion.',
     sponsors: [],
-    date: '2025-03-05',
+    date: '2026-03-05',
     time: '7:00 PM EDT',
     location: 'Dr. Phillips Academic Commons, Orlando, FL',
     eventType: 'meetup',
@@ -117,6 +117,33 @@ export const events: Event[] = [
       eventSources: [{ platform: 'luma', url: 'https://luma.com/accelerateorlando' }],
     },
     tags: ['ai', 'open-source', 'robotics', 'hands-on'],
+    featured: false,
+  },
+  {
+    id: 'orlando-devops-storytime-jul-2026',
+    title: 'DevOps Storytime Social',
+    description:
+      'Come join us for food and beer as we gather to share and listen to members stories. Every other month we have story topics and welcome everyone to share. Stories are generally around 10 minutes in length with some Q&A after each one. No slide deck or computer needed — just hanging around the bar with friends, telling a story.',
+    sponsors: [],
+    date: '2026-07-13',
+    time: '7:00 PM EDT',
+    location: 'Lazy Moon - East Colonial, 1011 E Colonial Dr, Orlando, FL 32803',
+    eventType: 'social',
+    registrationUrl: 'https://www.meetup.com/orlando-devops/events/315423579/',
+    sourcePlatform: 'meetup',
+    group: {
+      id: 'orlando-devops',
+      name: 'Orlando DevOps',
+      description:
+        'A group for anyone interested in DevOps practices, including build automation, continuous deployment, cloud enablement, infrastructure as code, and developer collaboration.',
+      topic: 'DevOps',
+      logo: '',
+      websiteUrl: 'https://www.meetup.com/orlando-devops/',
+      discordUrl: '',
+      brandColor: '#000000',
+      eventSources: [{ platform: 'meetup', url: 'https://www.meetup.com/orlando-devops/' }],
+    },
+    tags: ['devops', 'social', 'storytelling', 'networking'],
     featured: false,
   },
 ]
