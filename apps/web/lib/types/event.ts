@@ -7,7 +7,10 @@ export type EventType =
   | 'social'
   | 'other'
 
-export type SourcePlatform = 'meetup' | 'eventbrite' | 'luma' | 'discord' | 'manual' | 'other'
+import type { SourcePlatform } from './platform'
+import { CommunityGroup } from './group'
+
+export type { SourcePlatform }
 
 export interface Sponsor {
   name: string
@@ -26,7 +29,7 @@ export interface OdevsEvent {
   eventType: EventType
   registrationUrl: string
   sourcePlatform: SourcePlatform
-  group: string
+  group: CommunityGroup
   tags: string[]
   featured: boolean
 }
