@@ -1,4 +1,7 @@
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button';
+import Image from 'next/image';
+import Link from 'next/link';
+import sponsors from '@/lib/data/sponsors';
 
 export default function HomePage() {
   return (
@@ -232,28 +235,26 @@ export default function HomePage() {
               id="sponsors-heading"
               className="text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight text-zinc-950 text-center"
             >
-              Made possible by our supporters
+              Thank you to our community sponsors!
             </h2>
-            <p className="text-base text-zinc-500 max-w-md mx-auto mt-2.5 leading-relaxed">
-              Placeholder — sponsor logos will appear here. Final copy will acknowledge each
-              partner's contribution to the community.
-            </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
-            {Array.from({ length: 5 }, (_, i) => (
-              <div
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center">
+            {Object.values(sponsors).map(({ url, logo, name }, i) => (
+              <Link
                 key={i}
-                className="h-16 border border-zinc-200 rounded-md bg-white flex items-center justify-center text-zinc-400 text-xs font-semibold"
+                href={url}
+                target="_blank"
+                className="border border-zinc-200 rounded-lg bg-white flex items-center justify-center text-zinc-400 text-xs font-semibold w-full h-full p-4"
               >
-                Logo
-              </div>
+                <Image src={logo} alt={name + " logo"} width={240} height={96} className="max-w-full max-h-full object-contain"/>
+              </Link>
             ))}
           </div>
 
           <div className="text-center mt-12 pt-10 border-t border-zinc-200">
             <p className="text-zinc-500 text-sm mb-4">Interested in supporting the community?</p>
-            <Button href="#">Become a sponsor</Button>
+            <Button href="https://discord.gg/v6gchdH43K" target="_blank">Become a sponsor</Button>
           </div>
         </div>
       </section>
