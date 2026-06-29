@@ -241,11 +241,8 @@ export default function HomePage() {
               id="sponsors-heading"
               className="text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight text-zinc-950 text-center"
             >
-              Made possible by our supporters
-            </h2>
-            <p className="text-base text-zinc-500 max-w-md mx-auto mt-2.5 leading-relaxed">
               Thank you to our community sponsors!
-            </p>
+            </h2>
           </div>
 
           <div className={`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-${sponsors.length} gap-5`}>
