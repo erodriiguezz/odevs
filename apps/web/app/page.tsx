@@ -1,15 +1,9 @@
-import { Button } from '@/components/ui/button'
-import Image from 'next/image'
-import Link from 'next/link'
+import { Button } from '@/components/ui/button';
+import Image from 'next/image';
+import Link from 'next/link';
+import sponsors from '@/lib/data/sponsors';
 
 export default function HomePage() {
-  const sponsors = [
-    { name: "Bluewave", href: "https://bluewave.com", logo: "/images/bluewave-logo.svg"},
-    { name: "Informulate", href: "https://informulate.com", logo: "/images/informulate-logo.svg"},
-    { name: "Envy Labs", href: "https://envylabs.com", logo: "/images/envy-logo.svg"},
-    { name: "Worth", href: "https://worthai.com", logo: "/images/worth-logo.svg"}
-  ] as const;
-  
   return (
     <>
       {/* Hero */}
@@ -246,10 +240,10 @@ export default function HomePage() {
           </div>
 
           <div className={`grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-${sponsors.length} gap-5`}>
-            {sponsors.map(({ href, logo, name }, i) => (
+            {Object.values(sponsors).map(({ url, logo, name }, i) => (
               <Link
                 key={i}
-                href={href}
+                href={url}
                 target="_blank"
                 className="h-32 border border-zinc-200 rounded-lg bg-white flex items-center justify-center text-zinc-400 text-xs font-semibold"
               >

@@ -14,8 +14,8 @@ export type { SourcePlatform }
 
 export interface Sponsor {
   name: string
-  url?: string
-  logo?: string
+  url: string
+  logo: string
 }
 
 export interface Event {
