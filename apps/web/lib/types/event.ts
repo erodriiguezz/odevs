@@ -18,7 +18,7 @@ export interface Sponsor {
   logo?: string
 }
 
-export interface OdevsEvent {
+export interface Event {
   id: string
   title: string
   description: string
