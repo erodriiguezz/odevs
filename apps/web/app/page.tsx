@@ -4,12 +4,73 @@ import Link from 'next/link'
 
 export default function HomePage() {
   const sponsors = [
-    { name: "Bluewave", href: "https://bluewave.com", logo: "/images/bluewave-logo.svg"},
-    { name: "Informulate", href: "https://informulate.com", logo: "/images/informulate-logo.svg"},
-    { name: "Envy Labs", href: "https://envylabs.com", logo: "/images/envy-logo.svg"},
-    { name: "Worth", href: "https://worthai.com", logo: "/images/worth-logo.svg"}
+    { name: "Bluewave", href: "https://bluewave.com", logo: "/images/sponsor-logos/bluewave-logo.svg"},
+    { name: "Informulate", href: "https://informulate.com", logo: "/images/sponsor-logos/informulate-logo.svg"},
+    { name: "Envy Labs", href: "https://envylabs.com", logo: "/images/sponsor-logos/envy-logo.svg"},
+    { name: "Worth", href: "https://worthai.com", logo: "/images/sponsor-logos/worth-logo.svg"}
   ] as const;
   
+  function createCategories<K extends string, V extends { color: string }>(
+    obj: Record<K, V>
+  ): Record<K, V & { name: K }> {
+    const result = {} as Record<K, V & { name: K }>;
+    
+    for (const key in obj) {
+      result[key] = { ...obj[key], name: key };
+    }
+    
+    return result;
+  }
+  
+  const group_categories = (<V,>(
+    obj: Record<string, V>
+  ) => {
+    const result = {} as Record<string, V & { name: string }>;
+    for (const key in obj) result[key] = { ...obj[key], name: key };
+    return result;
+  }) ({
+    "General": { background: "bg-blue-600" },
+    "Community": { background: "bg-purple-600" },
+    "Innovation": { background: "bg-orange-600" },
+    "Language": { background: "bg-red-600" },
+    "Projects": { background: "bg-indigo-600" },
+    "Civic Tech": { background: "bg-green-600" },
+    "DevOps": { background: "bg-teal-600" },
+    "Mobile": { background: "bg-pink-600" },
+    "Frontend": { background: "bg-cyan-600" },
+    "Cloud": { background: "bg-sky-600" },
+    "Startup": { background: "bg-yellow-600" },
+  });
+
+  const groups = [
+    { "name": "Lady Devs", icon: "/images/group-icons/people.svg", "category": group_categories["Community"], 
+      "desc": "Supporting women in technology through networking and professional development", href: "https://www.meetup.com/Orlando-Lady-Developers-Meetup" },
+    { "name": "Orlando Devs", icon: "/images/group-icons/tag-markup.svg", "category": group_categories["General"],
+      "desc": "The main Orlando developer community meetup group", href: "https://www.meetup.com/OrlandoDevs"},
+    { "name": "Open Orlando", icon: "/images/group-icons/globe.svg", "category": group_categories["Civic Tech"],
+      "desc": "Civic technology and open source projects for Orlando", href: "https://www.meetup.com/open-orlando"},
+    { "name": "Orlando Innovation League", icon: "/images/group-icons/lightning.svg", "category": group_categories["Innovation"],
+      "desc": "Innovation and entrepreneurship in the Orlando tech scene", href: "https://www.meetup.com/orlando-innovation-league"},
+    { "name": "PHP Orlando", icon: "/images/group-icons/tag-markup.svg", "category": group_categories["Language"],
+      "desc": "PHP developers and enthusiasts in Central Florida", href: "https://www.meetup.com/orlandophp"},
+    { "name": "Orlando JS", icon: "/images/group-icons/tag-markup.svg", "category": group_categories["Language"],
+      "desc": "JavaScript developers and modern web technologies", href: "https://www.meetup.com/OrlandoJS"},
+    { "name": "Project Codex", icon: "/images/group-icons/tag-markup.svg", "category": group_categories["Projects"],
+      "desc": "Collaborative coding and project development", href: "https://www.meetup.com/project-codex"},
+    { "name": "Orlando DevOps", icon: "/images/group-icons/tag-markup.svg", "category": group_categories["DevOps"],
+      "desc": "DevOps practices, tools, and culture", href: "https://www.meetup.com/Orlando-DevOps"},
+    { "name": "Central Florida Android", icon: "/images/group-icons/smartphone.svg", "category": group_categories["Mobile"],
+      "desc": "Android development and mobile technologies", href: "https://www.meetup.com/central-florida-android-developers-group"},
+    { "name": "Front End Orlando", icon: "/images/group-icons/tag-markup.svg", "category": group_categories["Frontend"],
+      "desc": "Front-end development, UI/UX, and modern web frameworks", href: "https://www.meetup.com/front-end-orlando"},
+    { "name": "Orlando AWS", icon: "/images/group-icons/cloud.svg", "category": group_categories["Cloud"],
+      "desc": "Amazon Web Services user group for cloud computing enthusiasts", href: "https://www.meetup.com/orlandoaws"},
+    { "name": "Accelerate Orlando", icon: "/images/group-icons/lightning.svg", "category": group_categories["Startup"],
+      "desc": "Startup acceleration and entrepreneurship events", href: "https://lu.ma/accelerateorlando"},
+    { "name": "Build the Future", icon: "/images/group-icons/lightning.svg", "category": group_categories["Innovation"],
+      "desc": "Future-focused technology and innovation discussions", href: "https://lu.ma/BuildTheFutureOrlando"},
+  ] as const;
+
   return (
     <>
       {/* Hero */}
@@ -195,7 +256,7 @@ export default function HomePage() {
                 Find your corner of the community
               </h2>
               <p className="mt-3 text-base leading-relaxed text-zinc-500 max-w-lg">
-                Placeholder — will show interest-based groups, filterable by topic, size, or
+                Will show interest-based groups, filterable by topic, size, or
                 activity. Members can join multiple groups.
               </p>
             </div>
@@ -205,22 +266,24 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5" role="list">
-            {Array.from({ length: 4 }, (_, i) => (
-              <div
+            {groups.map(({ name, icon, category, desc, href }, i) => (
+              <Link
                 key={i}
-                className="border border-zinc-200 rounded-xl p-5 flex flex-col gap-3.5"
+                href={href}
+                target="_blank"
+                className="border border-zinc-200 rounded-xl p-5 flex flex-col gap-3.5 transition-all duration-200 hover:scale-105 hover:border-zinc-400"
                 role="listitem"
-                aria-label={`Group placeholder ${i + 1}`}
+                aria-label={`Group ${name}`}
               >
-                <div className="w-13 h-13 rounded-full bg-zinc-100" aria-hidden="true" />
-                <div className="h-3.5 rounded bg-zinc-100 w-3/4" />
-                <div className="h-2.5 rounded bg-zinc-100" />
-                <div className="h-2.5 rounded bg-zinc-100 w-[55%]" />
-                <div className="flex justify-between items-center mt-1 pt-3.5 border-t border-zinc-200">
-                  <div className="h-2.5 w-1/2 rounded bg-zinc-100" />
-                  <div className="h-7 w-15 rounded-md bg-[#EAE8FD]" />
+                <div className="flex justify-between mb-1.5">
+                  <Image className={`w-full-auto h-full-auto rounded-xl p-3 ${category.background}`} src={icon} alt={icon.substring(icon.lastIndexOf("/"))} width={50} height={50}/>
+                  <div className="flex flex-col items-center">
+                    <span className={`border ${category.background} px-2 py-1 font-semibold rounded-full flex m-auto text-xs`}>{category.name}</span>
+                  </div>
                 </div>
-              </div>
+                <p className="font-semibold text-lg text-zinc-600" >{name}</p>
+                <p className="text-s text-zinc-500" >{desc}</p>
+              </Link>
             ))}
           </div>
         </div>
