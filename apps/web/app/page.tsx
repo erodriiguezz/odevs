@@ -250,6 +250,7 @@ export default function HomePage() {
               <Link
                 key={i}
                 href={href}
+                target="_blank"
                 className="h-32 border border-zinc-200 rounded-lg bg-white flex items-center justify-center text-zinc-400 text-xs font-semibold"
               >
                 <Image src={logo} alt={name + " logo"} width={240} height={96} className="max-w-full max-h-full object-contain"/>
