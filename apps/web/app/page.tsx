@@ -196,6 +196,7 @@ export default function HomePage() {
               </h2>
               <p className="mt-3 text-base leading-relaxed text-zinc-500 max-w-lg">
                 Will show interest-based groups, filterable by topic, size, or
+                Will show interest-based groups, filterable by topic, size, or
                 activity. Members can join multiple groups.
               </p>
             </div>
@@ -212,6 +213,7 @@ export default function HomePage() {
                 target="_blank"
                 className="border border-zinc-200 rounded-xl p-5 flex flex-col gap-3.5 transition-all duration-200 hover:scale-105 hover:border-zinc-400"
                 role="listitem"
+                aria-label={`Group ${name}`}
                 aria-label={`Group ${name}`}
               >
                 <div className="flex justify-between mb-1.5">
