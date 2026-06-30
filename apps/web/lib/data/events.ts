@@ -39,6 +39,7 @@ export const events: Event[] = [
     title: 'Orlando Devs Social & Orlando Tech and Beer in June!',
     description:
       'Join the Orlando Devs network for the monthly Orlando Tech and Beer — a networking and social event hosted by the team that leads Accelerate Orlando. First drinks and light bites provided by sponsors.',
+    thumbnailUrl: 'https://secure.meetupstatic.com/photos/event/1/8/3/5/clean_484686197.webp',
     sponsors: [
       sponsors['Bluewave'],
       sponsors['Informulate'],
@@ -125,6 +126,8 @@ export const events: Event[] = [
     title: 'DevOps Storytime Social',
     description:
       'Come join us for food and beer as we gather to share and listen to members stories. Every other month we have story topics and welcome everyone to share. Stories are generally around 10 minutes in length with some Q&A after each one. No slide deck or computer needed — just hanging around the bar with friends, telling a story.',
+    thumbnailUrl:
+      'https://secure.meetupstatic.com/photos/event/9/d/f/d/highres_527680445.webp?w=1080',
     sponsors: [],
     date: '2026-07-13',
     time: '7:00 PM EDT',
