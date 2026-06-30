@@ -8,10 +8,10 @@ export const events: Event[] = [
     description:
       'Join ODevs for a summer of learning and career development! This first session is an AI Skills Lab. Bring your laptop with Docker running for a hands-on agent-building workshop. Doors open at 6:30, event kicks off at 7:00 PM with speakers and networking.',
     sponsors: [
-      sponsors['BlueWave'],
+      sponsors['Bluewave'],
       sponsors['Informulate'],
       sponsors['Envy Labs'],
-      sponsors['Worth AI'],
+      sponsors['Worth'],
     ],
     date: '2026-06-22',
     time: '6:30 PM - 9:00 PM EDT',
@@ -40,10 +40,10 @@ export const events: Event[] = [
     description:
       'Join the Orlando Devs network for the monthly Orlando Tech and Beer — a networking and social event hosted by the team that leads Accelerate Orlando. First drinks and light bites provided by sponsors.',
     sponsors: [
-      sponsors['BlueWave'],
+      sponsors['Bluewave'],
       sponsors['Informulate'],
       sponsors['Envy Labs'],
-      sponsors['Worth AI'],
+      sponsors['Worth'],
     ],
     date: '2026-06-30',
     time: '6:00 PM - 9:00 PM EDT',
