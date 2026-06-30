@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import sponsors from '@/lib/data/sponsors';
-import groups from '@/lib/data/groups';
+import GroupExplorer from '@/components/groupExplorer';
 import { useIsMobile } from '@/hooks/isMobile';
 
 export default function HomePage() {
@@ -195,37 +195,15 @@ export default function HomePage() {
                 Find your corner of the community
               </h2>
               <p className="mt-3 text-base leading-relaxed text-zinc-500 max-w-lg">
-                Will show interest-based groups, filterable by topic, size, or
-                Will show interest-based groups, filterable by topic, size, or
-                activity. Members can join multiple groups.
+                Will show interest-based groups. Members can join multiple groups.
               </p>
             </div>
-            <Button href="#" className="shrink-0">
+            <Button href="/groups" className="shrink-0">
               Browse all groups
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5" role="list">
-            {Object.values(groups).filter((group, i) => i < (isMobile ? 6 : 12)).map(({ name, icon, category, description, eventSources, websiteUrl, background }, i) => (
-              <Link
-                key={i}
-                href={websiteUrl ?? eventSources[0].url}
-                target="_blank"
-                className="border border-zinc-200 rounded-xl p-5 flex flex-col gap-3.5 transition-all duration-200 hover:scale-105 hover:border-zinc-400"
-                role="listitem"
-                aria-label={`Group ${name}`}
-              >
-                <div className="flex justify-between mb-1.5">
-                  <Image className={`w-full-auto h-full-auto rounded-xl p-3 ${background}`} src={icon} alt={icon.substring(icon.lastIndexOf("/"))} width={50} height={50}/>
-                  <div className="flex flex-col items-center">
-                    <span className={`border ${background} px-2 py-1 font-semibold rounded-full flex m-auto text-xs`}>{category.name}</span>
-                  </div>
-                </div>
-                <p className="font-semibold text-lg text-zinc-600" >{name}</p>
-                <p className="text-s text-zinc-500" >{description}</p>
-              </Link>
-            ))}
-          </div>
+          <GroupExplorer maxGroups={isMobile ? 6 : 12}></GroupExplorer>
         </div>
       </section>
 
