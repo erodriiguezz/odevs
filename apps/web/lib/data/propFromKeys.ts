@@ -2,8 +2,8 @@ export default <
   K extends string,
   V extends Record<K, string>
 >(
-  prop: string,
-  obj: Record<string, { [P in keyof V as P extends K ? never : P]: V[P] }>
+  prop: K,
+  obj: Record<string, Omit<V, K>>
 ) => {
   const result = {} as Record<string, V>;
 
