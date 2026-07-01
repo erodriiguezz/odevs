@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import sponsors from '@/lib/data/sponsors';
-import GroupsSection from './groupsSection';
+import GroupsSection from './_components/groupsSection';
 
 export default function HomePage() {
   return (
