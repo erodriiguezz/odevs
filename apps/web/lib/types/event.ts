@@ -22,6 +22,7 @@ export interface Event {
   id: string
   title: string
   description: string
+  thumbnailUrl?: string
   sponsors: Sponsor[]
   date: string
   time: string
