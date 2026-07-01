@@ -8,24 +8,21 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 export default ({ maxGroups, overflowPages, linkToGroupPage=false }: { maxGroups: number, overflowPages?: { page: number }, linkToGroupPage?: boolean }) => {
   const params = new URLSearchParams(useSearchParams());
   const { replace } = useRouter();
-  let pathname: string | undefined = undefined;
-  if (overflowPages !== undefined) pathname = usePathname();
+  const pathname = usePathname();
 
-  const [category, setSelectedCategory] = useState(overflowPages === undefined ? "any" : params.get("category") ?? "any");
-  const [search, setSearch] = useState(overflowPages === undefined ? "" : params.get("search") ?? "");
-  const [sizeRangeLower, setSelectedSizeRangeLower] = useState(overflowPages !== undefined && params.get("lowerSizeRange") !== null ? params.get("lowerSizeRange") as string : "");
-  const [sizeRangeUpper, setSelectedSizeRangeUpper] = useState(overflowPages !== undefined && params.get("upperSizeRange") !== null ? params.get("upperSizeRange") as string : "");
+  const [category, setSelectedCategory] = useState(params.get("category") ?? "any");
+  const [search, setSearch] = useState(params.get("search") ?? "");
+  const [sizeRangeLower, setSelectedSizeRangeLower] = useState(params.get("lowerSizeRange") ?? "");
+  const [sizeRangeUpper, setSelectedSizeRangeUpper] = useState(params.get("upperSizeRange") ?? "");
 
   const handleChange = <T,>(param: string, set: ((newVal: string) => void)) =>
     (event: React.ChangeEvent<T> & {target: {value: string}}) => {
       const val: string = event.target.value;
       set(val);
 
-      if (overflowPages !== undefined) {
-        params.set(param, val);
-        params.set("page", "1");
-        replace(pathname + "?" + params.toString());
-      }
+      params.set(param, val);
+      if (overflowPages !== undefined) params.set("page", "1");
+      replace(pathname + "?" + params.toString() + (pathname == "/" && "#explore-groups"));
     };
 
   function isIntegerString(val: string): val is `${number}` {
