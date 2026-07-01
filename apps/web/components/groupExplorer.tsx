@@ -12,9 +12,7 @@ export default ({ maxGroups, overflowPages, linkToGroupPage=false }: { maxGroups
 
   const [category, setSelectedCategory] = useState(params.get("category") ?? "any");
   const [search, setSearch] = useState(params.get("search") ?? "");
-  const [sizeRangeLower, setSelectedSizeRangeLower] = useState(params.get("lowerSizeRange") ?? "");
-  const [sizeRangeUpper, setSelectedSizeRangeUpper] = useState(params.get("upperSizeRange") ?? "");
-
+  
   const handleChange = <T,>(param: string, set: ((newVal: string) => void)) =>
     (event: React.ChangeEvent<T> & {target: {value: string}}) => {
       const val: string = event.target.value;
@@ -22,7 +20,8 @@ export default ({ maxGroups, overflowPages, linkToGroupPage=false }: { maxGroups
 
       params.set(param, val);
       if (overflowPages !== undefined) params.set("page", "1");
-      replace(pathname + "?" + params.toString() + (pathname == "/" && "#explore-groups"));
+      const newPath = pathname + "?" + params.toString();
+      replace(pathname == "/" ? newPath + "#explore-groups" : newPath);
     };
 
   function isIntegerString(val: string): val is `${number}` {
@@ -42,9 +41,7 @@ export default ({ maxGroups, overflowPages, linkToGroupPage=false }: { maxGroups
       || searchWords.every(word => group.description.toLowerCase().includes(word))
       || group.eventSources.some(source => searchWords.every(word => source.description !== undefined ? source.description.toLowerCase().includes(word) : false)));
 
-  if (isIntegerString(sizeRangeLower)) selectedGroups = selectedGroups.filter((group) => (group.eventSources[0].members ?? 0) >= Number(sizeRangeLower));
-  if (isIntegerString(sizeRangeUpper)) selectedGroups = selectedGroups.filter((group) => (group.eventSources[0].members ?? 0) <= Number(sizeRangeUpper));
-
+  
   const pageGroups = selectedGroups.filter((_, i) => i < (overflowPages !== undefined ? overflowPages.page-1 : 0)*maxGroups + maxGroups && i > ((overflowPages !== undefined ? overflowPages.page : 0)-1)*maxGroups-1);
 
   const numPages = Math.ceil(selectedGroups.length/maxGroups);
@@ -76,17 +73,6 @@ export default ({ maxGroups, overflowPages, linkToGroupPage=false }: { maxGroups
               <div className="flex flex-row items-center gap-2 flex-1">
                 <label htmlFor="search" className="whitespace-nowrap">Search:&nbsp;</label>
                 <input value={search} onChange={handleChange("search", setSearch)} className="border border-zinc-300 rounded-lg p-1 w-10 grow"></input>
-              </div>
-
-              <div className="flex items-center gap-2 flex-1">
-                <label htmlFor="sizeRange" className="whitespace-nowrap">Filter by size range:</label>
-                <input value={sizeRangeLower} onChange={handleChange("lowerSizeRange", setSelectedSizeRangeLower)}
-                    className="border border-zinc-300 rounded-lg p-1 w-10 grow">
-                </input>
-                <span>-</span>
-                <input value={sizeRangeUpper} onChange={handleChange("upperSizeRange", setSelectedSizeRangeUpper)}
-                    className="border border-zinc-300 rounded-lg p-1 w-10 grow">
-                </input>
               </div>
             </div>
 
