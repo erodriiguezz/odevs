@@ -8,49 +8,143 @@ export default async function GroupPage({ params }: { params: Promise<{ slug: st
   const { slug } = await params;
   
   const group = groups[slug];
-  if (group === undefined) notFound();
+  if (!group) notFound();
 
-  return <div className="flex flex-row justify-center min-h-screen items-center mt-[-6rem] mb-[-10rem] bg-zinc-900">
-  <div className="flex flex-col items-center gap-5 max-w-7xl">
-    <div className={`flex flex-row items-center gap-10 ${group.category.darkBackground} rounded-2xl p-4`}>
-      {group.logo && <Image src={group.logo} width={48} height={48} alt={group.name + " logo"}></Image>}
-      <h2 className="text-5xl font-bold">
-        {group.name}
-      </h2>
-    </div>
-    <div className="flex flex-row items-center gap-10 mt-[-3]">
-      <span>{group.description}</span>
-      <span className="font-semibold">Topic: {group.topic}</span>
-    </div>
-    {group.longDescription && <>
-      <hr className="bg-zinc-100 w-[75%] shrink-0 mt-4"></hr>
-      <p>{group.longDescription}</p>
-    </>}
-    {group.eventSources.map((source, i) => 
-      <div key={i} className="flex flex-col items-center gap-2 border border-zinc-300 p-5 rounded-3xl bg-zinc-800">
-        <div className="flex flex-row items-center justify-center gap-6">
-          <Link href={source.url} className="flex flex-row items-center justify-center gap-1 transition-scale duration-500 hover:scale-110" target="_blank">
-              {platforms[source.platform].logo !== undefined && 
-                <Image
-                  src={platforms[source.platform].logo?.image.src as string}
-                  className="max-h-10"
-                  width={(platforms[source.platform].logo as {image: {width: number}}).image.width/(platforms[source.platform].logo as {image: {height: number}}).image.height*40}
-                  height={10} alt={source.platform + " logo"}>
-                </Image>}
-              {(platforms[source.platform].logo === undefined || !(platforms[source.platform].logo?.containsName)) && <span>{source.platform.replace(/./, (c) => c.toUpperCase())}</span>}
-              <svg xmlns="http://w3.org" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <line x1="10" y1="14" x2="21" y2="3"></line>
-              </svg>
-          </Link>
-          {source.title && <span className="whitespace-nowrap">{source.title}</span>}
-          {source.members && <span className="whitespace-nowrap">{source.members} members</span>}
+  return (
+    <div className="min-h-screen bg-zinc-950 text-zinc-50 py-16 px-4 flex items-center justify-center">
+      <div className="w-full max-w-4xl mx-auto flex flex-col items-center gap-8">
+        
+        {/* Header Hero Area */}
+        <div className={`w-full flex flex-col sm:flex-row items-center justify-center gap-6 p-6 rounded-2xl border border-zinc-800 bg-gradient-to-br ${group.category.darkBackground || 'from-zinc-900 to-zinc-800'}`}>
+          {group.logo && (
+            <div className="relative w-16 h-16 shrink-0 rounded-xl overflow-hidden bg-zinc-900/50 p-2 border border-zinc-700/30 flex items-center justify-center">
+              <Image 
+                src={group.logo} 
+                width={64} 
+                height={64} 
+                alt={`${group.name} logo`}
+                className="object-contain"
+              />
+            </div>
+          )}
+          <h1 className="text-4xl md:text-5xl font-black tracking-tight text-center sm:text-left">
+            {group.name}
+          </h1>
         </div>
-        {source.image && <img src={source.image} alt={source.platform + " image"} className="max-w-100 border-5 border-zinc-100 rounded-xl"/>}
-        {source.description && <p className="whitespace-pre-line">{source.description}</p>}
+
+        {/* Quick Meta Info */}
+        <div className="flex flex-wrap items-center justify-center gap-4 text-sm md:text-base text-zinc-400">
+          <span>{group.description}</span>
+          <span className="inline-block w-1 h-1 rounded-full bg-zinc-700" aria-hidden="true" />
+          <span className="font-medium text-zinc-300">
+            Topic: <span className="text-zinc-100">{group.topic}</span>
+          </span>
+        </div>
+
+        {/* Long Description Section */}
+        {group.longDescription && (
+          <div className="w-full max-w-2xl flex flex-col items-center gap-4 text-center">
+            <hr className="border-zinc-800 w-1/2" />
+            <p className="text-zinc-300 leading-relaxed text-sm md:text-base">
+              {group.longDescription}
+            </p>
+          </div>
+        )}
+
+        {/* Event Sources Grid */}
+        <div className="w-full max-w-2xl flex flex-col gap-4 mt-4">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500 text-center mb-1">
+            Where to find our events
+          </h2>
+          
+          {group.eventSources.map((source, i) => {
+            const platformInfo = platforms[source.platform];
+            const hasLogo = platformInfo?.logo !== undefined;
+            
+            return (
+              <div 
+                key={i} 
+                className="flex flex-col gap-4 border border-zinc-800 p-5 rounded-2xl bg-zinc-900/50 backdrop-blur-sm hover:border-zinc-700 transition-colors duration-200"
+              >
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  
+                  {/* Platform Link */}
+                  <Link 
+                    href={source.url} 
+                    className="flex items-center gap-2 text-zinc-200 hover:text-white font-medium group/link transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {hasLogo && platformInfo.logo?.image?.src && (
+                      <div className="relative h-6 w-auto min-w-[24px] flex items-center">
+                        <img
+                          src={platformInfo.logo.image.src}
+                          alt={`${source.platform} logo`}
+                          className="h-6 w-auto object-contain brightness-90 group-hover/link:brightness-100 transition-all"
+                        />
+                      </div>
+                    )}
+                    
+                    {(!hasLogo || !platformInfo.logo?.containsName) && (
+                      <span className="capitalize">{source.platform}</span>
+                    )}
+
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      width="14" 
+                      height="14" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      strokeWidth="2.5" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      className="shrink-0 text-zinc-500 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform"
+                    >
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </Link>
+
+                  {/* Metadata tags */}
+                  <div className="flex items-center gap-3 text-xs md:text-sm text-zinc-400">
+                    {source.title && (
+                      <span className="bg-zinc-800/60 px-2.5 py-1 rounded-md max-w-[200px] truncate">
+                        {source.title}
+                      </span>
+                    )}
+                    {source.members && (
+                      <span className="bg-zinc-800/60 px-2.5 py-1 rounded-md font-mono text-zinc-300">
+                        {source.members.toLocaleString()} members
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Optional Source Description */}
+                {source.description && (
+                  <p className="text-sm text-zinc-400 whitespace-pre-line leading-relaxed border-l-2 border-zinc-800 pl-3">
+                    {source.description}
+                  </p>
+                )}
+
+                {/* Optional Source Image */}
+                {source.image && (
+                  <div className="relative mt-2 rounded-xl overflow-hidden border border-zinc-800 bg-zinc-950 aspect-video w-full">
+                    <img 
+                      src={source.image} 
+                      alt={`${source.platform} cover`} 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
       </div>
-    )}
-  </div>
-</div>;
+    </div>
+  );
 }
