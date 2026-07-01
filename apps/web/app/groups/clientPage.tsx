@@ -16,7 +16,7 @@ export default function GroupsClientPage({ search }: { search: { [key: string]: 
                 >
                   Browse Groups
               </h2>
-              <GroupExplorer maxGroups={maxGroups} overflowPages={{ page: (Number(search["page"] ?? 1)) }}></GroupExplorer>
+              <GroupExplorer maxGroups={maxGroups} overflowPages={{ page: (Number(search["page"] ?? 1)) }} linkToGroupPage={true}></GroupExplorer>
             </div>
           </section>;
 }

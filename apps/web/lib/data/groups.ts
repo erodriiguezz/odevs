@@ -21,7 +21,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, "background">, "
                    + 'Orlando Lady Developers welcomes everyone -- we mean that -- everyone. That includes women, men, trans-women, non-binary people, trans-men, and those who may be questioning their gender.\n'
                    + 'We encourage men working as developers, designers, or in tech-related fields to join us. Let\'s work together to bring more women and under-represented folk into technology innovation and software development and empower them to develop next-generation technologies.',
         members: 1719, // note: maybe pull from source in the future?
-        image: '/images/groups/images/orlando-lady-devs-image.avif',
+        image: '/images/groups/images/orlando-lady-devs-meetup.avif',
       }
     ],
   }, 
@@ -42,10 +42,10 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, "background">, "
         title: 'Orlando Developers Meetup',
         description: 'The Orlando Developers User Group is for developers of all skill levels in the Orlando area to come '
                    + 'learn about improving yourself as a developer. We focus primarily on professional development and soft '
-                   + 'skills, but we will also be featuring technical talks and presentations on various different subjects'
+                   + 'skills, but we will also be featuring technical talks and presentations on various different subjects '
                    + 'that our community is interested in.',
         members: 8492,
-        image: 'images/groups/images/orlando-devs-meetup.avif',
+        image: '/images/groups/images/orlando-devs-meetup.avif',
       }, {
         platform: 'discord',
         url: 'https://discord.gg/GRjjPM2zUy',
@@ -257,7 +257,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, "background">, "
     category: groupCategories['Innovation'],
     topic: 'The Future',
     description: 'Future-focused technology and innovation discussions',
-    logo: '/images/groups/images/build-the-future-logo.avif',
+    logo: '/images/groups/logos/build-the-future-orlando-logo.avif',
     eventSources: [
       {
         platform: 'luma',
@@ -285,7 +285,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, "background">, "
       },
     ],
   },
-  'ai+data-orlando': {
+  'ai-plus-data-orlando': {
     name: 'AI + Data Orlando',
     icon: 'images/groups/icons/lightning.svg',
     category: groupCategories['Innovation'],

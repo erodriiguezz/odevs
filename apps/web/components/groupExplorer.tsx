@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-export default ({ maxGroups, overflowPages }: { maxGroups: number, overflowPages?: { page: number } }) => {
+export default ({ maxGroups, overflowPages, linkToGroupPage=false }: { maxGroups: number, overflowPages?: { page: number }, linkToGroupPage?: boolean }) => {
   const [selectedCategory, setselectedCategory] = useState("any");
   const [selectedTopic, setselectedTopic] = useState("");
   const [selectedSizeRange, setselectedSizeRange] = useState(["", ""]);
@@ -83,10 +83,10 @@ export default ({ maxGroups, overflowPages }: { maxGroups: number, overflowPages
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5" role="list">
-            {pageGroups.map(({ name, icon, category, description, eventSources, websiteUrl, background }, i) => (
+            {pageGroups.map(({ name, icon, category, description, eventSources, websiteUrl, background, id }, i) => (
               <Link
                 key={i}
-                href={websiteUrl ?? eventSources[0].url}
+                href={linkToGroupPage ? `/group/${id}` : (websiteUrl ?? eventSources[0].url)}
                 target="_blank"
                 className="border border-zinc-200 rounded-xl p-5 flex flex-col gap-3.5 transition-all duration-200 hover:scale-105 hover:border-zinc-400"
                 role="listitem"

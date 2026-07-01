@@ -37,7 +37,7 @@ export default function Header() {
             style={style}
         >
             <Image
-                src="/images/discord.svg"
+                src="/images/platform-logos/discord.svg"
                 alt="Discord Logo"
                 aria-hidden="true"
                 className="w-4 h-4 mr-2"
