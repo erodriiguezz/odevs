@@ -3,10 +3,11 @@
 import { Button } from "@/components/ui/button";
 import GroupExplorer from "@/components/groupExplorer";
 import { useIsMobile } from "@/hooks/isMobile";
-import { ReadonlyURLSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
-export default ({ search }: { search: ReadonlyURLSearchParams }) => {
+export default () => {
   const isMobile = useIsMobile();
+  const search = useSearchParams();
   
   return  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8">

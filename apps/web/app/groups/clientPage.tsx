@@ -2,9 +2,11 @@
 
 import GroupExplorer from "@/components/groupExplorer";
 import { useIsMobile } from "@/hooks/isMobile";
+import { useSearchParams } from "next/navigation";
 
-export default function GroupsClientPage({ search }: { search: { [key: string]: string | string[] | undefined }}) {
+export default function GroupsClientPage() {
   const isMobile = useIsMobile();
+  const search = useSearchParams();
 
   const maxGroups = isMobile ? 6 : 12;
 
@@ -16,7 +18,7 @@ export default function GroupsClientPage({ search }: { search: { [key: string]: 
                 >
                   Browse All Groups
               </h2>
-              <GroupExplorer maxGroups={maxGroups} overflowPages={{ page: (Number(search["page"] ?? 1)) }} linkToGroupPage={true}></GroupExplorer>
+              <GroupExplorer maxGroups={maxGroups} overflowPages={{ page: (Number(search.get("page") ?? 1)) }} linkToGroupPage={true}></GroupExplorer>
             </div>
           </section>;
 }
