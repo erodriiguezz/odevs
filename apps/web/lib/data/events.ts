@@ -1,5 +1,6 @@
-import type { Event } from '@/lib/types/event'
-import sponsors from '@/lib/data/sponsors'
+import type { Event } from '@/lib/types/event';
+import sponsors from '@/lib/data/sponsors';
+import groups from './groups';
 
 export const events: Event[] = [
   {
@@ -19,18 +20,7 @@ export const events: Event[] = [
     eventType: 'meetup',
     registrationUrl: 'https://www.meetup.com/orlandodevs/events/314888792/',
     sourcePlatform: 'meetup',
-    group: {
-      id: 'orlando-devs',
-      name: 'Orlando Developers Meetup',
-      description:
-        'A close-knit community sculpted by the talent of Orlando and Central Florida developers.',
-      topic: 'Software Development',
-      logo: '/images/logo.png',
-      websiteUrl: 'https://orlandodevs.com',
-      discordUrl: 'https://discord.gg/orlandodevs',
-      brandColor: '#5B4FE9',
-      eventSources: [{ platform: 'meetup', url: 'https://www.meetup.com/orlandodevs/' }],
-    },
+    group: groups['orlando-devs'],
     tags: ['ai', 'agents', 'workshop', 'networking', 'hands-on'],
     featured: true,
   },
@@ -52,18 +42,7 @@ export const events: Event[] = [
     eventType: 'social',
     registrationUrl: 'https://www.meetup.com/orlandodevs/events/315228902/',
     sourcePlatform: 'meetup',
-    group: {
-      id: 'orlando-devs',
-      name: 'Orlando Developers Meetup',
-      description:
-        'A close-knit community sculpted by the talent of Orlando and Central Florida developers.',
-      topic: 'Software Development',
-      logo: '/images/logo.png',
-      websiteUrl: 'https://orlandodevs.com',
-      discordUrl: 'https://discord.gg/orlandodevs',
-      brandColor: '#5B4FE9',
-      eventSources: [{ platform: 'meetup', url: 'https://www.meetup.com/orlandodevs/' }],
-    },
+    group: groups['orlando-devs'],
     tags: ['social', 'networking', 'beer', 'community'],
     featured: false,
   },
@@ -79,18 +58,7 @@ export const events: Event[] = [
     eventType: 'meetup',
     registrationUrl: 'https://luma.com/dbuew9sl',
     sourcePlatform: 'luma',
-    group: {
-      id: 'accelerate-orlando',
-      name: 'Accelerate Orlando',
-      description:
-        'A local group focused on principles from the techno-optimist and e/acc movements.',
-      topic: 'Technology & Future',
-      logo: '',
-      websiteUrl: 'https://luma.com/accelerateorlando',
-      discordUrl: '',
-      brandColor: '#000000',
-      eventSources: [{ platform: 'luma', url: 'https://luma.com/accelerateorlando' }],
-    },
+    group: groups['accelerate-orlando'],
     tags: ['ai', 'economics', 'agi', 'future', 'e/acc'],
     featured: false,
   },
@@ -106,18 +74,7 @@ export const events: Event[] = [
     eventType: 'meetup',
     registrationUrl: 'https://luma.com/p2isxegr',
     sourcePlatform: 'luma',
-    group: {
-      id: 'accelerate-orlando',
-      name: 'Accelerate Orlando',
-      description:
-        'A local group focused on principles from the techno-optimist and e/acc movements.',
-      topic: 'Technology & Future',
-      logo: '',
-      websiteUrl: 'https://luma.com/accelerateorlando',
-      discordUrl: '',
-      brandColor: '#000000',
-      eventSources: [{ platform: 'luma', url: 'https://luma.com/accelerateorlando' }],
-    },
+    group: groups['accelerate-orlando'],
     tags: ['ai', 'open-source', 'robotics', 'hands-on'],
     featured: false,
   },
@@ -135,18 +92,7 @@ export const events: Event[] = [
     eventType: 'social',
     registrationUrl: 'https://www.meetup.com/orlando-devops/events/315423579/',
     sourcePlatform: 'meetup',
-    group: {
-      id: 'orlando-devops',
-      name: 'Orlando DevOps',
-      description:
-        'A group for anyone interested in DevOps practices, including build automation, continuous deployment, cloud enablement, infrastructure as code, and developer collaboration.',
-      topic: 'DevOps',
-      logo: '',
-      websiteUrl: 'https://www.meetup.com/orlando-devops/',
-      discordUrl: '',
-      brandColor: '#000000',
-      eventSources: [{ platform: 'meetup', url: 'https://www.meetup.com/orlando-devops/' }],
-    },
+    group: groups['orlando-devops'],
     tags: ['devops', 'social', 'storytelling', 'networking'],
     featured: false,
   },

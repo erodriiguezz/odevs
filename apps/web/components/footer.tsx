@@ -5,7 +5,7 @@ export default function Footer() {
         { href: "https://discord.gg/v6gchdH43K",           label: "Discord" },
     ] as const;
 
-    return  <footer className="bg-zinc-950 border-t border-zinc-900 text-zinc-500 py-14 text-sm mt-12">
+    return  <footer className="bg-zinc-950 border-t border-zinc-900 text-zinc-400 py-14 text-sm mt-12">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                         <div className="flex items-center gap-2">
@@ -14,7 +14,7 @@ export default function Footer() {
                         </div>
                         <div className="flex gap-4 font-mono text-xs">
                             {footerItems.map(({ href, label }) => (
-                                <a key={href} href={href} target="_blank" rel="noreferrer" className="hover:text-zinc-400 transition">{label}</a>
+                                <a key={href} href={href} target="_blank" rel="noreferrer" className="hover:text-zinc-300 transition">{label}</a>
                             ))}
                         </div>
                     </div>

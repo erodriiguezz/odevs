@@ -1,7 +1,10 @@
+"use client";
+
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import sponsors from '@/lib/data/sponsors';
+import GroupsSection from './_components/groupsSection';
 
 export default function HomePage() {
   return (
@@ -176,48 +179,7 @@ export default function HomePage() {
         aria-labelledby="explore-groups-heading"
         className="bg-white py-16 lg:py-28 border-b border-zinc-200"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
-            <div>
-              <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#5B4FE9] border-l-[3px] border-[#5B4FE9] pl-2.5 mb-5">
-                Explore Groups
-              </p>
-              <h2
-                id="explore-groups-heading"
-                className="text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight text-zinc-950"
-              >
-                Find your corner of the community
-              </h2>
-              <p className="mt-3 text-base leading-relaxed text-zinc-500 max-w-lg">
-                Placeholder — will show interest-based groups, filterable by topic, size, or
-                activity. Members can join multiple groups.
-              </p>
-            </div>
-            <Button href="#" className="shrink-0">
-              Browse all groups
-            </Button>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5" role="list">
-            {Array.from({ length: 4 }, (_, i) => (
-              <div
-                key={i}
-                className="border border-zinc-200 rounded-xl p-5 flex flex-col gap-3.5"
-                role="listitem"
-                aria-label={`Group placeholder ${i + 1}`}
-              >
-                <div className="w-13 h-13 rounded-full bg-zinc-100" aria-hidden="true" />
-                <div className="h-3.5 rounded bg-zinc-100 w-3/4" />
-                <div className="h-2.5 rounded bg-zinc-100" />
-                <div className="h-2.5 rounded bg-zinc-100 w-[55%]" />
-                <div className="flex justify-between items-center mt-1 pt-3.5 border-t border-zinc-200">
-                  <div className="h-2.5 w-1/2 rounded bg-zinc-100" />
-                  <div className="h-7 w-15 rounded-md bg-[#EAE8FD]" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <GroupsSection></GroupsSection>
       </section>
 
       {/* Sponsors */}
@@ -239,13 +201,13 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 flex flex-wrap justify-center items-center">
             {Object.values(sponsors).map(({ url, logo, name }, i) => (
               <Link
                 key={i}
                 href={url}
                 target="_blank"
-                className="border border-zinc-200 rounded-lg bg-white flex items-center justify-center text-zinc-400 text-xs font-semibold w-full h-full p-4"
+                className="border border-zinc-200 rounded-lg bg-white flex items-center justify-center text-zinc-400 text-xs font-semibold w-full h-full p-4 transition-all duration-200 hover:scale-105 hover:border-zinc-400"
               >
                 <Image src={logo} alt={name + " logo"} width={240} height={96} className="max-w-full max-h-full object-contain"/>
               </Link>
