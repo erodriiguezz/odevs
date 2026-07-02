@@ -28,9 +28,9 @@ export function generateCalendarGrid(year: number, month: number, events: Event[
   // Build a set of day numbers that have events in this month
   const eventDays = new Set<number>()
   for (const event of events) {
-    const d = new Date(event.date)
-    if (d.getFullYear() === year && d.getMonth() + 1 === month) {
-      eventDays.add(d.getDate())
+    const [eventYear, eventMonth, eventDay] = event.date.split('-').map(Number)
+    if (eventYear === year && eventMonth === month) {
+      eventDays.add(eventDay)
     }
   }
 

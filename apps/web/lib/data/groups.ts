@@ -1,6 +1,7 @@
 import groupCategories from './groupCategories';
 import { CommunityGroup } from '../types/group';
 import propFromKeys from './propFromKeys';
+import { brandColorFromBackground } from '../group-brand-color';
 
 const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, 'id'>> = {
   'lady-devs': {
@@ -161,7 +162,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
     description: 'DevOps practices, tools, and culture',
     longDescription:
         'A group for anyone interested in DevOps practices, including build automation, continuous deployment, cloud enablement, infrastructure as code, and developer collaboration.',  
-    brandColor: '#000000',
+    brandColor: '#475569',
     eventSources: [
       {
         platform: 'meetup',
@@ -239,7 +240,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
     topic: 'Technology and Future',
     icon: '/images/groups/icons/lightning.svg',
     category: groupCategories['Startup'],
-    brandColor: '#000000',
+    brandColor: '#EA580C',
     eventSources: [
       {
         platform: 'luma',
@@ -323,7 +324,15 @@ export const colors = [
 const groups: Record<string, CommunityGroup> =
   Object.fromEntries(
     Object.values(propFromKeys('id', uncoloredGroups))
-      .map((group, i) => ({ ...group, ...colors[i] }))
+      .map((group, i) => {
+        const { background } = colors[i]
+
+        return {
+          ...group,
+          background,
+          brandColor: group.brandColor ?? brandColorFromBackground(background) ?? '#5B4FE9',
+        }
+      })
       .sort((groupA, groupB) => (groupB.eventSources[0].members ?? 0) - (groupA.eventSources[0].members ?? 0))
       .map(group => [group.id, group])
   );
