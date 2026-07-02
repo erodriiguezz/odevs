@@ -4,7 +4,7 @@ import {
   formatTimelineDateHeading,
 } from '@/lib/calendar/format'
 import { splitTimelineEvents } from '@/lib/calendar/split-timeline-events'
-import { EventCard } from '@/app/calendar/_components/event-card'
+import { EventCard } from '@/components/ui/event-card'
 import { TimelineEventItem } from '@/app/calendar/_components/timeline-event-item'
 
 interface EventTimelineProps {

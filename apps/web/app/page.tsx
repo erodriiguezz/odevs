@@ -5,8 +5,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import sponsors from '@/lib/data/sponsors';
 import GroupsSection from './_components/groupsSection';
+import { EventCard } from '@/components/ui/event-card';
+import { events } from '@/lib/data/events';
 
 export default function HomePage() {
+  const upcomingEvents = events.filter(event => event.featured && new Date(event.date).getTime() > Date.now())
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()).slice(0, 3);
+  
   return (
     <>
       {/* Hero */}
@@ -96,8 +101,7 @@ export default function HomePage() {
                 Events you won't want to miss
               </h2>
               <p className="mt-3 text-base leading-relaxed text-zinc-500 max-w-lg">
-                Placeholder — will surface upcoming events sorted by date, filtered to the viewer's
-                interests and location.
+                Events featured by the community. Will be filtered to the viewer's interests and location.
               </p>
             </div>
             <Button href="/calendar" className="shrink-0">
@@ -105,28 +109,20 @@ export default function HomePage() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" role="list">
-            {['Workshop', 'Meetup', 'Conference'].map((type, i) => (
-              <article
-                key={i}
-                className="border border-zinc-200 rounded-xl overflow-hidden"
-                role="listitem"
-                aria-label={`${type} event placeholder`}
-              >
-                <div className="h-40 bg-zinc-100" aria-hidden="true" />
-                <div className="p-5">
-                  <div className="mb-3">
-                    <span className="inline-block bg-[#EAE8FD] text-[#5B4FE9] rounded px-2.5 py-0.5 text-xs font-bold uppercase tracking-wide">
-                      {type}
-                    </span>
-                  </div>
-                  <div className="h-3.5 rounded bg-zinc-100 mb-2.5" style={{ width: '85%' }} />
-                  <div className="h-3.5 rounded bg-zinc-100 mb-2.5" style={{ width: '60%' }} />
-                  <div className="h-3.5 rounded bg-zinc-100 w-[60%] mt-3" />
+          {upcomingEvents.length < 1 ?
+            <div className="flex flex-col items-center gap-5">
+              <Image src="/images/logo_sad.png" width={150} height={150} alt="No featured events found :(" className="aspect-ratio-square bg-black rounded-xl border-5 border-black"/>
+              <p className="text-zinc-500 font-bold text-xl">Check back later for future events!</p>
+            </div> 
+          : 
+            <div className="flex flex-row flex-wrap justify-center gap-6" role="list">
+              {upcomingEvents.map(event => (
+                <div className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 grid" key={event.id}>
+                  <EventCard event={event} />
                 </div>
-              </article>
-            ))}
-          </div>
+              ))}
+            </div>
+          }
         </div>
       </section>
 

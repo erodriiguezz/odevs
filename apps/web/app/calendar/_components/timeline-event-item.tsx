@@ -1,7 +1,7 @@
 import type { Event } from '@/lib/types/event'
 import { extractStartTime } from '@/lib/calendar/format'
 import { getGroupBrandColor } from '@/lib/group-brand-color'
-import { EventCard } from '@/app/calendar/_components/event-card'
+import { EventCard } from '@/components/ui/event-card'
 
 const dateHeadingClasses =
   'text-base font-semibold text-zinc-600 dark:text-zinc-300'
