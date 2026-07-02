@@ -24,17 +24,9 @@ export default ({ maxGroups, overflowPages, linkToGroupPage=false }: { maxGroups
       replace(pathname == "/" ? newPath + "#explore-groups" : newPath);
     };
 
-  function isIntegerString(val: string): val is `${number}` {
-    const trimmed = val.trim();
-    if (trimmed === "") return false;
-
-    const num = Number(trimmed);
-    return !Number.isNaN(num) && Number.isFinite(num) && Number.isInteger(num);
-  }
-
   let selectedGroups = Object.values(groups);
   const cat = category.toLowerCase();
-  if (cat != "any") selectedGroups = selectedGroups.filter(group => group.category.name == cat);
+  if (cat != "any") selectedGroups = selectedGroups.filter(group => group.category.name.toLowerCase() == cat);
 
   const searchWords = search.toLowerCase().split(" ");
   if (search != "") selectedGroups = selectedGroups.filter((group) => searchWords.every(word => group.name.toLowerCase().includes(word))
