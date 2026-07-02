@@ -3,9 +3,9 @@
 import { useState } from 'react'
 import type { Event, EventType } from '@/lib/types/event'
 import { filterEvents } from '@/lib/calendar/filter'
-import { FilterBar } from '@/components/calendar/filter-bar'
-import { EventTimeline } from '@/components/calendar/event-timeline'
-import { MiniCalendar } from '@/components/calendar/mini-calendar'
+import { FilterBar } from '@/app/calendar/_components/filter-bar'
+import { EventTimeline } from '@/app/calendar/_components/event-timeline'
+import { MiniCalendar } from '@/app/calendar/_components/mini-calendar'
 
 interface CalendarShellProps {
   events: Event[]
@@ -29,10 +29,12 @@ export function CalendarShell({ events }: CalendarShellProps) {
   }
 
   return (
-    <div className="flex flex-col gap-6 overflow-x-hidden">
+    <div className="flex flex-col gap-6">
       <FilterBar selectedTypes={selectedTypes} onToggle={handleToggle} />
-      <div className="flex flex-col-reverse md:grid md:grid-cols-[2fr_1fr] gap-6">
-        <EventTimeline events={filteredEvents} />
+      <div className="flex min-w-0 flex-col-reverse gap-6 md:grid md:grid-cols-[2fr_1fr]">
+        <div className="min-w-0 overflow-visible">
+          <EventTimeline events={filteredEvents} />
+        </div>
         {/* On mobile: collapsible MiniCalendar; on md+: always visible */}
         <div className="md:contents">
           <details className="md:hidden" open={false}>

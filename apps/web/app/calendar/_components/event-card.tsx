@@ -11,6 +11,8 @@ export interface EventCardProps {
   event: Event
   eventFormat?: EventFormat
   thumbnailUrl?: string
+  disabled?: boolean
+  compact?: boolean
 }
 
 function formatEventDate(isoDate: string): string {
@@ -150,14 +152,52 @@ function EventCardCTA({
   )
 }
 
-export function EventCard({ event, eventFormat, thumbnailUrl }: EventCardProps) {
+export function EventCard({
+  event,
+  eventFormat,
+  thumbnailUrl,
+  disabled = false,
+  compact = false,
+}: EventCardProps) {
   const resolvedThumbnail = thumbnailUrl ?? event.thumbnailUrl
 
+  if (compact && disabled) {
+    return (
+      <article
+        aria-disabled
+        className="pointer-events-none max-w-full overflow-hidden rounded-lg border border-zinc-200/80 bg-white p-3 opacity-60 saturate-50 dark:border-zinc-800/80 dark:bg-zinc-900/80"
+      >
+        <div className="flex min-w-0 flex-col gap-1">
+          <span className="self-start rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
+            Past event
+          </span>
+          <h3 className="text-sm font-semibold text-zinc-950 line-clamp-2 dark:text-white">
+            {event.title}
+          </h3>
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">{event.group.name}</p>
+        </div>
+      </article>
+    )
+  }
+
   return (
-    <article className="group max-w-full overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/80 transition-all duration-150 hover:shadow-md hover:border-zinc-300 dark:hover:border-zinc-700 focus-within:outline focus-within:outline-2 focus-within:outline-zinc-500">
+    <article
+      aria-disabled={disabled || undefined}
+      className={`group max-w-full overflow-hidden rounded-xl border bg-white transition-all duration-150 dark:bg-zinc-900/80 ${
+        disabled
+          ? 'pointer-events-none border-zinc-200/80 opacity-60 saturate-50 dark:border-zinc-800/80'
+          : 'border-zinc-200 hover:border-zinc-300 hover:shadow-md focus-within:outline focus-within:outline-2 focus-within:outline-zinc-500 dark:border-zinc-800 dark:hover:border-zinc-700'
+      }`}
+    >
       <div className="flex flex-row gap-4 p-4">
         <div className="flex flex-col gap-2 min-w-0 flex-1">
-          {eventFormat && <EventFormatBadge format={eventFormat} />}
+          {disabled && (
+            <span className="self-start rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
+              Past event
+            </span>
+          )}
+
+          {eventFormat && !disabled && <EventFormatBadge format={eventFormat} />}
 
           <h3 className="text-base font-semibold text-zinc-950 dark:text-white line-clamp-2">
             {event.title}
@@ -171,9 +211,9 @@ export function EventCard({ event, eventFormat, thumbnailUrl }: EventCardProps) 
 
           <EventCardMeta date={event.date} time={event.time} groupName={event.group.name} />
 
-          {event.sponsors.length > 0 && <EventCardSponsors sponsors={event.sponsors} />}
+          {event.sponsors.length > 0 && !disabled && <EventCardSponsors sponsors={event.sponsors} />}
 
-          {event.registrationUrl && (
+          {event.registrationUrl && !disabled && (
             <EventCardCTA registrationUrl={event.registrationUrl} platform={event.sourcePlatform} />
           )}
         </div>

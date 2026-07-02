@@ -1,5 +1,5 @@
 import { getAllEvents } from '@/lib/data/get-events'
-import { CalendarShell } from '@/components/calendar/calendar-shell'
+import { CalendarShell } from '@/app/calendar/_components/calendar-shell'
 import { PageHeader } from '@/components/page-header'
 
 export default function CalendarPage() {

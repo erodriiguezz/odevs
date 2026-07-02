@@ -34,3 +34,31 @@ html {
     scroll-behavior: auto;
   }
 }
+
+@keyframes timeline-dot-live-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--dot-brand-color) 55%, transparent);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.45);
+    box-shadow: 0 0 0 7px color-mix(in srgb, var(--dot-brand-color) 20%, transparent);
+  }
+}
+
+.timeline-dot-live-pulse {
+  animation: timeline-dot-live-pulse 1.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-dot-live-pulse {
+    animation: none;
+    opacity: 0.85;
+    transform: scale(1.15);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--dot-brand-color) 30%, transparent);
+  }
+}
