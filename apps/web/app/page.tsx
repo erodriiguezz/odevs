@@ -9,7 +9,7 @@ import { EventCard } from '@/components/ui/event-card';
 import { events } from '@/lib/data/events';
 
 export default function HomePage() {
-  const upcomingEvents = events.filter(event => event.featured && new Date(event.date).getTime() > Date.now())
+  const upcomingEvents = events.filter(event => new Date(event.date).getTime() > Date.now())
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()).slice(0, 3);
   
   return (
