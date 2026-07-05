@@ -41,7 +41,7 @@ export default function HomePage() {
               </p>
 
               <div className="flex gap-3.5 mt-9 flex-wrap">
-                <Button href="#">Join the community</Button>
+                <Button href="https://discord.gg/v6gchdH43K" target="_blank">Join the community</Button>
                 <Button variant="secondary" href="/calendar">
                   Explore events
                 </Button>
