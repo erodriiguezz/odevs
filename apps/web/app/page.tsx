@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import sponsors from '@/lib/data/sponsors';
 import GroupsSection from './_components/groupsSection';
+import groups from '@/lib/data/groups';
+import { events } from '@/lib/data/events';
 
 export default function HomePage() {
   return (
@@ -47,9 +49,9 @@ export default function HomePage() {
 
               <div className="flex gap-8 mt-12 pt-8 border-t border-white/10">
                 {[
-                  { value: '—', label: 'Active members' },
-                  { value: '—', label: 'Groups' },
-                  { value: '—', label: 'Events this month' },
+                  { value: groups['orlando-devs'].eventSources[0].members, label: 'Active members' }, // change this in the future
+                  { value: Object.keys(groups).length, label: 'Groups' },
+                  { value: events.filter(event => new Date(event.date).getMonth() == new Date(Date.now()).getMonth()).length, label: 'Events this month' },
                 ].map(s => (
                   <div key={s.label}>
                     <div className="text-3xl font-extrabold tracking-tight">{s.value}</div>
