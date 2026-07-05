@@ -1,0 +1,29 @@
+{
+  "name": "@odevs/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "lint": "tsc --noEmit && tsc --noEmit -p tsconfig.drizzle.json",
+    "test": "vitest --run",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "sync:luma": "tsx src/cli/sync-luma.ts"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.14.4",
+    "drizzle-orm": "^0.44.2",
+    "hono": "^4.8.3",
+    "postgres": "^3.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "drizzle-kit": "^0.31.4",
+    "tsx": "^4.20.3",
+    "typescript": "^5",
+    "vitest": "^4.1.9"
+  }
+}
