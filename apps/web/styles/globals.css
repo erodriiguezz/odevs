@@ -3,11 +3,22 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --muted-foreground: #71717a;
+  --border: #e4e4e7;
+  --surface: #f4f4f5;
+  --card: #ffffff;
+  --primary: #5b4fe9;
+  --primary-glow: #7b6ff5;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-glow: var(--primary-glow);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-surface: var(--surface);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -16,7 +27,27 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --muted-foreground: #a1a1aa;
+    --border: #27272a;
+    --surface: #18181b;
+    --card: rgb(24 24 27 / 0.8);
   }
+}
+
+.font-display {
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+.text-primary-glow {
+  color: var(--color-primary-glow);
+}
+
+.card-elev {
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  background: var(--card);
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.04),
+    0 4px 16px rgb(0 0 0 / 0.04);
 }
 
 body {

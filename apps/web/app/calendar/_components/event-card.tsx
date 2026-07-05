@@ -1,59 +1,14 @@
-'use client'
-
-import { useState } from 'react'
-import Image from 'next/image'
-import type { Event, Sponsor } from '@/lib/types/event'
+import type { Event } from '@/lib/types/event'
 import type { SourcePlatform } from '@/lib/types/platform'
+import { ArrowUpRightIcon, ClockIcon, MapPinIcon } from '@/components/icons'
 
 export type EventFormat = 'In-Person' | 'Virtual' | 'Hybrid'
 
 export interface EventCardProps {
   event: Event
   eventFormat?: EventFormat
-  thumbnailUrl?: string
   disabled?: boolean
   compact?: boolean
-}
-
-function formatEventDate(isoDate: string): string {
-  try {
-    return new Intl.DateTimeFormat('en-US', {
-      weekday: 'long',
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-    }).format(new Date(isoDate + 'T00:00:00'))
-  } catch {
-    return isoDate
-  }
-}
-
-function extractStartTime(timeStr: string): string {
-  const dashIdx = timeStr.indexOf(' - ')
-  return dashIdx > -1 ? timeStr.slice(0, dashIdx) : timeStr
-}
-
-function EventCardMeta({
-  date,
-  time,
-  groupName,
-}: {
-  date: string
-  time: string
-  groupName: string
-}) {
-  const formattedDate = formatEventDate(date)
-  const startTime = extractStartTime(time)
-
-  return (
-    <div className="flex flex-col gap-0.5">
-      <span className="text-sm text-zinc-500 dark:text-zinc-400">{formattedDate}</span>
-      <span className="text-sm text-zinc-500 dark:text-zinc-400">
-        {startTime} ·{' '}
-        <span className="text-zinc-600 dark:text-zinc-300 font-medium">{groupName}</span>
-      </span>
-    </div>
-  )
 }
 
 const platformDisplayName: Record<SourcePlatform, string> = {
@@ -65,163 +20,71 @@ const platformDisplayName: Record<SourcePlatform, string> = {
   other: 'External',
 }
 
-const formatBadgeClasses: Record<EventFormat, string> = {
-  'In-Person': 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-  Virtual: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400',
-  Hybrid: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400',
+function formatEventType(type: Event['eventType']): string {
+  return type.charAt(0).toUpperCase() + type.slice(1)
 }
 
-function EventFormatBadge({ format }: { format: EventFormat }) {
-  return (
-    <span className={`rounded-full text-sm px-2 py-0.5 font-medium ${formatBadgeClasses[format]}`}>
-      {format}
-    </span>
-  )
-}
-
-function EventCardSponsors({ sponsors }: { sponsors: Sponsor[] }) {
-  if (sponsors.length === 0) {
-    return null
-  }
-
-  return (
-    <p className="text-sm text-zinc-500 dark:text-zinc-400 ">
-      Sponsored by{' '}
-      {sponsors.map((sponsor, i) => (
-        <span key={sponsor.name}>
-          {sponsor.url ? (
-            <a
-              href={sponsor.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cursor-pointer text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:underline hover:underline-offset-2 transition-colors duration-150"
-            >
-              {sponsor.name}
-            </a>
-          ) : (
-            <span className="text-zinc-600 dark:text-zinc-300">{sponsor.name}</span>
-          )}
-          {i < sponsors.length - 1 && ', '}
-        </span>
-      ))}
-    </p>
-  )
-}
-
-function EventCardThumbnail({ thumbnailUrl, alt }: { thumbnailUrl?: string; alt: string }) {
-  const [hasError, setHasError] = useState(false)
-
-  // No thumbnail provided or it failed to load — render nothing
-  if (!thumbnailUrl || hasError) {
-    return null
-  }
-
-  return (
-    <div className="relative flex-shrink-0 self-start w-36 h-24 md:w-44 md:h-[7.5rem] overflow-hidden rounded-lg">
-      <Image
-        src={thumbnailUrl}
-        alt={alt}
-        fill
-        sizes="176px"
-        className="object-cover"
-        onError={() => setHasError(true)}
-      />
-    </div>
-  )
-}
-
-function EventCardCTA({
-  registrationUrl,
-  platform,
-}: {
-  registrationUrl: string
-  platform: SourcePlatform
-}) {
-  return (
-    <a
-      href={registrationUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={`Register on ${platformDisplayName[platform]}`}
-      className="cursor-pointer mt-2 self-start inline-flex items-center gap-1.5 min-h-[44px] px-4 py-2 rounded-lg text-sm font-medium bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200 hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-200 dark:hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-500 transition-colors duration-150"
-    >
-      <span>Register</span>
-      <span aria-hidden="true">·</span>
-      <span>{platformDisplayName[platform]}</span>
-    </a>
-  )
-}
-
-export function EventCard({
-  event,
-  eventFormat,
-  thumbnailUrl,
-  disabled = false,
-  compact = false,
-}: EventCardProps) {
-  const resolvedThumbnail = thumbnailUrl ?? event.thumbnailUrl
+export function EventCard({ event, disabled = false, compact = false }: EventCardProps) {
+  const registerLabel = platformDisplayName[event.sourcePlatform]
+  const cardClasses = `card-elev rounded-2xl p-5${
+    disabled ? ' pointer-events-none opacity-70 saturate-50' : ''
+  }`
 
   if (compact && disabled) {
     return (
-      <article
-        aria-disabled
-        className="pointer-events-none max-w-full overflow-hidden rounded-lg border border-zinc-200/80 bg-white p-3 opacity-60 saturate-50 dark:border-zinc-800/80 dark:bg-zinc-900/80"
-      >
-        <div className="flex min-w-0 flex-col gap-1">
-          <span className="self-start rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
-            Past event
+      <article aria-disabled className={cardClasses}>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="rounded-full border border-border px-2 py-0.5 text-xs text-muted-foreground">
+            Past · {formatEventType(event.eventType)}
           </span>
-          <h3 className="text-sm font-semibold text-zinc-950 line-clamp-2 dark:text-white">
-            {event.title}
-          </h3>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400">{event.group.name}</p>
         </div>
+        <h3 className="mt-3 font-display text-base font-semibold">{event.title}</h3>
+        <p className="mt-1 text-sm text-muted-foreground">{event.group.name}</p>
       </article>
     )
   }
 
   return (
-    <article
-      aria-disabled={disabled || undefined}
-      className={`group max-w-full overflow-hidden rounded-xl border bg-white transition-all duration-150 dark:bg-zinc-900/80 ${
-        disabled
-          ? 'pointer-events-none border-zinc-200/80 opacity-60 saturate-50 dark:border-zinc-800/80'
-          : 'border-zinc-200 hover:border-zinc-300 hover:shadow-md focus-within:outline focus-within:outline-2 focus-within:outline-zinc-500 dark:border-zinc-800 dark:hover:border-zinc-700'
-      }`}
-    >
-      <div className="flex flex-row gap-4 p-4">
-        <div className="flex flex-col gap-2 min-w-0 flex-1">
-          {disabled && (
-            <span className="self-start rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400">
-              Past event
-            </span>
-          )}
+    <article aria-disabled={disabled || undefined} className={cardClasses}>
+      
+        <h3 className="font-display text-lg font-semibold">{event.title}</h3>
 
-          {eventFormat && !disabled && <EventFormatBadge format={eventFormat} />}
 
-          <h3 className="text-base font-semibold text-zinc-950 dark:text-white line-clamp-2">
-            {event.title}
-          </h3>
-
-          {event.description && (
-            <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3">
-              {event.description}
-            </p>
-          )}
-
-          <EventCardMeta date={event.date} time={event.time} groupName={event.group.name} />
-
-          {event.sponsors.length > 0 && !disabled && <EventCardSponsors sponsors={event.sponsors} />}
-
-          {event.registrationUrl && !disabled && (
-            <EventCardCTA registrationUrl={event.registrationUrl} platform={event.sourcePlatform} />
-          )}
-        </div>
-
-        <div className="hidden md:block">
-          <EventCardThumbnail thumbnailUrl={resolvedThumbnail} alt={event.title} />
-        </div>
+      <div className="mt-2 flex items-center gap-2">
+        <span>{event.group.name}</span>
+        <span className="rounded-full border border-border px-2.5 py-0.5 text-xs text-muted-foreground">
+          {formatEventType(event.eventType)}
+        </span>
       </div>
+
+      {event.description && (
+        <p className="mt-4 text-sm text-muted-foreground">{event.description}</p>
+      )}
+
+      <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+        <span className="inline-flex items-center gap-1.5">
+          <ClockIcon />
+          {event.time}
+        </span>
+
+        <span className="inline-flex items-center gap-1.5">
+          <MapPinIcon />
+          {event.location}
+        </span>
+      </div>
+
+      {event.registrationUrl && !disabled && (
+        <a
+          href={event.registrationUrl}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Register on ${registerLabel}`}
+          className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary-glow hover:text-foreground"
+        >
+          Register on {registerLabel}
+          <ArrowUpRightIcon />
+        </a>
+      )}
     </article>
   )
 }
