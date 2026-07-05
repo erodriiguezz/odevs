@@ -134,7 +134,7 @@ export const events: Event[] = [
     description:
       'Start the month with updates from Orlando Devs, community announcements, and open networking before the summer event series continues.',
     sponsors: [sponsors['Bluewave'], sponsors['Informulate']],
-    date: '2026-07-01',
+    date: '2026-07-05',
     time: '6:30 PM - 8:30 PM EDT',
     location: 'Tech Hub, 36 W. Pine St, Orlando, FL',
     eventType: 'meetup',
@@ -150,7 +150,7 @@ export const events: Event[] = [
     description:
       'A casual midday meetup for founders and builders to share progress, swap intros, and plan the month ahead.',
     sponsors: [],
-    date: '2026-07-01',
+    date: '2026-07-05',
     time: '12:00 PM - 1:30 PM EDT',
     location: '1550 S Lakemont Ave, Orlando, FL',
     eventType: 'social',
