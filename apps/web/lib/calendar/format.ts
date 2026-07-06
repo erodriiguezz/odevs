@@ -59,7 +59,7 @@ export function parseStartTimeMinutes(timeStr: string): number {
 export function formatTimelineDateHeading(isoDate: string): string {
   try {
     return new Intl.DateTimeFormat('en-US', {
-      weekday: 'short',
+      weekday: 'long',
       month: 'long',
       day: 'numeric',
     }).format(new Date(`${isoDate}T00:00:00`))
