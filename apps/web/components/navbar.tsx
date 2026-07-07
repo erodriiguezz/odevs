@@ -69,7 +69,8 @@ export default function Header() {
                         <Image src="/images/logo.png" alt="Orlando Devs" width={36} height={36} className="w-9 h-9 rounded-full object-cover border border-zinc-800" />
                     </div>
                     {isMobile ?
-                        <div className="relative flex items-center">
+                        <div className="relative flex items-center gap-5">
+                            <ThemeToggle></ThemeToggle>
                             <button
                                 type="button"
                                 className="md:hidden relative flex h-10 w-10 items-center justify-center rounded-lg text-zinc-200 transition-[color,transform] duration-200 hover:bg-zinc-900 active:scale-95"
