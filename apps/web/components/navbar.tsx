@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState, CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import ThemeToggle from "./themeToggle";
 
 export default function Header() {
     const pathname = usePathname(); // to show current location
@@ -119,8 +120,9 @@ export default function Header() {
                                     <Link key={href} href={href} className={linkClass(href)}>{label}</Link>
                                 ))}
                             </nav>
-                            <div className="flex items-center">
+                            <div className="flex items-center gap-5">
                                 {discordButton(undefined, () => {}, ["transition duration-150"])}
+                                <ThemeToggle></ThemeToggle>
                             </div>
                         </>}
                 </div>
