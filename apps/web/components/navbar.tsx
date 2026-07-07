@@ -6,6 +6,7 @@ import { useState, CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ThemeToggle from "./themeToggle";
+import Logo from "./logo";
 
 export default function Header() {
     const pathname = usePathname(); // to show current location
@@ -24,8 +25,8 @@ export default function Header() {
     const linkClass = (href: string) => [
         "px-4 py-2 text-sm font-medium rounded-md transition-all leading-none",
         pathname === href
-            ? "bg-zinc-850 text-white shadow-sm"
-            : "text-zinc-400 hover:text-zinc-200",
+            ? "bg-zinc-100 dark:bg-zinc-700 text-black dark:text-white shadow-lg transition-all duration-300"
+            : "text-zinc-900 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-200 transition-all duration-300",
     ].join(" ");
     
     const discordButton = (style: CSSProperties | undefined, onClick: () => void, className: string[]) =>
@@ -63,10 +64,10 @@ export default function Header() {
 
     const hamburgerTopBottom = (rotate: string, top: string) => hamburger(`top-[7px] ${rotate}`, top, "");
 
-    return  <div className="sticky top-0 z-40 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-900">
+    return  <div className="sticky top-0 z-40 bg-zinc-100/80 dark:bg-zinc-950/80 backdrop-blur-md border-b border-zinc-900 transition-all duration-300">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <Image src="/images/logo.png" alt="Orlando Devs" width={36} height={36} className="w-9 h-9 rounded-full object-cover border border-zinc-800" />
+                        <Logo className="w-9 h-9 object-cover text-black dark:text-white transition-all duration-300" />
                     </div>
                     {isMobile ?
                         <div className="relative flex items-center gap-5">
@@ -116,7 +117,7 @@ export default function Header() {
                         </div>
                      : // desktop
                         <>
-                            <nav className="hidden md:flex items-center gap-1 bg-zinc-900 p-0.5 rounded-lg border border-zinc-800">
+                            <nav className="hidden md:flex items-center gap-1 bg-zinc-200 dark:bg-zinc-900 p-0.5 rounded-lg border border-zinc-300 dark:border-zinc-800 transition-all duration-300">
                                 {navItems.map(({ href, label }) => (
                                     <Link key={href} href={href} className={linkClass(href)}>{label}</Link>
                                 ))}
