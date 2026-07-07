@@ -25,15 +25,22 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --muted-foreground: #a1a1aa;
-    --border: #27272a;
-    --surface: #18181b;
-    --card: rgb(24 24 27 / 0.8);
-  }
+:root.dark, .dark :root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --muted-foreground: #a1a1aa;
+  --border: #27272a;
+  --surface: #18181b;
+  --card: rgb(24 24 27 / 0.8);
+}
+
+:root {
+  --background: lab(98.26% 0 0);
+  --foreground: #0a0a0a;
+  --muted-foreground: #3d3d3d;
+  --border: #cbcbcb;
+  --surface: #d8d8db;
+  --card: rgb(24 24 27 / 0.8);
 }
 
 .font-display {
@@ -60,6 +67,11 @@ body {
 
 html {
   scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
 }
 
 @media (prefers-reduced-motion: reduce) {

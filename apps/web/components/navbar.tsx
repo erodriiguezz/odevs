@@ -64,7 +64,7 @@ export default function Header() {
 
     const hamburgerTopBottom = (rotate: string, top: string) => hamburger(`top-[7px] ${rotate}`, top, "");
 
-    return  <div className="sticky top-0 z-40 bg-zinc-100/80 dark:bg-zinc-950/80 backdrop-blur-md border-b border-zinc-900 transition-all duration-300">
+    return  <div className="sticky top-0 z-40 bg-zinc-100/80 dark:bg-zinc-950/80 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-900 transition-all duration-300">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <Logo className="w-9 h-9 object-cover text-black dark:text-white transition-all duration-300" />
