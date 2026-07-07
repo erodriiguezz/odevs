@@ -10,6 +10,7 @@ export function ArrowUpRightIcon({ className = 'h-3.5 w-3.5' }: IconProps) {
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
+      strokeLinecap="round"
       strokeWidth="2"
     >
       <path d="M7 17L17 7" />

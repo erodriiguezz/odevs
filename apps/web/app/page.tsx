@@ -48,25 +48,30 @@ export default function HomePage() {
           </p>
 
           <div className="flex gap-3.5 mt-9 flex-wrap">
-            <Link href="https://discord.gg/v6gchdH43K" target="_blank" className="inline-flex gap-2 items-center rounded-full bg-primary transition-all duration-300 hover:-translate-y-px text-white px-7 py-3.5">
+            <Link href="https://discord.gg/v6gchdH43K" target="_blank" className="inline-flex gap-2 items-center rounded-full bg-primary transition-all duration-300 hover:-translate-y-px text-white px-7 py-3.5 font-semibold">
               Join the Discord
-              <ArrowUpRightIcon></ArrowUpRightIcon>
+              <ArrowUpRightIcon className="w-5 h-5"></ArrowUpRightIcon>
             </Link>
-            <Link href="/calendar" className="inline-flex gap-2 items-center bg-transparent text-zinc-400 rounded-full border border-zinc-600 hover:text-white hover:border-zinc-400 px-7 py-3.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-px">
+            <Link href="/calendar" className="inline-flex gap-2 items-center bg-transparent text-zinc-200 hover:text-zinc-100 rounded-full border border-zinc-400 hover:border-zinc-200 px-7 py-3.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-px">
               Explore events
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-calendar h-4 w-4" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+                <path d="M8 2v4"/>
+                <path d="M16 2v4"/>
+                <rect width="18" height="18" x="3" y="4" rx="2"/>
+                <path d="M3 10h18"/>
+              </svg>
             </Link>
           </div>
 
-          <div className="flex gap-8 mt-12 pt-8 border-t border-white/10">
+          <div className="flex gap-16 mt-12 pt-8 border-t border-white/10">
             {[
-              { value: groups['orlando-devs'].eventSources[0].members, label: 'Active members' }, // change this in the future
+              { value: groups['orlando-devs'].eventSources[0].members, label: 'Members' }, // change this in the future
               { value: Object.keys(groups).length, label: 'Groups' },
               { value: events.filter(event => new Date(event.date).getMonth() == new Date(Date.now()).getMonth()).length, label: 'Events this month' },
             ].map(s => (
               <div key={s.label}>
                 <div className="text-3xl font-extrabold tracking-tight">{s.value}</div>
-                <div className="text-xs text-zinc-500 mt-0.5 font-medium">{s.label}</div>
+                <div className="text-sm text-zinc-400 mt-0.5">{s.label}</div>
               </div>
             ))}
           </div>
