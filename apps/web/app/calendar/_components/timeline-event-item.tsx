@@ -1,6 +1,6 @@
 import type { Event } from '@/lib/types/event'
 import { getGroupBrandColor } from '@/lib/group-brand-color'
-import { EventCard } from '@/app/calendar/_components/event-card'
+import { EventCard } from '@/components/ui/event-card'
 
 const DOT_SIZE_PX = 10
 const DOT_WRAPPER_SIZE_PX = 24

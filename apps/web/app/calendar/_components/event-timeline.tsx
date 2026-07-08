@@ -2,12 +2,11 @@ import type { Event } from '@/lib/types/event'
 import { getTodayEventIds, groupEventsByDate } from '@/lib/calendar/group-events'
 import { formatTimelineDateHeading } from '@/lib/calendar/format'
 import { splitTimelineEvents } from '@/lib/calendar/split-timeline-events'
-import { EventCard } from '@/app/calendar/_components/event-card'
+import { EventCard } from '@/components/ui/event-card'
 import {
   TIMELINE_RAIL_CENTER_PX,
   TimelineEventItem,
 } from '@/app/calendar/_components/timeline-event-item'
-
 interface EventTimelineProps {
   events: Event[]
 }
