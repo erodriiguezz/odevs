@@ -9,6 +9,7 @@ import { ArrowUpRightIcon } from '@/components/icons';
 import { EventCard } from '@/components/ui/event-card';
 import { events } from '@/lib/data/events';
 import groups from '@/lib/data/groups';
+import Logo from '@/components/logo';
 
 export default function HomePage() {
   const upcomingEvents = events.filter(event => new Date(event.date).getTime() > Date.now())
@@ -20,7 +21,7 @@ export default function HomePage() {
       <section
         id="hero"
         aria-labelledby="hero-heading"
-        className="bg-zinc-950 text-white py-16 lg:py-28 overflow-hidden relative"
+        className="bg-background text-white py-16 lg:py-28 overflow-hidden relative"
       >
         <div
           className="absolute inset-0 pointer-events-none"
@@ -52,11 +53,11 @@ export default function HomePage() {
           </p>
 
           <div className="flex gap-3.5 mt-9 flex-wrap">
-            <Link href="https://discord.gg/v6gchdH43K" target="_blank" className="inline-flex gap-2 items-center rounded-full bg-primary transition-all duration-300 hover:-translate-y-px text-white px-7 py-3.5 font-semibold">
+            <Link href="https://discord.gg/v6gchdH43K" target="_blank" className="inline-flex gap-2 items-center rounded-full bg-primary theme-trans hover:-translate-y-px text-white px-7 py-3.5 font-semibold">
               Join the Discord
               <ArrowUpRightIcon className="w-5 h-5"></ArrowUpRightIcon>
             </Link>
-            <Link href="/calendar" className="inline-flex gap-2 items-center bg-transparent text-zinc-200 hover:text-zinc-100 rounded-full border border-zinc-400 hover:border-zinc-200 px-7 py-3.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-px">
+            <Link href="/calendar" className="inline-flex gap-2 items-center bg-transparent text-zinc-200 hover:text-zinc-100 rounded-full border border-zinc-400 hover:border-zinc-200 px-7 py-3.5 text-sm font-semibold theme-trans hover:-translate-y-px">
               Explore events
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
                 <path d="M8 2v4"/>
@@ -86,21 +87,21 @@ export default function HomePage() {
       <section
         id="coming-up"
         aria-labelledby="coming-up-heading"
-        className="bg-white py-16 lg:py-28 border-b border-zinc-200"
+        className="bg-background py-16 lg:py-28 border-b border-zinc-200 theme-trans"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
             <div>
-              <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#5B4FE9] border-l-[3px] border-[#5B4FE9] pl-2.5 mb-5">
+              <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-primary border-l-[3px] border-primary pl-2.5 mb-5">
                 Coming Up
               </p>
               <h2
                 id="coming-up-heading"
-                className="text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight text-zinc-950"
+                className="text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight text-foreground theme-trans"
               >
                 Events you won't want to miss
               </h2>
-              <p className="mt-3 text-base leading-relaxed text-zinc-500 max-w-lg">
+              <p className="mt-3 text-base leading-relaxed text-muted-foreground max-w-lg theme-trans">
                 Events featured by the community. Will be filtered to the viewer's interests and location.
               </p>
             </div>
@@ -111,8 +112,8 @@ export default function HomePage() {
 
           {upcomingEvents.length < 1 ?
             <div className="flex flex-col items-center gap-5">
-              <Image src="/images/logo_sad.png" width={150} height={150} alt="No featured events found :(" className="aspect-ratio-square bg-black rounded-xl border-5 border-black"/>
-              <p className="text-zinc-500 font-bold text-xl">Check back later for future events!</p>
+              <Logo sad={true} className="aspect-ratio-square bg-foreground rounded-xl border-5 border-foreground theme-trans w-36 h-36 text-background theme-trans"/>
+              <p className="text-muted-foreground font-bold text-xl theme-trans">Check back later for future events!</p>
             </div> 
           : 
             <div className="flex flex-row flex-wrap justify-center gap-6" role="list">
@@ -127,7 +128,7 @@ export default function HomePage() {
       </section>
 
       {/* About */}
-      <section id="about" aria-labelledby="about-heading" className="bg-background py-16 lg:py-28">
+      <section id="about" aria-labelledby="about-heading" className="bg-background py-16 lg:py-28 theme-trans">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row lg:grid-cols-2 gap-10 lg:gap-15 items-center">
           <div>
             <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-primary border-l-[3px] border-primary pl-2.5 mb-5">
@@ -135,7 +136,7 @@ export default function HomePage() {
             </p>
             <h2
               id="about-heading"
-              className="text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight text-foreground"
+              className="text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight text-foregroun theme-trans"
             >
               Built by the community,
               <br />
@@ -146,10 +147,10 @@ export default function HomePage() {
               <h3 className="text-2xl font-semibold mb-6 text-primary">
                 Our Mission
               </h3>
-              <p className="mb-6 leading-relaxed text-zinc-500 dark:text-zinc-400">
+              <p className="mb-6 leading-relaxed text-muted-foreground theme-trans">
                 Orlando Devs is a vibrant community of software developers, designers, and tech enthusiasts in the Orlando and Central Florida area. We're dedicated to fostering growth, collaboration, and knowledge sharing among our members.
               </p>
-              <p className="leading-relaxed text-zinc-500 dark:text-zinc-400">
+              <p className="leading-relaxed text-muted-foreground theme-trans">
                 Whether you're a seasoned professional or just starting your journey in tech, our community provides a supportive environment where you can learn, network, and contribute to the local tech ecosystem.
               </p>
             </div>
@@ -169,14 +170,14 @@ export default function HomePage() {
                 { title: 'Learn', desc: 'Technical workshops and learning sessions' },
                 { title: 'Events', desc: 'Regular meetups and networking events' },].map(v => (
                 <div
-                  className="bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-600 rounded-xl p-5"
+                  className="bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-600 rounded-xl p-5 theme-trans"
                   key={v.title}
                   role="listitem"
                 >
-                  <div className="flex h-9 rounded-md bg-primary-light dark:bg-primary-dark mb-3 items-center justify-center">
+                  <div className="flex h-9 rounded-md bg-primary-muted mb-3 items-center justify-center theme-trans">
                     <p className="text-zinc-600 dark:text-zinc-200 whitespace-nowrap font-bold">{v.title}</p>
                   </div>
-                  <p className="text-zinc-500 dark:text-zinc-400 text-[15px]">
+                  <p className="text-muted-foreground text-[15px] theme-trans">
                     {v.desc}
                   </p>
                 </div>
@@ -194,7 +195,7 @@ export default function HomePage() {
       <section
         id="explore-groups"
         aria-labelledby="explore-groups-heading"
-        className="bg-background py-16 lg:py-28 border-b border-zinc-200 dark:border-zinc-600 transition-all duration-300"
+        className="bg-background py-16 lg:py-28 border-b border-zinc-200 dark:border-zinc-600 theme-trans"
       >
         <GroupsSection></GroupsSection>
       </section>
@@ -203,7 +204,7 @@ export default function HomePage() {
       <section
         id="sponsors"
         aria-labelledby="sponsors-heading"
-        className="bg-background py-12 lg:py-20 transition-all duration-300"
+        className="bg-background py-12 lg:py-20 theme-trans"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -212,7 +213,7 @@ export default function HomePage() {
             </p>
             <h2
               id="sponsors-heading"
-              className="text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight text-foreground text-center transition-all duration-300"
+              className="text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight text-foreground text-center theme-trans"
             >
               Thank you to our community sponsors!
             </h2>
@@ -231,8 +232,8 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className="text-center mt-12 pt-10 border-t border-zinc-200 dark:border-zinc-600 transition-all duration-300">
-            <p className="text-zinc-500 dark:text-zinc-300 text-sm mb-4">Interested in supporting the community?</p>
+          <div className="text-center mt-12 pt-10 border-t border-zinc-200 dark:border-zinc-600 theme-trans">
+            <p className="text-zinc-500 dark:text-zinc-300 text-sm mb-4 theme-trans">Interested in supporting the community?</p>
             <Button href="https://discord.gg/v6gchdH43K" target="_blank" variant="secondary" className="inline-flex flex-row gap-2 items-center">
               Become a sponsor
               <ArrowUpRightIcon></ArrowUpRightIcon>

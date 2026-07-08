@@ -3,16 +3,26 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --muted-foreground: #71717a;
-  --border: #e4e4e7;
-  --surface: #f4f4f5;
-  --card: #ffffff;
   --primary: #5b4fe9;
   --primary-glow: #7b6ff5;
-  --primary-light: #EAE8FD;
-  --primary-dark: #2e286b;
+  
+  --background: var(--color-zinc-50);
+  --foreground: #0a0a0a;
+  --muted-foreground: var(--color-zinc-500);
+  --border: #cbcbcb;
+  --surface: oklch(97% .006 275);
+  --card: color-mix(in oklab, var(--color-surface) 90%, transparent);
+  --primary-muted: #EAE8FD;
+}
+
+:root.dark, .dark :root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --muted-foreground: var(--color-zinc-400);
+  --border: #27272a;
+  --surface: oklch(18% .045 275);
+  --card: color-mix(in oklab, var(--color-surface) 90%, transparent);
+  --primary-muted: #2e286b;
 }
 
 @theme inline {
@@ -20,31 +30,12 @@
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-primary-glow: var(--primary-glow);
-  --color-primary-light: var(--primary-light);
-  --color-primary-dark: var(--primary-dark);
+  --color-primary-muted: var(--primary-muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-surface: var(--surface);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-:root.dark, .dark :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --muted-foreground: #a1a1aa;
-  --border: #27272a;
-  --surface: #18181b;
-  --card: rgb(24 24 27 / 0.8);
-}
-
-:root {
-  --background: lab(98.26% 0 0);
-  --foreground: #0a0a0a;
-  --muted-foreground: #3d3d3d;
-  --border: #cbcbcb;
-  --surface: #d8d8db;
-  --card: rgb(24 24 27 / 0.8);
 }
 
 .font-display {
@@ -57,6 +48,10 @@
   box-shadow:
     0 1px 2px rgb(0 0 0 / 0.04),
     0 4px 16px rgb(0 0 0 / 0.04);
+}
+
+@utility theme-trans {
+  @apply transition-all duration-300;
 }
 
 body {
