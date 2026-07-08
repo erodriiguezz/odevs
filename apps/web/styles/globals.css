@@ -11,6 +11,8 @@
   --card: #ffffff;
   --primary: #5b4fe9;
   --primary-glow: #7b6ff5;
+  --primary-light: #EAE8FD;
+  --primary-dark: #2e286b;
 }
 
 @theme inline {
@@ -18,6 +20,8 @@
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-primary-glow: var(--primary-glow);
+  --color-primary-light: var(--primary-light);
+  --color-primary-dark: var(--primary-dark);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-surface: var(--surface);
@@ -47,10 +51,6 @@
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
-.text-primary-glow {
-  color: var(--color-primary-glow);
-}
-
 .card-elev {
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
   background: var(--card);
@@ -68,10 +68,6 @@ body {
 html {
   scroll-behavior: smooth;
   color-scheme: light;
-}
-
-html.dark {
-  color-scheme: dark;
 }
 
 @media (prefers-reduced-motion: reduce) {

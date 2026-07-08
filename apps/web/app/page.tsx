@@ -5,15 +5,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import sponsors from '@/lib/data/sponsors';
 import GroupsSection from './_components/groupsSection';
-<<<<<<< HEAD
 import { ArrowUpRightIcon } from '@/components/icons';
 import { EventCard } from '@/components/ui/event-card';
 import { events } from '@/lib/data/events';
-=======
-import { events } from '@/lib/data/events';
-import { ArrowUpRightIcon } from '@/components/icons';
 import groups from '@/lib/data/groups';
->>>>>>> 4-build-hero-section
 
 export default function HomePage() {
   const upcomingEvents = events.filter(event => new Date(event.date).getTime() > Date.now())
@@ -132,15 +127,15 @@ export default function HomePage() {
       </section>
 
       {/* About */}
-      <section id="about" aria-labelledby="about-heading" className="bg-zinc-50 py-16 lg:py-28">
+      <section id="about" aria-labelledby="about-heading" className="bg-background py-16 lg:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row lg:grid-cols-2 gap-10 lg:gap-15 items-center">
           <div>
-            <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#5B4FE9] border-l-[3px] border-[#5B4FE9] pl-2.5 mb-5">
+            <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-primary border-l-[3px] border-primary pl-2.5 mb-5">
               About Our Community
             </p>
             <h2
               id="about-heading"
-              className="text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight text-zinc-950"
+              className="text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight text-foreground"
             >
               Built by the community,
               <br />
@@ -148,18 +143,18 @@ export default function HomePage() {
             </h2>
 
             <div className="items-center mt-9">
-              <h3 className="text-2xl font-semibold mb-6 text-[#5B4FE9]">
+              <h3 className="text-2xl font-semibold mb-6 text-primary">
                 Our Mission
               </h3>
-              <p className="text-gray-300 mb-6 leading-relaxed text-zinc-500">
+              <p className="mb-6 leading-relaxed text-zinc-500 dark:text-zinc-400">
                 Orlando Devs is a vibrant community of software developers, designers, and tech enthusiasts in the Orlando and Central Florida area. We're dedicated to fostering growth, collaboration, and knowledge sharing among our members.
               </p>
-              <p className="text-gray-300 leading-relaxed text-zinc-500">
+              <p className="leading-relaxed text-zinc-500 dark:text-zinc-400">
                 Whether you're a seasoned professional or just starting your journey in tech, our community provides a supportive environment where you can learn, network, and contribute to the local tech ecosystem.
               </p>
             </div>
 
-            <h3 className="text-2xl font-semibold mb-6 text-[#5B4FE9] mt-12">
+            <h3 className="text-2xl font-semibold mb-6 text-primary mt-12">
               What We Offer
             </h3>
 
@@ -174,14 +169,14 @@ export default function HomePage() {
                 { title: 'Learn', desc: 'Technical workshops and learning sessions' },
                 { title: 'Events', desc: 'Regular meetups and networking events' },].map(v => (
                 <div
-                  className="bg-white border border-zinc-200 rounded-xl p-5"
+                  className="bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-600 rounded-xl p-5"
                   key={v.title}
                   role="listitem"
                 >
-                  <div className="flex h-9 rounded-md bg-[#EAE8FD] mb-3 items-center justify-center">
-                    <p className="text-zinc-600 whitespace-nowrap font-bold">{v.title}</p>
+                  <div className="flex h-9 rounded-md bg-primary-light dark:bg-primary-dark mb-3 items-center justify-center">
+                    <p className="text-zinc-600 dark:text-zinc-200 whitespace-nowrap font-bold">{v.title}</p>
                   </div>
-                  <p className="text-zinc-500 text-[15px]">
+                  <p className="text-zinc-500 dark:text-zinc-400 text-[15px]">
                     {v.desc}
                   </p>
                 </div>
@@ -190,7 +185,7 @@ export default function HomePage() {
           </div>
 
           <div className="w-full lg:max-w-100 rounded-xl flex items-center justify-center order-first lg:order-none relative overflow-hidden rounded-2xl aspect-[16/9] lg:aspect-[2/3]">
-            <Image src="/images/groups/images/orlando-devs-meetup.avif" alt="Orlando devs meetup" fill className="object-cover"/>
+            <Image src="/images/OTAB_PHOTO.jpg" alt="Orlando devs meetup" fill className="object-cover"/>
           </div>
         </div>
       </section>
