@@ -21,7 +21,7 @@ export default function HomePage() {
       <section
         id="hero"
         aria-labelledby="hero-heading"
-        className="bg-background text-white py-16 lg:py-28 overflow-hidden relative"
+        className="bg-background text-foreground py-16 lg:py-28 overflow-hidden relative theme-trans"
       >
         <div
           className="absolute inset-0 pointer-events-none"
@@ -36,16 +36,16 @@ export default function HomePage() {
             id="hero-heading-1"
             className="text-4xl lg:text-7xl font-semibold leading-tight tracking-tight text-center font-display"
           >
-            <span className="font-extrabold">Welcome to <em className="not-italic text-[#5B4FE9]">ODevs</em></span>
+            <span className="font-extrabold">Welcome to <em className="not-italic text-primary theme-trans">ODevs</em></span>
           </h1>
           <h1
             id="hero-heading-2"
             className="text-4xl lg:text-7xl font-semibold leading-tight tracking-tight text-center font-display text-balance"
           >
-            The developer community that <em className="not-italic text-[#5B4FE9]">meets in person</em>.
+            The developer community that <em className="not-italic text-primary">meets in person</em>.
           </h1>
 
-          <p className="mt-5 text-base lg:text-lg leading-relaxed text-zinc-400 max-w-5xl">
+          <p className="mt-5 text-base lg:text-lg leading-relaxed text-muted-foreground max-w-5xl">
             Embark on a journey within a close-knit community sculpted by the talent of Orlando
             and Central Florida's developers.
             <br></br>
@@ -53,11 +53,11 @@ export default function HomePage() {
           </p>
 
           <div className="flex gap-3.5 mt-9 flex-wrap">
-            <Link href="https://discord.gg/v6gchdH43K" target="_blank" className="inline-flex gap-2 items-center rounded-full bg-primary theme-trans hover:-translate-y-px text-white px-7 py-3.5 font-semibold">
+            <Button href="https://discord.gg/v6gchdH43K" target="_blank" flex={true}>
               Join the Discord
               <ArrowUpRightIcon className="w-5 h-5"></ArrowUpRightIcon>
-            </Link>
-            <Link href="/calendar" className="inline-flex gap-2 items-center bg-transparent text-zinc-200 hover:text-zinc-100 rounded-full border border-zinc-400 hover:border-zinc-200 px-7 py-3.5 text-sm font-semibold theme-trans hover:-translate-y-px">
+            </Button>
+            <Button variant="secondary" href="/calendar" flex={true}>
               Explore events
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
                 <path d="M8 2v4"/>
@@ -65,18 +65,18 @@ export default function HomePage() {
                 <rect width="18" height="18" x="3" y="4" rx="2"/>
                 <path d="M3 10h18"/>
               </svg>
-            </Link>
+            </Button>
           </div>
 
-          <div className="flex gap-16 mt-12 pt-8 border-t border-white/10">
+          <div className="flex gap-16 mt-12 pt-8 border-t border-foreground/10 theme-trans">
             {[
               { value: groups['orlando-devs'].eventSources[0].members, label: 'Members' }, // change this in the future
               { value: Object.keys(groups).length, label: 'Groups' },
               { value: events.filter(event => new Date(event.date).getMonth() == new Date(Date.now()).getMonth()).length, label: 'Events this month' },
             ].map(s => (
               <div key={s.label}>
-                <div className="text-3xl font-extrabold tracking-tight">{s.value}</div>
-                <div className="text-sm text-zinc-400 mt-0.5">{s.label}</div>
+                <div className="text-3xl font-extrabold tracking-tight text-foreground theme-trans">{s.value}</div>
+                <div className="text-sm text-muted-foreground mt-0.5 theme-trans">{s.label}</div>
               </div>
             ))}
           </div>
