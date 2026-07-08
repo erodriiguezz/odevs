@@ -5,9 +5,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import sponsors from '@/lib/data/sponsors';
 import GroupsSection from './_components/groupsSection';
+<<<<<<< HEAD
 import { ArrowUpRightIcon } from '@/components/icons';
 import { EventCard } from '@/components/ui/event-card';
 import { events } from '@/lib/data/events';
+=======
+import { events } from '@/lib/data/events';
+import { ArrowUpRightIcon } from '@/components/icons';
+import groups from '@/lib/data/groups';
+>>>>>>> 4-build-hero-section
 
 export default function HomePage() {
   const upcomingEvents = events.filter(event => new Date(event.date).getTime() > Date.now())
@@ -29,56 +35,54 @@ export default function HomePage() {
           }}
         />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h1
-                id="hero-heading"
-                className="text-4xl lg:text-7xl font-extrabold leading-tight tracking-tight"
-              >
-                Welcome to <em className="not-italic text-[#5B4FE9]">ODevs</em>
-              </h1>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+          <h1
+            id="hero-heading-1"
+            className="text-4xl lg:text-7xl font-semibold leading-tight tracking-tight text-center font-display"
+          >
+            <span className="font-extrabold">Welcome to <em className="not-italic text-[#5B4FE9]">ODevs</em></span>
+          </h1>
+          <h1
+            id="hero-heading-2"
+            className="text-4xl lg:text-7xl font-semibold leading-tight tracking-tight text-center font-display text-balance"
+          >
+            The developer community that <em className="not-italic text-[#5B4FE9]">meets in person</em>.
+          </h1>
 
-              <p className="mt-5 text-base lg:text-lg leading-relaxed text-zinc-400 max-w-md">
-                Embark on a journey within a close-knit community sculpted by the talent of Orlando
-                and Central Florida's developers.
-              </p>
+          <p className="mt-5 text-base lg:text-lg leading-relaxed text-zinc-400 max-w-5xl">
+            Embark on a journey within a close-knit community sculpted by the talent of Orlando
+            and Central Florida's developers.
+            <br></br>
+            Orlando Devs is a 501(c)(3) nonprofit connecting engineers, designers, and tech folks across Central Florida.
+          </p>
 
-              <div className="flex gap-3.5 mt-9 flex-wrap">
-                <Button href="#">Join the community</Button>
-                <Button variant="secondary" href="/calendar">
-                  Explore events
-                </Button>
+          <div className="flex gap-3.5 mt-9 flex-wrap">
+            <Link href="https://discord.gg/v6gchdH43K" target="_blank" className="inline-flex gap-2 items-center rounded-full bg-primary transition-all duration-300 hover:-translate-y-px text-white px-7 py-3.5 font-semibold">
+              Join the Discord
+              <ArrowUpRightIcon className="w-5 h-5"></ArrowUpRightIcon>
+            </Link>
+            <Link href="/calendar" className="inline-flex gap-2 items-center bg-transparent text-zinc-200 hover:text-zinc-100 rounded-full border border-zinc-400 hover:border-zinc-200 px-7 py-3.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-px">
+              Explore events
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+                <path d="M8 2v4"/>
+                <path d="M16 2v4"/>
+                <rect width="18" height="18" x="3" y="4" rx="2"/>
+                <path d="M3 10h18"/>
+              </svg>
+            </Link>
+          </div>
+
+          <div className="flex gap-16 mt-12 pt-8 border-t border-white/10">
+            {[
+              { value: groups['orlando-devs'].eventSources[0].members, label: 'Members' }, // change this in the future
+              { value: Object.keys(groups).length, label: 'Groups' },
+              { value: events.filter(event => new Date(event.date).getMonth() == new Date(Date.now()).getMonth()).length, label: 'Events this month' },
+            ].map(s => (
+              <div key={s.label}>
+                <div className="text-3xl font-extrabold tracking-tight">{s.value}</div>
+                <div className="text-sm text-zinc-400 mt-0.5">{s.label}</div>
               </div>
-
-              <div className="flex gap-8 mt-12 pt-8 border-t border-white/10">
-                {[
-                  { value: '—', label: 'Active members' },
-                  { value: '—', label: 'Groups' },
-                  { value: '—', label: 'Events this month' },
-                ].map(s => (
-                  <div key={s.label}>
-                    <div className="text-3xl font-extrabold tracking-tight">{s.value}</div>
-                    <div className="text-xs text-zinc-500 mt-0.5 font-medium">{s.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="hidden lg:flex flex-col gap-4" aria-hidden="true">
-              {[75, 55, 65].map((w, i) => (
-                <div
-                  className="bg-white/5 border border-white/10 rounded-xl p-5 flex items-center gap-4"
-                  key={i}
-                >
-                  <div className="w-11 h-11 rounded-md bg-[#5B4FE9]/25 shrink-0" />
-                  <div className="flex-1">
-                    <div className="h-2.5 rounded bg-white/10 mb-2" style={{ width: `${w}%` }} />
-                    <div className="h-2.5 rounded bg-white/10" style={{ width: '45%' }} />
-                  </div>
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
       </section>
