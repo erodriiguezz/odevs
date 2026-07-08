@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import sponsors from '@/lib/data/sponsors';
 import GroupsSection from './_components/groupsSection';
+import { ArrowUpRightIcon } from '@/components/icons';
 
 export default function HomePage() {
   return (
@@ -198,7 +199,7 @@ export default function HomePage() {
       <section
         id="explore-groups"
         aria-labelledby="explore-groups-heading"
-        className="bg-white py-16 lg:py-28 border-b border-zinc-200"
+        className="bg-background py-16 lg:py-28 border-b border-zinc-200 dark:border-zinc-600 transition-all duration-300"
       >
         <GroupsSection></GroupsSection>
       </section>
@@ -207,16 +208,16 @@ export default function HomePage() {
       <section
         id="sponsors"
         aria-labelledby="sponsors-heading"
-        className="bg-zinc-50 py-12 lg:py-20"
+        className="bg-background py-12 lg:py-20 transition-all duration-300"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <p className="inline-flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-[#5B4FE9] mb-5">
+            <p className="inline-flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-primary mb-5">
               Sponsors
             </p>
             <h2
               id="sponsors-heading"
-              className="text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight text-zinc-950 text-center"
+              className="text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight text-foreground text-center transition-all duration-300"
             >
               Thank you to our community sponsors!
             </h2>
@@ -228,16 +229,19 @@ export default function HomePage() {
                 key={i}
                 href={url}
                 target="_blank"
-                className="border border-zinc-200 rounded-lg bg-white flex items-center justify-center text-zinc-400 text-xs font-semibold w-full h-full p-4 transition-all duration-200 hover:scale-105 hover:border-zinc-400"
+                className="border border-zinc-200 rounded-xl bg-white dark:bg-zinc-200 flex items-center justify-center w-full h-full p-4 transition-all duration-200 hover:scale-105 hover:border-zinc-400 dark:hover:drop-shadow-[0_0px_10px_rgba(255,255,255,0.7)]"
               >
                 <Image src={logo} alt={name + " logo"} width={240} height={96} className="max-w-full max-h-full object-contain"/>
               </Link>
             ))}
           </div>
 
-          <div className="text-center mt-12 pt-10 border-t border-zinc-200">
-            <p className="text-zinc-500 text-sm mb-4">Interested in supporting the community?</p>
-            <Button href="https://discord.gg/v6gchdH43K" target="_blank">Become a sponsor</Button>
+          <div className="text-center mt-12 pt-10 border-t border-zinc-200 dark:border-zinc-600 transition-all duration-300">
+            <p className="text-zinc-500 dark:text-zinc-300 text-sm mb-4">Interested in supporting the community?</p>
+            <Button href="https://discord.gg/v6gchdH43K" target="_blank" variant="secondary" className="inline-flex flex-row gap-2 items-center">
+              Become a sponsor
+              <ArrowUpRightIcon></ArrowUpRightIcon>
+            </Button>
           </div>
         </div>
       </section>

@@ -10,9 +10,9 @@ interface ButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    'bg-[#FF6B35] hover:bg-[#D9531E] text-white rounded-md px-7 py-3.5 text-sm font-bold transition-colors',
+    'bg-primary hover:bg-primary-glow text-white rounded-md px-7 py-3.5 text-sm font-bold transition-all duration-300',
   secondary:
-    'bg-transparent text-zinc-400 border border-zinc-600 hover:text-white hover:border-zinc-400 rounded-md px-7 py-3.5 text-sm font-semibold transition-colors',
+    'bg-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white border border-zinc-400 dark:border-zinc-600 hover:border-zinc-600 dark:hover:border-zinc-400 rounded-full px-7 py-3.5 text-sm font-semibold transition-all duration-300',
 }
 
 export function Button({ variant = 'primary', className, href, ...props }: ButtonProps) {
