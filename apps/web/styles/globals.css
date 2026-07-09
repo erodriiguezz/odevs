@@ -16,6 +16,7 @@
   --zinc-95-5: var(--color-zinc-950);
   
   --zinc-20-60: var(--color-zinc-200);
+  --zinc-70-30: var(--color-zinc-700);
   
   --surface: oklch(97% .006 275);
   --muted-primary: #EAE8FD;
@@ -32,6 +33,7 @@
   --zinc-95-5: var(--color-zinc-50);
 
   --zinc-20-60: var(--color-zinc-600);
+  --zinc-70-30: var(--color-zinc-300);
   
   --surface: oklch(18% .045 275);
   --muted-primary: #2e286b;
@@ -39,7 +41,7 @@
 
 @theme inline {
   --color-background: var(--zinc-5-95);
-  --color-muted-background: var(--zinc-19-90);
+  --color-muted-background: var(--zinc-10-90);
   --color-border: var(--zinc-20-80);
   --color-border-glow: var(--zinc-30-70);
   --color-light-foreground: var(--zinc-40-50);
@@ -48,6 +50,7 @@
 
   --color-separator: var(--zinc-20-60);
   --color-soft-foreground: var(--zinc-60-20);
+  --color-medium-foreground: var(--zinc-70-30);
 
   --color-primary: var(--primary);
   --color-primary-glow: var(--primary-glow);

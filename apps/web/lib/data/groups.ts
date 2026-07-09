@@ -32,7 +32,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
     topic: 'Software Development',
     description: 'The main Orlando developer community meetup group',
     longDescription: 'A close-knit community sculpted by the talent of Orlando and Central Florida developers.',
-    logo: '/images/logo.png',
+    logo: '/images/groups/logos/odevs-logo.svg',
     websiteUrl: 'https://orlandodevs.com',
     brandColor: '#5B4FE9',
     eventSources: [
