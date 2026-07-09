@@ -35,7 +35,7 @@
   --zinc-20-60: var(--color-zinc-600);
   --zinc-70-30: var(--color-zinc-300);
   
-  --surface: oklch(18% .045 275);
+  --surface: oklch(25% .045 275);
   --muted-primary: #2e286b;
 }
 
@@ -54,7 +54,7 @@
 
   --color-primary: var(--primary);
   --color-primary-glow: var(--primary-glow);
-  --color-muted-primary: var(--primary-muted);
+  --color-muted-primary: var(--muted-primary);
 
   --color-surface: var(--surface);
 

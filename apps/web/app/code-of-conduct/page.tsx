@@ -9,20 +9,20 @@ export default function CodeOfConductPage() {
   return  <section id="code-of-conduct" className="py-20 px-4">
             <div className="container mx-auto">
                 <div className="max-w-4xl mx-auto">
-                    <h2 className="text-4xl font-bold text-center mb-12 font-sans">
+                    <h2 className="text-4xl font-bold text-center mb-12 font-sans text-foreground theme-trans">
                         Code of Conduct
                     </h2>
-                    <div className="prose prose-invert max-w-none">
-                        <div className="bg-slate-800 rounded-lg p-8 mb-8">
-                            <p className="text-gray-300 leading-relaxed font-sans">
+                    <div className="max-w-none">
+                        <div className="bg-surface rounded-lg p-8 mb-8 theme-trans">
+                            <p className="text-medium-foreground leading-relaxed font-sans theme-trans">
                                 This code of conduct outlines our expectations for participants within the Orlando Devs community (relevant to both our Discord and Meetup), as well as steps to reporting unacceptable behavior. We are committed to providing a welcoming and inspiring community for all and expect our code of conduct to be honored. Anyone who violates this code of conduct may be banned from the community.
                             </p>
                         </div>
-                        <div className="bg-slate-800 rounded-lg p-8 mb-8">
-                            <p className="text-gray-300 leading-relaxed font-sans mb-4">
+                        <div className="text-medium-foreground bg-surface rounded-lg p-8 mb-8 theme-trans">
+                            <p className="leading-relaxed font-sans mb-4 theme-trans">
                                 Our open source community strives to:
                             </p>
-                            <ul className="space-y-4 text-gray-300 font-sans">
+                            <ul className="space-y-4 font-sans">
                                 <li>
                                     <strong>Be friendly and patient.</strong></li><li><strong>Be welcoming:</strong> We strive to be a community that welcomes and supports people of all backgrounds and identities. This includes, but is not limited to members of any race, ethnicity, culture, national origin, color, immigration status, social and economic class, educational level, sex, sexual orientation, gender identity and expression, age, size, family status, political belief, religion, and mental and physical ability.
                                 </li>
@@ -40,10 +40,10 @@ export default function CodeOfConductPage() {
                                 </li>
                             </ul>
                         </div>
-                        <div className="bg-slate-800 rounded-lg p-8 mb-8">
-                            <h3 className="text-2xl font-semibold mb-4 text-blue-400 font-sans">Definitions</h3>
-                            <p className="text-gray-300 leading-relaxed font-sans mb-4">Harassment includes, but is not limited to:</p>
-                            <ul className="space-y-2 text-gray-300 font-sans list-disc list-inside">
+                        <div className="bg-surface rounded-lg p-8 mb-8 text-medium-foreground theme-trans">
+                            <h3 className="text-2xl font-semibold mb-4 text-primary-glow font-sans">Definitions</h3>
+                            <p className="leading-relaxed font-sans mb-4 theme-trans">Harassment includes, but is not limited to:</p>
+                            <ul className="space-y-2 font-sans list-disc list-inside theme-trans">
                                 <li>Offensive comments related to gender, gender identity and expression, sexual orientation, disability, mental illness, neuro(a)typicality, physical appearance, body size, race, age, regional discrimination, political or religious affiliation</li><li>Unwelcome comments regarding a person's lifestyle choices and practices, including those related to food, health, parenting, drugs, and employment</li><li>Deliberate misgendering. This includes deadnaming or persistently using a pronoun that does not correctly reflect a person's gender identity. You must address people by the name they give you when not addressing them by their username or handle</li><li>Physical contact and simulated physical contact (eg, textual descriptions like "hug" or "backrub") without consent or after a request to stop</li>
                                 <li>Threats of violence, both physical and psychological</li>
                                 <li>Incitement of violence towards any individual, including encouraging a person to commit suicide or to engage in self-harm</li>
@@ -56,29 +56,29 @@ export default function CodeOfConductPage() {
                                 <li>Publication of non-harassing private communication</li>
                             </ul>
                         </div>
-                        <div className="bg-slate-800 rounded-lg p-8 mb-8">
-                            <h3 className="text-2xl font-semibold mb-4 text-blue-400 font-sans">Diversity Statement</h3>
-                            <p className="text-gray-300 leading-relaxed font-sans mb-4">We encourage everyone to participate and are committed to building a community for all. Although we will fail at times, we seek to treat everyone both as fairly and equally as possible. Whenever a participant has made a mistake, we expect them to take responsibility for it. If someone has been harmed or offended, it is our responsibility to listen carefully and respectfully, and do our best to right the wrong.</p>
-                            <p className="text-gray-300 leading-relaxed font-sans">Although this list cannot be exhaustive, we explicitly honor diversity in age, gender, gender identity or expression, culture, ethnicity, language, national origin, political beliefs, profession, race, religion, sexual orientation, socioeconomic status, and technical ability. We will not tolerate discrimination based on any of the protected characteristics above, including participants with disabilities.</p>
+                        <div className="bg-surface rounded-lg p-8 mb-8 text-medium-foreground theme-trans">
+                            <h3 className="text-2xl font-semibold mb-4 text-primary-glow font-sans">Diversity Statement</h3>
+                            <p className="leading-relaxed font-sans mb-4 theme-trans">We encourage everyone to participate and are committed to building a community for all. Although we will fail at times, we seek to treat everyone both as fairly and equally as possible. Whenever a participant has made a mistake, we expect them to take responsibility for it. If someone has been harmed or offended, it is our responsibility to listen carefully and respectfully, and do our best to right the wrong.</p>
+                            <p className="leading-relaxed font-sans theme-trans">Although this list cannot be exhaustive, we explicitly honor diversity in age, gender, gender identity or expression, culture, ethnicity, language, national origin, political beliefs, profession, race, religion, sexual orientation, socioeconomic status, and technical ability. We will not tolerate discrimination based on any of the protected characteristics above, including participants with disabilities.</p>
                         </div>
-                        <div className="bg-slate-800 rounded-lg p-8 mb-8">
-                            <h3 className="text-2xl font-semibold mb-4 text-blue-400 font-sans">Reporting Issues</h3>
-                            <p className="text-gray-300 leading-relaxed font-sans mb-4">If you experience or witness unacceptable behavior—or have any other concerns—please report it by contacting us using via:</p>
-                            <ul className="space-y-2 text-gray-300 font-sans list-disc list-inside mb-4">
+                        <div className="bg-surface rounded-lg p-8 mb-8 text-medium-foreground theme-trans">
+                            <h3 className="text-2xl font-semibold mb-4 text-primary-glow font-sans">Reporting Issues</h3>
+                            <p className="leading-relaxed font-sans mb-4 theme-trans">If you experience or witness unacceptable behavior—or have any other concerns—please report it by contacting us using via:</p>
+                            <ul className="space-y-2 font-sans list-disc list-inside mb-4 theme-trans">
                                 <li><strong>Discord:</strong> Select the message additional options and select "Report Message" and a moderator will get in touch with you promptly.</li>
                                 <li><strong>Meetup &amp; other events:</strong> Speak privately in person with organizers at events, or email organizers via Meetup.com</li>
                             </ul>
-                            <p className="text-gray-300 leading-relaxed font-sans mb-4">All reports will be handled with discretion. In your report please include:</p>
-                            <ul className="space-y-2 text-gray-300 font-sans list-disc list-inside mb-4">
+                            <p className="leading-relaxed font-sans mb-4 theme-trans">All reports will be handled with discretion. In your report please include:</p>
+                            <ul className="space-y-2 font-sans list-disc list-inside mb-4 theme-trans">
                                 <li>Your contact information.</li>
                                 <li>Names (real, nicknames, or pseudonyms) of any individuals involved. If there are additional witnesses, please include them as well. Your account of what occurred, and if you believe the incident is ongoing. If there is a publicly available record, please include a link.</li>
                                 <li>Any additional information that may be helpful.</li>
                             </ul>
-                            <p className="text-gray-300 leading-relaxed font-sans">After filing a report, a representative will contact you personally, review the incident, follow up with any additional questions, and make a decision as to how to respond. If the person who is harassing you is part of the response team, they will recuse themselves from handling your incident. If the complaint originates from a member of the response team, it will be handled by a different member of the response team. We will respect confidentiality requests for the purpose of protecting victims of abuse.</p>
+                            <p className="leading-relaxed font-sans theme-trans">After filing a report, a representative will contact you personally, review the incident, follow up with any additional questions, and make a decision as to how to respond. If the person who is harassing you is part of the response team, they will recuse themselves from handling your incident. If the complaint originates from a member of the response team, it will be handled by a different member of the response team. We will respect confidentiality requests for the purpose of protecting victims of abuse.</p>
                         </div>
-                        <div className="bg-slate-800 rounded-lg p-8">
-                            <h3 className="text-2xl font-semibold mb-4 text-blue-400 font-sans">Attribution &amp; Acknowledgements</h3>
-                            <p className="text-gray-300 leading-relaxed font-sans">The Orlando Devs Community has joined other community leaders (such as Django, Python, Ubuntu, etc) in implementing a slightly modified version of the Open Code of Conduct Project created by the TODO Group. We cannot thank enough everyone who has helped this Code of Conduct become a reality.</p>
+                        <div className="bg-surface rounded-lg p-8 theme-trans">
+                            <h3 className="text-2xl font-semibold mb-4 text-primary-glow font-sans">Attribution &amp; Acknowledgements</h3>
+                            <p className="text-medium-foreground leading-relaxed font-sans theme-trans">The Orlando Devs Community has joined other community leaders (such as Django, Python, Ubuntu, etc) in implementing a slightly modified version of the Open Code of Conduct Project created by the TODO Group. We cannot thank enough everyone who has helped this Code of Conduct become a reality.</p>
                         </div>
                     </div>
                 </div>

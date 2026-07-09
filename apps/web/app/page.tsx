@@ -174,7 +174,7 @@ export default function HomePage() {
                   key={v.title}
                   role="listitem"
                 >
-                  <div className="flex h-9 rounded-md bg-primary-muted mb-3 items-center justify-center theme-trans">
+                  <div className="flex h-9 rounded-md bg-muted-primary mb-3 items-center justify-center theme-trans">
                     <p className="text-foreground-soft whitespace-nowrap font-bold">{v.title}</p>
                   </div>
                   <p className="text-muted-foreground text-[15px] theme-trans">
