@@ -1,4 +1,4 @@
-export default ({ className, sad=false }: { className?: string, sad: boolean }) =>
+export default ({ className, sad=false }: { className?: string, sad?: boolean }) =>
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5403 5403" className={className}>
     {sad ? 
       <path d="M2701.5,847.5c-1494,0-1953,936-1953,936v1422s459,909,1953,918,1953-918,1953-918v-1422s-459-936-1953-936ZM1684.5,2485.5l-558,288v-198l378-180-378-162v-216l558,288v180ZM2746.5,3169.5c0-200.52-972-200.52-972,0v-180c0-200.52,972-200.52,972,0v180Z" fill="currentColor"/>

@@ -1,5 +1,5 @@
 import { SourcePlatform } from "../types/platform";
-import discordLogo from '@/public/images/platform-logos/discord.svg';
+import discordLogo from '@/public/images/platform-logos/discord-purple.svg';
 import lumaLogo from '@/public/images/platform-logos/luma.svg';
 import eventbriteLogo from '@/public/images/platform-logos/eventbrite.svg';
 import meetupLogo from '@/public/images/platform-logos/meetup.svg';
