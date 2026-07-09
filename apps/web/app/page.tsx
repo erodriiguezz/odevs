@@ -87,7 +87,7 @@ export default function HomePage() {
       <section
         id="coming-up"
         aria-labelledby="coming-up-heading"
-        className="bg-background py-16 lg:py-28 border-b border-zinc-200 theme-trans"
+        className="bg-background py-16 lg:py-28 border-b border-separator theme-trans"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
@@ -170,12 +170,12 @@ export default function HomePage() {
                 { title: 'Learn', desc: 'Technical workshops and learning sessions' },
                 { title: 'Events', desc: 'Regular meetups and networking events' },].map(v => (
                 <div
-                  className="bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-600 rounded-xl p-5 theme-trans"
+                  className="bg-surface border border-separator rounded-xl p-5 theme-trans"
                   key={v.title}
                   role="listitem"
                 >
                   <div className="flex h-9 rounded-md bg-primary-muted mb-3 items-center justify-center theme-trans">
-                    <p className="text-zinc-600 dark:text-zinc-200 whitespace-nowrap font-bold">{v.title}</p>
+                    <p className="text-foreground-soft whitespace-nowrap font-bold">{v.title}</p>
                   </div>
                   <p className="text-muted-foreground text-[15px] theme-trans">
                     {v.desc}
@@ -195,7 +195,7 @@ export default function HomePage() {
       <section
         id="explore-groups"
         aria-labelledby="explore-groups-heading"
-        className="bg-background py-16 lg:py-28 border-b border-zinc-200 dark:border-zinc-600 theme-trans"
+        className="bg-background py-16 lg:py-28 border-b border-separator theme-trans"
       >
         <GroupsSection></GroupsSection>
       </section>
@@ -225,15 +225,15 @@ export default function HomePage() {
                 key={i}
                 href={url}
                 target="_blank"
-                className="border border-zinc-200 rounded-xl bg-white dark:bg-zinc-200 flex items-center justify-center w-full h-full p-4 transition-all duration-200 hover:scale-105 hover:border-zinc-400 dark:hover:drop-shadow-[0_0px_10px_rgba(255,255,255,0.7)]"
+                className="border border-zinc-200 hover:border-zinc-400 rounded-xl bg-white dark:bg-zinc-200 flex items-center justify-center w-full h-full p-4 hover:scale-105 dark:hover:drop-shadow-[0_0px_10px_rgba(255,255,255,0.7)] theme-trans"
               >
                 <Image src={logo} alt={name + " logo"} width={240} height={96} className="max-w-full max-h-full object-contain"/>
               </Link>
             ))}
           </div>
 
-          <div className="text-center mt-12 pt-10 border-t border-zinc-200 dark:border-zinc-600 theme-trans">
-            <p className="text-zinc-500 dark:text-zinc-300 text-sm mb-4 theme-trans">Interested in supporting the community?</p>
+          <div className="text-center mt-12 pt-10 border-t border-separator theme-trans">
+            <p className="text-zinc-700 dark:text-zinc-300 text-sm mb-4 theme-trans">Interested in supporting the community?</p>
             <Button href="https://discord.gg/v6gchdH43K" target="_blank" variant="secondary" className="inline-flex flex-row gap-2 items-center">
               Become a sponsor
               <ArrowUpRightIcon></ArrowUpRightIcon>

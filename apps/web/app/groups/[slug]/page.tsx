@@ -11,7 +11,7 @@ export default async function GroupPage({ params }: { params: Promise<{ slug: st
   if (!group) notFound();
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-50 py-16 px-4 flex items-center justify-center">
+    <div className="min-h-screen bg-background text-zinc-50 py-16 px-4 flex items-center justify-center theme-trans">
       <div className="w-full max-w-4xl mx-auto flex flex-col items-center gap-8">
         <div className={`w-full flex flex-col sm:flex-row justify-center p-3 rounded-2xl border border-zinc-800 bg-gradient-to-br ${group.category.darkBackground}`}>
           <div className="flex flex-row items-center gap-6 bg-zinc-900/50 rounded-xl p-3">

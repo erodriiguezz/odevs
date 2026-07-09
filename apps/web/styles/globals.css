@@ -6,34 +6,55 @@
   --primary: #5b4fe9;
   --primary-glow: #7b6ff5;
   
-  --background: var(--color-zinc-50);
-  --foreground: #0a0a0a;
-  --muted-foreground: var(--color-zinc-500);
-  --border: #cbcbcb;
+  --zinc-5-95: var(--color-zinc-50);
+  --zinc-10-90: var(--color-zinc-100);
+  --zinc-20-80: var(--color-zinc-200);
+  --zinc-30-70: var(--color-zinc-300);
+  --zinc-40-50: var(--color-zinc-400);
+  --zinc-50-40: var(--color-zinc-500);
+  --zinc-60-20: var(--color-zinc-600);
+  --zinc-95-5: var(--color-zinc-950);
+  
+  --zinc-20-60: var(--color-zinc-200);
+  
   --surface: oklch(97% .006 275);
-  --card: color-mix(in oklab, var(--color-surface) 90%, transparent);
-  --primary-muted: #EAE8FD;
+  --muted-primary: #EAE8FD;
 }
 
 :root.dark, .dark :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --muted-foreground: var(--color-zinc-400);
-  --border: #27272a;
+  --zinc-5-95: var(--color-zinc-950);
+  --zinc-10-90: var(--color-zinc-900);
+  --zinc-20-80: var(--color-zinc-800);
+  --zinc-30-70: var(--color-zinc-700);
+  --zinc-40-50: var(--color-zinc-500);
+  --zinc-50-40: var(--color-zinc-400);
+  --zinc-60-20: var(--color-zinc-200);
+  --zinc-95-5: var(--color-zinc-50);
+
+  --zinc-20-60: var(--color-zinc-600);
+  
   --surface: oklch(18% .045 275);
-  --card: color-mix(in oklab, var(--color-surface) 90%, transparent);
-  --primary-muted: #2e286b;
+  --muted-primary: #2e286b;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--zinc-5-95);
+  --color-muted-background: var(--zinc-19-90);
+  --color-border: var(--zinc-20-80);
+  --color-border-glow: var(--zinc-30-70);
+  --color-light-foreground: var(--zinc-40-50);
+  --color-muted-foreground: var(--zinc-50-40);
+  --color-foreground: var(--zinc-95-5);
+
+  --color-separator: var(--zinc-20-60);
+  --color-soft-foreground: var(--zinc-60-20);
+
   --color-primary: var(--primary);
   --color-primary-glow: var(--primary-glow);
-  --color-primary-muted: var(--primary-muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-border: var(--border);
+  --color-muted-primary: var(--primary-muted);
+
   --color-surface: var(--surface);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -44,7 +65,7 @@
 
 .card-elev {
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  background: var(--card);
+  background: color-mix(in oklab, var(--color-surface) 90%, transparent);
   box-shadow:
     0 1px 2px rgb(0 0 0 / 0.04),
     0 4px 16px rgb(0 0 0 / 0.04);

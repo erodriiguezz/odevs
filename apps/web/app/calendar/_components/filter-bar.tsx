@@ -27,10 +27,10 @@ export function FilterBar({ selectedTypes, onToggle }: FilterBarProps) {
             key={type}
             type="button"
             onClick={() => onToggle(type)}
-            className={`rounded-full px-3 py-1 text-sm capitalize transition-colors ${
+            className={`rounded-full px-3 py-1 text-sm capitalize ${
               isSelected
-                ? 'bg-[#EAE8FD] dark:bg-zinc-800 border border-[#5B4FE9]/30 dark:border-zinc-600 text-[#5B4FE9] dark:text-white'
-                : 'bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 hover:border-zinc-300 dark:hover:border-zinc-700'
+                ? 'bg-primary-muted dark:bg-zinc-800 border border-primary/30 dark:border-zinc-600 text-primary dark:text-white theme-trans'
+                : 'bg-muted-backgronud border border-border text-muted-foreground hover:border-border-glow theme-trans'
             }`}
           >
             {type}
