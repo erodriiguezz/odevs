@@ -5,7 +5,7 @@ export default function Footer() {
         { href: "https://discord.gg/v6gchdH43K",           label: "Discord" },
     ] as const;
 
-    return  <footer className="bg-background border-t border-border text-zinc-600 dark:text-zinc-400 py-14 text-sm mt-12 theme-trans">
+    return  <footer className="bg-background border-t border-border text-zinc-600 dark:text-zinc-400 py-14 text-sm theme-trans">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-6">
                         <div className="flex items-center gap-2">
