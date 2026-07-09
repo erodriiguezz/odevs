@@ -101,9 +101,6 @@ export default function HomePage() {
               >
                 Events you won't want to miss
               </h2>
-              <p className="mt-3 text-base leading-relaxed text-muted-foreground max-w-lg theme-trans">
-                Events featured by the community. Will be filtered to the viewer's interests and location.
-              </p>
             </div>
             <Button href="/calendar" className="shrink-0">
               View all events
@@ -119,7 +116,7 @@ export default function HomePage() {
             <div className="flex flex-row flex-wrap justify-center gap-6" role="list">
               {upcomingEvents.map(event => (
                 <div className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 grid" key={event.id}>
-                  <EventCard event={event} />
+                  <EventCard event={event} layout='alt-header' disabled={false} />
                 </div>
               ))}
             </div>
