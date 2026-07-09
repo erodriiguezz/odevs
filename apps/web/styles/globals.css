@@ -36,7 +36,7 @@
   --zinc-70-30: var(--color-zinc-300);
   
   --surface: oklch(23% .045 275);
-  --muted-primary: #2e286b;
+  --muted-primary: #22234e;
 }
 
 @theme inline {
@@ -63,7 +63,7 @@
 }
 
 .font-display {
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-space-grotesk), Arial, Helvetica, sans-serif;
 }
 
 .card-elev {

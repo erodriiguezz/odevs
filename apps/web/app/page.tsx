@@ -76,7 +76,7 @@ export default function HomePage() {
             ].map(s => (
               <div key={s.label}>
                 <div className="text-3xl font-extrabold tracking-tight text-foreground theme-trans">{s.value}</div>
-                <div className="text-sm text-muted-foreground mt-0.5 theme-trans">{s.label}</div>
+                <div className="text-sm text-muted-foreground mt-0.5 theme-trans font-mono">{s.label}</div>
               </div>
             ))}
           </div>
@@ -92,12 +92,12 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
             <div>
-              <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-primary border-l-[3px] border-primary pl-2.5 mb-5">
+              <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-primary border-l-[3px] border-primary pl-2.5 mb-5 font-mono">
                 Coming Up
               </p>
               <h2
                 id="coming-up-heading"
-                className="text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight text-foreground theme-trans"
+                className="text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight text-foreground theme-trans font-display"
               >
                 Events you won't want to miss
               </h2>
@@ -128,54 +128,58 @@ export default function HomePage() {
       <section id="about" aria-labelledby="about-heading" className="bg-background py-16 lg:py-28 theme-trans">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row lg:grid-cols-2 gap-10 lg:gap-15 items-center">
           <div>
-            <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-primary border-l-[3px] border-primary pl-2.5 mb-5">
+            <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-primary border-l-[3px] border-primary pl-2.5 mb-5 font-mono">
               About Our Community
             </p>
             <h2
               id="about-heading"
-              className="text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight text-foregroun theme-trans"
+              className="text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight text-foreground font-display theme-trans"
             >
               Built by the community,
               <br />
               for the community
             </h2>
 
-            <div className="items-center mt-9">
-              <h3 className="text-2xl font-semibold mb-6 text-primary">
+            <div className="mt-9 flex flex-col gap-6 text-muted-foreground">
+              <h3 className="text-2xl font-semibold text-primary font-mono">
                 Our Mission
               </h3>
-              <p className="mb-6 leading-relaxed text-muted-foreground theme-trans">
-                Orlando Devs is a vibrant community of software developers, designers, and tech enthusiasts in the Orlando and Central Florida area. We're dedicated to fostering growth, collaboration, and knowledge sharing among our members.
+              <p className="leading-relaxed theme-trans">
+                To grow a welcoming, inclusive home for developers in Central Florida where anyone curious about technology can learn in the open, teach what they know, and build lasting connections with the people making software here.
               </p>
-              <p className="leading-relaxed text-muted-foreground theme-trans">
+              <p className="leading-relaxed theme-trans">
+                Orlando Devs is a vibrant community of volunteer software developers, designers, and tech enthusiasts in the Orlando and Central Florida area. We're dedicated to fostering growth, collaboration, and knowledge sharing among our members.
+              </p>
+              <p className="leading-relaxed theme-trans">
                 Whether you're a seasoned professional or just starting your journey in tech, our community provides a supportive environment where you can learn, network, and contribute to the local tech ecosystem.
               </p>
             </div>
 
-            <h3 className="text-2xl font-semibold mb-6 text-primary mt-12">
+            <h3 className="text-2xl font-semibold mb-6 text-primary mt-12 font-mono">
               What We Offer
             </h3>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4" role="list">
-              {[{ title: 'Open by Default', desc: 'You don\'t have to sign up to come enjoy' },
-                { title: 'Skill Sharing', desc: 'Meet the experienced, gain experience, share knowledge' },
-                { title: 'Inclusive Spaces', desc: 'Our community is open to anyone and everyone' },
-                { title: 'Local Roots', desc: 'Grassroots organization by enthusiastic Orlando locals' },
-                { title: 'Teaching', desc: 'Mentorship programs for developers at all levels' },
-                { title: 'Work', desc: 'Job opportunities and career guidance' },
-                { title: 'Engage', desc: 'Active Discord community for daily discussions' },
-                { title: 'Learn', desc: 'Technical workshops and learning sessions' },
-                { title: 'Events', desc: 'Regular meetups and networking events' },].map(v => (
+              {[{ title: 'Open by Default', desc: 'No signup required: show up and enjoy', icon: '/images/icons/heart.svg' },
+                { title: 'Skill Sharing', desc: 'Meet the experienced, gain experience, share knowledge', icon: '/images/icons/book.svg' },
+                { title: 'Inclusive Spaces', desc: 'Our community is open to anyone and everyone', icon: '/images/icons/people.svg' },
+                { title: 'Local Roots', desc: 'Grassroots organization by enthusiastic Orlando locals', icon: '/images/icons/location.svg' },
+                { title: 'Teaching', desc: 'Mentorship programs for developers at all levels', icon: '/images/icons/graduation.svg'  },
+                { title: 'Jobs & Support', desc: 'Local openings and career guidance', icon: '/images/icons/handshake.svg'  },
+                { title: 'Engagement', desc: 'Active Discord community for daily discussions', icon: '/images/icons/speech-bubble.svg'  },
+                { title: 'Practical', desc: 'Technical workshops and learning sessions', icon: '/images/icons/hand.svg'  },
+                { title: 'Events', desc: 'Regular meetups and networking events', icon: '/images/icons/calendar.svg'  },].map(({ title, desc, icon }) => (
                 <div
-                  className="bg-surface border border-separator rounded-xl p-5 theme-trans"
-                  key={v.title}
+                  className="bg-surface border border-border rounded-xl p-5 theme-trans"
+                  key={title}
                   role="listitem"
                 >
-                  <div className="flex h-9 rounded-md bg-muted-primary mb-3 items-center justify-center theme-trans">
-                    <p className="text-foreground-soft whitespace-nowrap font-bold">{v.title}</p>
+                  <div className="flex h-9 gap-5 rounded-md bg-muted-primary mb-3 items-center justify-center theme-trans">
+                    <Image src={icon} width={16} height={16} alt={(icon.match(/\/([^\/.]+)\.[^\/.]*$/) || [""])[0]}></Image>
+                    <p className="text-medium-foreground whitespace-nowrap font-bold font-display">{title}</p>
                   </div>
                   <p className="text-muted-foreground text-[15px] theme-trans">
-                    {v.desc}
+                    {desc}
                   </p>
                 </div>
               ))}
