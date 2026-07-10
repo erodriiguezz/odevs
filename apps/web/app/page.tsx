@@ -76,8 +76,8 @@ export default function HomePage() {
               { value: events.filter(event => new Date(event.date).getMonth() == new Date(Date.now()).getMonth()).length, label: 'Events this month' },
             ].map(s => (
               <div key={s.label}>
-                <div className="text-3xl font-extrabold tracking-tight text-foreground theme-trans">{s.value}</div>
-                <div className="text-sm text-muted-foreground mt-0.5 theme-trans font-mono">{s.label}</div>
+                <div className="text-3xl font-extrabold tracking-tight text-foreground font-display theme-trans">{s.value}</div>
+                <div className="text-sm text-muted-foreground mt-0.5 font-mono theme-trans">{s.label}</div>
               </div>
             ))}
           </div>
@@ -211,12 +211,12 @@ export default function HomePage() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <p className="inline-flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-primary mb-5">
+            <p className="inline-flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-primary font-mono mb-5">
               Sponsors
             </p>
             <h2
               id="sponsors-heading"
-              className="text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight text-foreground text-center theme-trans"
+              className="text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight text-foreground text-center font-display theme-trans"
             >
               Thank you to our community sponsors!
             </h2>

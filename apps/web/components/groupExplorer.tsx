@@ -81,7 +81,7 @@ export default ({ maxGroups, overflowPages, linkToGroupPage=false }: { maxGroups
                 aria-label={`Group ${name}`}
               >
                 <div className="flex justify-between mb-1.5">
-                  <Icon className={`h-12 w-12 h-full-auto rounded-xl p-3 text-white ${background}`} icon={icon}></Icon>
+                  <Icon className={`h-12 w-12 h-full-auto rounded-2xl p-3 text-white ${background}`} icon={icon}></Icon>
                   <div className="flex flex-col items-center">
                     <span className={`bg-primary px-2 py-1 font-semibold rounded-full flex m-auto text-xs text-white font-mono`}>{category.name}</span>
                   </div>
