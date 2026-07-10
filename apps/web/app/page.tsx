@@ -87,7 +87,7 @@ export default function HomePage() {
       <section
         id="coming-up"
         aria-labelledby="coming-up-heading"
-        className="bg-background py-16 lg:py-28 border-b border-separator theme-trans"
+        className="bg-muted-background/50 py-16 lg:py-28 border-y border-separator theme-trans"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
@@ -196,7 +196,7 @@ export default function HomePage() {
       <section
         id="explore-groups"
         aria-labelledby="explore-groups-heading"
-        className="bg-background py-16 lg:py-28 border-b border-separator theme-trans"
+        className="bg-muted-background/50 py-16 lg:py-28 border-y border-separator theme-trans"
       >
         <GroupsSection></GroupsSection>
       </section>
