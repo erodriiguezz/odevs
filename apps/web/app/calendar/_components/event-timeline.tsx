@@ -70,7 +70,7 @@ function MissedEventsSection({ events }: { events: Event[] }) {
       <div className="flex flex-col gap-6">
         {events.map(event => (
           <div key={event.id}>
-            <h3 className="mb-2 text-base font-semibold text-zinc-400 dark:text-zinc-500">
+            <h3 className="mb-2 text-base font-semibold text-light-foreground font-display theme-trans">
               {formatTimelineDateHeading(event.date)}
             </h3>
             <EventCard event={event} disabled />
@@ -90,8 +90,8 @@ export function EventTimeline({ events }: EventTimelineProps) {
         role="status"
         className="rounded-xl border border-dashed border-border px-6 py-12 text-center theme-trans"
       >
-        <p className="text-sm text-light-foreground theme-trans">No events to show</p>
-        <p className="mt-1 text-xs text-muted-foreground theme-trans">Try adjusting your filters</p>
+        <p className="text-sm text-muted-foreground theme-trans">No events to show</p>
+        <p className="mt-1 text-xs text-light-foreground theme-trans">Try adjusting your filters</p>
       </div>
     )
   }

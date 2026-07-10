@@ -37,7 +37,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} h-full antialiased scrollbar-gutter-stable`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col transition-all duration-300">
+      <body className="min-h-full flex flex-col theme-trans">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Header />
           <main className="flex-1">{children}</main>

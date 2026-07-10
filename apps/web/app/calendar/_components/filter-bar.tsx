@@ -29,12 +29,13 @@ export function FilterBar({ selectedTypes, onToggle }: FilterBarProps) {
             onClick={() => onToggle(type)}
             className={`rounded-full px-3 py-1 text-sm capitalize ${
               isSelected
-                ? 'bg-primary-muted dark:bg-zinc-800 border border-primary/30 dark:border-zinc-600 text-primary dark:text-white theme-trans'
-                : 'bg-muted-backgronud border border-border text-muted-foreground hover:border-border-glow theme-trans'
+                ? 'bg-muted-primary/50 border border-primary/30 dark:border-primary/60 text-primary dark:text-white theme-trans'
+                : 'bg-muted-background border border-border text-muted-foreground hover:border-border-glow theme-trans'
             }`}
           >
             {type}
           </button>
+          
         )
       })}
     </div>

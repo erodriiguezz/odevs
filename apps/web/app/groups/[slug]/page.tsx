@@ -66,7 +66,7 @@ export default async function GroupPage({ params }: { params: Promise<{ slug: st
                         <img
                           src={platforms[source.platform].logo?.image.src}
                           alt={`${source.platform} logo`}
-                          className="h-6 w-auto object-contain brightness-90 group-hover:brightness-100 transition-all duration-300"
+                          className="h-6 w-auto object-contain brightness-90 group-hover:brightness-100 theme-trans"
                         />
                       </div>
                     )}
