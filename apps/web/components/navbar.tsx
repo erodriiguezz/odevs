@@ -23,10 +23,10 @@ export default function Header() {
     ] as const;
 
     const linkClass = (href: string) => [
-        "px-4 py-2 text-sm font-medium rounded-md transition-all leading-none",
+        "px-4 py-2 text-sm font-medium rounded-md theme-trans leading-none theme-trans",
         pathname === href
-            ? "bg-zinc-100 dark:bg-zinc-700 text-black dark:text-white shadow-lg transition-all duration-300"
-            : "text-zinc-900 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-200 transition-all duration-300",
+            ? "bg-zinc-100 dark:bg-zinc-700 text-foreground shadow-lg"
+            : "text-zinc-700 hover:text-zinc-500 dark:text-zinc-400 dark:hover:text-zinc-200",
     ].join(" ");
     
     const discordButton = (style: CSSProperties | undefined, onClick: () => void, className: string[]) =>
@@ -74,7 +74,7 @@ export default function Header() {
                             <ThemeToggle></ThemeToggle>
                             <button
                                 type="button"
-                                className="md:hidden relative flex h-10 w-10 items-center justify-center rounded-lg text-zinc-200 transition-[color,transform] duration-200 hover:bg-zinc-900 active:scale-95"
+                                className="md:hidden relative flex h-10 w-10 items-center justify-center rounded-lg text-foreground hover:bg-muted-background active:scale-95 theme-trans"
                                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                                 aria-expanded={isMenuOpen}
                                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -90,7 +90,7 @@ export default function Header() {
                             <div
                                 aria-hidden={!isMenuOpen}
                                 className={[
-                                    "absolute top-full right-0 z-50 mt-2 flex-col min-w-44 overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950 py-4 px-4 shadow-lg shadow-black/40 origin-top-right transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+                                    "absolute top-full right-0 z-50 mt-2 flex-col min-w-44 overflow-hidden rounded-lg border border-border bg-background py-4 px-4 shadow-lg shadow-black/40 origin-top-right theme-trans ease-[cubic-bezier(0.16,1,0.3,1)]",
                                     isMenuOpen
                                         ? "pointer-events-auto visible opacity-100 scale-100 translate-y-0"
                                         : "pointer-events-none invisible opacity-0 scale-80 -translate-y-10",
@@ -105,7 +105,7 @@ export default function Header() {
                                         style={delayStyle(index)}
                                         className={[
                                             linkClass(href),
-                                            "w-full text-left duration-300 ease-out inline-flex",
+                                            "w-full text-left ease-out inline-flex",
                                             isMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-3 opacity-0",
                                         ].join(" ")}
                                     >{label}</Link>))}
