@@ -4,6 +4,7 @@ import groupCategories from '@/lib/data/groupCategories';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { Icon } from './icons/icon';
 
 export default ({ maxGroups, overflowPages, linkToGroupPage=false }: { maxGroups: number, overflowPages?: { page: number }, linkToGroupPage?: boolean }) => {
   const params = new URLSearchParams(useSearchParams());
@@ -52,20 +53,20 @@ export default ({ maxGroups, overflowPages, linkToGroupPage=false }: { maxGroups
   };
 
   return  <>
-            <div className="text-zinc-600 dark:text-zinc-400 flex flex-row flex-wrap gap-10 mb-4 transition-all duration-300">
-              <div className="flex flex-row items-center gap-2">
-                <label htmlFor="category" className="whitespace-nowrap">Filter by category:&nbsp;</label>
-                <select value={category} onChange={handleChange("category", setSelectedCategory)} className="border border-zinc-300 dark:border-zinc-500 rounded-lg p-1 transition-all duration-300">
-                  <option value="any">Any</option>
-                  {Object.values(groupCategories).map(({ name }, i) =>
-                    <option value={name} key={i}>{name}</option>
-                  )}
-                </select>
+            <div className="text-zinc-600 dark:text-zinc-400 flex flex-row flex-wrap gap-10 mb-4 theme-trans">
+              <div className="flex flex-row gap-2 items-center border border-border focus-within:border-border-glow rounded-full px-2 w-10 grow bg-surface/60 theme-trans">
+                <Icon icon="magnifying-glass" className="w-5 h-5 ml-2"/>
+                <input value={search} onChange={handleChange("search", setSearch)} className="w-full py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none" placeholder="Search Groups"/>
               </div>
 
-              <div className="flex flex-row items-center gap-2 flex-1">
-                <label htmlFor="search" className="whitespace-nowrap">Search:&nbsp;</label>
-                <input value={search} onChange={handleChange("search", setSearch)} className="border border-zinc-300 dark:border-zinc-500 rounded-lg p-1 w-10 grow transition-all duration-300"></input>
+              <div className="flex flex-row gap-2 items-center border border-border focus-within:border-border-glow text-sm rounded-full p-2 bg-surface/60 theme-trans">
+                <label htmlFor="category" className="whitespace-nowrap">Category:</label>
+                <select value={category} onChange={handleChange("category", setSelectedCategory)} className="focus:outline-none">
+                  <option value="any" className="bg-background theme-trans">Any</option>
+                  {Object.values(groupCategories).map(({ name }, i) =>
+                    <option value={name} key={i} className="bg-background theme-trans">{name}</option>
+                  )}
+                </select>
               </div>
             </div>
 
@@ -75,36 +76,36 @@ export default ({ maxGroups, overflowPages, linkToGroupPage=false }: { maxGroups
                 key={i}
                 href={linkToGroupPage ? `/groups/${id}` : (websiteUrl ?? eventSources[0].url)}
                 target="_blank"
-                className="border border-zinc-200 dark:border-zinc-400 rounded-xl p-5 flex flex-col gap-3.5 transition-all duration-200 hover:scale-105 hover:border-zinc-400 dark:hover:border-zinc-200"
+                className="border border-border-glow rounded-xl p-5 flex flex-col gap-3.5 hover:scale-105 hover:border-muted-foreground bg-surface/70 theme-trans"
                 role="listitem"
                 aria-label={`Group ${name}`}
               >
                 <div className="flex justify-between mb-1.5">
-                  <Image className={`w-full-auto h-full-auto rounded-xl p-3 ${background}`} src={icon} alt={icon.substring(icon.lastIndexOf("/"))} width={50} height={50}/>
+                  <Icon className={`h-12 w-12 h-full-auto rounded-xl p-3 text-white ${background}`} icon={icon}></Icon>
                   <div className="flex flex-col items-center">
-                    <span className={`bg-primary px-2 py-1 font-semibold rounded-full flex m-auto text-xs text-white`}>{category.name}</span>
+                    <span className={`bg-primary px-2 py-1 font-semibold rounded-full flex m-auto text-xs text-white font-mono`}>{category.name}</span>
                   </div>
                 </div>
-                <p className="font-semibold text-lg text-zinc-600 dark:text-zinc-300" >{name}</p>
-                <p className="text-s text-zinc-500 dark:text-zinc-400" >{description}</p>
+                <p className="font-semibold text-lg text-zinc-600 dark:text-zinc-300 font-display theme-trans" >{name}</p>
+                <p className="text-s text-muted-foreground my-auto self-center theme-trans" >{description}</p>
               </Link>
             ))}
             </div>
 
             {pageGroups.length == 0 &&
               <div className="flex flex-row justify-center">
-                <p className="text-zinc-700 dark:text-zinc-300 text-xl font-bold transition-all duration-300">No results found!</p>
+                <p className="text-zinc-700 dark:text-zinc-300 text-xl font-bold theme-trans">No results found!</p>
               </div>
             }
 
             {overflowPages !== undefined && pageGroups.length != 0 &&
               <div className="flex flex-row justify-center items-center gap-2 mt-10">
                 <Link
-                  href={(pathname ?? "/") + "?" + changeQueryString("page", (overflowPages.page-1).toString())}
-                  className={"transition-all duration-500 hover:scale-120" + ((overflowPages.page-1 < 1) ? "pointer-events-none opacity-50" : "")}
+                  href={(overflowPages !== undefined && (overflowPages.page-1 < 1) ? "#" : (pathname ?? "/")  + "?" + changeQueryString("page", (overflowPages.page-1).toString()))}
+                  className={"transition-all duration-500 hover:scale-120 " + ((overflowPages.page-1 < 1) ? "pointer-events-none opacity-50" : "")}
                   tabIndex={(overflowPages.page-1 < 1) ? -1 : 0}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="text-black dark:text-white transition-all duration-300" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="text-black dark:text-white theme-trans" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="28.5" y1="18" x2="7.5" y2="18"></line>
                     <polyline points="18 28.5 7.5 18 18 7.5"></polyline>
                   </svg>
@@ -117,17 +118,17 @@ export default ({ maxGroups, overflowPages, linkToGroupPage=false }: { maxGroups
                       className={"group rounded-full w-8 h-8 flex justify-center items-center text-2xl transition-all duration-500 " 
                         + (i == overflowPages.page ? "hover:scale-110" : "hover:scale-120")}
                     >
-                      <span className={"transition-colors group-hover:text-zinc-900 " + (i == overflowPages.page ? "text-zinc-800 dark:text-zinc-200" : "text-zinc-400 dark:text-zinc-500")}>{i}</span>
+                      <span className={"group-hover:text-foreground theme-trans " + (i == overflowPages.page ? "text-zinc-800 dark:text-zinc-200" : "text-light-foreground")}>{i}</span>
                     </Link>
                   </div>
                 )}
 
                 <Link
-                  href={(pathname ?? "/")  + "?" + changeQueryString("page", (overflowPages.page+1).toString())}
+                  href={(overflowPages !== undefined && (overflowPages.page+1 > numPages) ? "#" : (pathname ?? "/")  + "?" + changeQueryString("page", (overflowPages.page+1).toString()))}
                   className={"transition-all duration-500 hover:scale-120 " + ((overflowPages.page+1 > numPages) ? "pointer-events-none opacity-50" : "")}
                   tabIndex={(overflowPages.page+1 > numPages) ? -1 : 0}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="text-black dark:text-white transition-all duration-300" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="text-foreground theme-trans" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="28.5" y1="18" x2="7.5" y2="18"></line>
                     <polyline points="18 28.5 28.5 18 18 7.5"></polyline>
                   </svg>

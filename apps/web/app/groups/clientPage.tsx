@@ -14,7 +14,7 @@ export default function GroupsClientPage() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <h2
                   id="browse-groups-heading"
-                  className="text-3xl lg:text-4xl font-extrabold leading-tight tracking-tight text-foreground mb-5"
+                  className="text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight text-foreground mb-5 font-display theme-trans"
                 >
                   Browse All Groups
               </h2>

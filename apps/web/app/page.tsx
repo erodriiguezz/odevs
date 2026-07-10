@@ -10,6 +10,7 @@ import { EventCard } from '@/components/ui/event-card';
 import { events } from '@/lib/data/events';
 import groups from '@/lib/data/groups';
 import Logo from '@/components/logo';
+import { Icon, IconType } from '@/components/icons/icon';
 
 export default function HomePage() {
   const upcomingEvents = events.filter(event => new Date(event.date).getTime() > Date.now())
@@ -160,22 +161,23 @@ export default function HomePage() {
             </h3>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4" role="list">
-              {[{ title: 'Open by Default', desc: 'No signup required: show up and enjoy', icon: '/images/icons/heart.svg' },
-                { title: 'Skill Sharing', desc: 'Meet the experienced, gain experience, share knowledge', icon: '/images/icons/book.svg' },
-                { title: 'Inclusive Spaces', desc: 'Our community is open to anyone and everyone', icon: '/images/icons/people.svg' },
-                { title: 'Local Roots', desc: 'Grassroots organization by enthusiastic Orlando locals', icon: '/images/icons/location.svg' },
-                { title: 'Teaching', desc: 'Mentorship programs for developers at all levels', icon: '/images/icons/graduation.svg'  },
-                { title: 'Jobs & Support', desc: 'Local openings and career guidance', icon: '/images/icons/handshake.svg'  },
-                { title: 'Engagement', desc: 'Active Discord community for daily discussions', icon: '/images/icons/speech-bubble.svg'  },
-                { title: 'Practical', desc: 'Technical workshops and learning sessions', icon: '/images/icons/hand.svg'  },
-                { title: 'Events', desc: 'Regular meetups and networking events', icon: '/images/icons/calendar.svg'  },].map(({ title, desc, icon }) => (
+              {([{ title: 'Open by Default', desc: 'No signup required: show up and enjoy', icon: 'heart' },
+                { title: 'Skill Sharing', desc: 'Meet the experienced, gain experience, share knowledge', icon: 'book' },
+                { title: 'Inclusive Spaces', desc: 'Our community is open to anyone and everyone', icon: 'people' },
+                { title: 'Local Roots', desc: 'Grassroots organization by enthusiastic Orlando locals', icon: 'location' },
+                { title: 'Teaching', desc: 'Mentorship programs for developers at all levels', icon: 'graduation'  },
+                { title: 'Jobs & Support', desc: 'Local openings and career guidance', icon: 'handshake'  },
+                { title: 'Engagement', desc: 'Active Discord community for daily discussions', icon: 'speech-bubble'  },
+                { title: 'Practical', desc: 'Technical workshops and learning sessions', icon: 'hand'  },
+                { title: 'Events', desc: 'Regular meetups and networking events', icon: 'calendar'  },] as
+                  Array<{ title: string, desc: string, icon: IconType }>).map(({ title, desc, icon }) => (
                 <div
                   className="bg-surface border border-border rounded-xl p-5 theme-trans"
                   key={title}
                   role="listitem"
                 >
                   <div className="flex h-9 gap-5 rounded-md bg-muted-primary mb-3 items-center justify-center theme-trans">
-                    <Image src={icon} width={16} height={16} alt={(icon.match(/\/([^\/.]+)\.[^\/.]*$/) || [""])[0]}></Image>
+                    <Icon icon={icon} className="w-6 h-6 text-primary"/>
                     <p className="text-medium-foreground whitespace-nowrap font-bold font-display">{title}</p>
                   </div>
                   <p className="text-muted-foreground text-[15px] theme-trans">
