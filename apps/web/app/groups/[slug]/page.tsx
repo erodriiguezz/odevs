@@ -13,17 +13,20 @@ export default async function GroupPage({ params }: { params: Promise<{ slug: st
   return (
     <div className="min-h-screen bg-background text-zinc-50 py-16 px-4 flex items-center justify-center theme-trans">
       <div className="w-full max-w-4xl mx-auto flex flex-col items-center gap-8">
-        <div className={`w-full flex flex-col sm:flex-row justify-center p-3 rounded-2xl theme-trans bg-gradient-to-br ${group.category.darkBackground}`}>
-          <div className="flex flex-row items-center gap-6 bg-zinc-900/50 rounded-xl p-3">
-            {group.logo && (
-              <div className="relative w-16 h-16 shrink-0 rounded-xl overflow-hidden flex items-center justify-center">
-                <Image src={group.logo} width={64} height={64} alt={`${group.name} logo`} className="object-contain"/>
-              </div>
-            )}
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-center sm:text-left">
+        <div className="flex flex-row items-center gap-6 rounded-xl p-3">
+          {group.logo && (
+            <div className={`relative w-19 h-19 shrink-0 rounded-xl overflow-hidden flex items-center justify-center ${group.category.darkBackground} p-2`}>
+              <Image src={group.logo} width={64} height={64} alt={`${group.name} logo`} className="object-contain"/>
+            </div>
+          )}
+          <div className="flex flex-col gap-2">
+            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-center sm:text-left text-foreground">
               {group.name}
             </h1>
+            <div className="flex flex-col items-center">
+              <span className={`bg-primary px-2 py-1 font-semibold rounded-full flex m-auto text-xs text-white font-mono`}>{group.category.name}</span>
             </div>
+          </div>
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-4 text-sm md:text-base">
