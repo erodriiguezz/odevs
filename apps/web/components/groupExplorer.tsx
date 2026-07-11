@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Icon } from './icons/icon';
+import Logo from './logo';
 
 export default ({ maxGroups, overflowPages, linkToGroupPage=false }: { maxGroups: number, overflowPages?: { page: number }, linkToGroupPage?: boolean }) => {
   const params = new URLSearchParams(useSearchParams());
@@ -93,7 +94,8 @@ export default ({ maxGroups, overflowPages, linkToGroupPage=false }: { maxGroups
             </div>
 
             {pageGroups.length == 0 &&
-              <div className="flex flex-row justify-center">
+              <div className="flex flex-col justify-center items-center">
+                <Logo sad={true} className="w-36 h-36 my-5"/>
                 <p className="text-zinc-700 dark:text-zinc-300 text-xl font-bold theme-trans">No results found!</p>
               </div>
             }

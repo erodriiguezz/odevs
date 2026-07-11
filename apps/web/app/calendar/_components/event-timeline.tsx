@@ -7,6 +7,7 @@ import {
   TIMELINE_RAIL_CENTER_PX,
   TimelineEventItem,
 } from '@/app/calendar/_components/timeline-event-item'
+import Logo from '@/components/logo'
 interface EventTimelineProps {
   events: Event[]
 }
@@ -88,8 +89,9 @@ export function EventTimeline({ events }: EventTimelineProps) {
     return (
       <div
         role="status"
-        className="rounded-xl border border-dashed border-border px-6 py-12 text-center theme-trans"
+        className="rounded-xl border border-dashed border-border px-6 py-12 flex flex-col items-center theme-trans"
       >
+        <Logo sad={true} className="w-36 h-36 mb-5"/>
         <p className="text-sm text-muted-foreground theme-trans">No events to show</p>
         <p className="mt-1 text-xs text-light-foreground theme-trans">Try adjusting your filters</p>
       </div>
