@@ -6,7 +6,7 @@ export default function CalendarPage() {
   const events = getAllEvents()
 
   return (
-    <section className="bg-white dark:bg-zinc-950 text-zinc-950 dark:text-white py-16 lg:py-28 min-h-screen relative">
+    <section className="bg-background text-foreground py-16 lg:py-28 min-h-screen relative theme-trans">
       <div
         className="absolute inset-0 pointer-events-none dark:block hidden"
         style={{

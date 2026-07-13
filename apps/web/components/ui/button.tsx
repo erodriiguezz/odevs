@@ -6,20 +6,21 @@ type ButtonVariant = 'primary' | 'secondary'
 interface ButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   variant?: ButtonVariant
   href: string
+  flex?: boolean
 }
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    'bg-[#FF6B35] hover:bg-[#D9531E] text-white rounded-md px-7 py-3.5 text-sm font-bold transition-colors',
+    'bg-primary hover:bg-primary-glow text-white px-7 py-3.5 font-bold',
   secondary:
-    'bg-transparent text-zinc-400 border border-zinc-600 hover:text-white hover:border-zinc-400 rounded-md px-7 py-3.5 text-sm font-semibold transition-colors',
+    'bg-transparent text-muted-foreground hover:text-foreground border border-zinc-400 dark:border-zinc-600 hover:border-zinc-600 dark:hover:border-zinc-400 rounded-full px-7 py-3.5 font-semibold',
 }
 
-export function Button({ variant = 'primary', className, href, ...props }: ButtonProps) {
+export function Button({ variant = 'primary', flex = false, className, href, ...props }: ButtonProps) {
   return (
     <Link
       href={href}
-      className={`inline-block ${variantClasses[variant]}${className ? ` ${className}` : ''}`}
+      className={`inline-block hover:-translate-y-px theme-trans rounded-full w-max text-sm ${variantClasses[variant]} ${flex ? 'inline-flex gap-2 items-center' : ''} ${className ? ` ${className} ` : ''}`}
       {...props}
     />
   )

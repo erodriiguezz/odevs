@@ -68,6 +68,17 @@ export function formatTimelineDateHeading(isoDate: string): string {
   }
 }
 
+export function formatTimelineDateHeadingShort(isoDate: string): string {
+  try {
+    return new Intl.DateTimeFormat('en-US', {
+      month: 'long',
+      day: 'numeric',
+    }).format(new Date(`${isoDate}T00:00:00`))
+  } catch {
+    return isoDate
+  }
+}
+
 export function formatTimelineDateTime(isoDate: string, timeStr: string): string {
   return `${formatTimelineDateHeading(isoDate)} · ${extractStartTime(timeStr)}`
 }

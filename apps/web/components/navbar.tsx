@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import { useState, CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import ThemeToggle from "./themeToggle";
+import Logo from "./logo";
 
 export default function Header() {
     const pathname = usePathname(); // to show current location
@@ -21,10 +23,10 @@ export default function Header() {
     ] as const;
 
     const linkClass = (href: string) => [
-        "px-4 py-2 text-sm font-medium rounded-md transition-all leading-none",
+        "px-4 py-2 text-sm font-medium rounded-md theme-trans leading-none theme-trans",
         pathname === href
-            ? "bg-zinc-850 text-white shadow-sm"
-            : "text-zinc-400 hover:text-zinc-200",
+            ? "bg-zinc-100 dark:bg-zinc-700 text-foreground shadow-lg"
+            : "text-zinc-700 hover:text-zinc-500 dark:text-zinc-400 dark:hover:text-zinc-200",
     ].join(" ");
     
     const discordButton = (style: CSSProperties | undefined, onClick: () => void, className: string[]) =>
@@ -62,16 +64,17 @@ export default function Header() {
 
     const hamburgerTopBottom = (rotate: string, top: string) => hamburger(`top-[7px] ${rotate}`, top, "");
 
-    return  <div className="sticky top-0 z-40 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-900">
+    return  <div className="sticky top-0 z-40 bg-zinc-100/80 dark:bg-zinc-950/80 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-900 transition-all duration-300">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <Image src="/images/logo.png" alt="Orlando Devs" width={36} height={36} className="w-9 h-9 rounded-full object-cover border border-zinc-800" />
+                        <Logo className="w-9 h-9 object-cover text-black dark:text-white transition-all duration-300" />
                     </div>
                     {isMobile ?
-                        <div className="relative flex items-center">
+                        <div className="relative flex items-center gap-5">
+                            <ThemeToggle></ThemeToggle>
                             <button
                                 type="button"
-                                className="md:hidden relative flex h-10 w-10 items-center justify-center rounded-lg text-zinc-200 transition-[color,transform] duration-200 hover:bg-zinc-900 active:scale-95"
+                                className="md:hidden relative flex h-10 w-10 items-center justify-center rounded-lg text-foreground hover:bg-muted-background active:scale-95 theme-trans"
                                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                                 aria-expanded={isMenuOpen}
                                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -87,7 +90,7 @@ export default function Header() {
                             <div
                                 aria-hidden={!isMenuOpen}
                                 className={[
-                                    "absolute top-full right-0 z-50 mt-2 flex-col min-w-44 overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950 py-4 px-4 shadow-lg shadow-black/40 origin-top-right transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+                                    "absolute top-full right-0 z-50 mt-2 flex-col min-w-44 overflow-hidden rounded-lg border border-border bg-background py-4 px-4 shadow-lg shadow-black/40 origin-top-right theme-trans ease-[cubic-bezier(0.16,1,0.3,1)]",
                                     isMenuOpen
                                         ? "pointer-events-auto visible opacity-100 scale-100 translate-y-0"
                                         : "pointer-events-none invisible opacity-0 scale-80 -translate-y-10",
@@ -102,7 +105,7 @@ export default function Header() {
                                         style={delayStyle(index)}
                                         className={[
                                             linkClass(href),
-                                            "w-full text-left duration-300 ease-out inline-flex",
+                                            "w-full text-left ease-out inline-flex",
                                             isMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-3 opacity-0",
                                         ].join(" ")}
                                     >{label}</Link>))}
@@ -114,13 +117,14 @@ export default function Header() {
                         </div>
                      : // desktop
                         <>
-                            <nav className="hidden md:flex items-center gap-1 bg-zinc-900 p-0.5 rounded-lg border border-zinc-800">
+                            <nav className="hidden md:flex items-center gap-1 bg-zinc-200 dark:bg-zinc-900 p-0.5 rounded-lg border border-zinc-300 dark:border-zinc-800 transition-all duration-300">
                                 {navItems.map(({ href, label }) => (
                                     <Link key={href} href={href} className={linkClass(href)}>{label}</Link>
                                 ))}
                             </nav>
-                            <div className="flex items-center">
+                            <div className="flex items-center gap-5">
                                 {discordButton(undefined, () => {}, ["transition duration-150"])}
+                                <ThemeToggle></ThemeToggle>
                             </div>
                         </>}
                 </div>

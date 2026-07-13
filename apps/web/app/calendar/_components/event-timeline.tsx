@@ -2,12 +2,12 @@ import type { Event } from '@/lib/types/event'
 import { getTodayEventIds, groupEventsByDate } from '@/lib/calendar/group-events'
 import { formatTimelineDateHeading } from '@/lib/calendar/format'
 import { splitTimelineEvents } from '@/lib/calendar/split-timeline-events'
-import { EventCard } from '@/app/calendar/_components/event-card'
+import { EventCard } from '@/components/ui/event-card'
 import {
   TIMELINE_RAIL_CENTER_PX,
   TimelineEventItem,
 } from '@/app/calendar/_components/timeline-event-item'
-
+import Logo from '@/components/logo'
 interface EventTimelineProps {
   events: Event[]
 }
@@ -41,7 +41,7 @@ function UpcomingTimeline({
     <div className="relative overflow-visible">
       <div
         aria-hidden="true"
-        className="absolute top-0 bottom-0 w-px bg-zinc-200 dark:bg-zinc-800"
+        className="absolute top-0 bottom-0 w-px bg-border theme-trans"
         style={{ left: TIMELINE_RAIL_CENTER_PX }}
       />
 
@@ -63,15 +63,15 @@ function MissedEventsSection({ events }: { events: Event[] }) {
   return (
     <section
       aria-label="Here is what you missed"
-      className="mt-12 border-t border-zinc-200 pt-8 dark:border-zinc-800"
+      className="mt-12 border-t border-border pt-8 theme-trans"
     >
-      <h2 className="mb-6 text-base font-semibold text-zinc-600 dark:text-zinc-300">
+      <h2 className="mb-6 text-base font-semibold text-soft-foreground theme-trans">
         Here is what you missed
       </h2>
       <div className="flex flex-col gap-6">
         {events.map(event => (
           <div key={event.id}>
-            <h3 className="mb-2 text-base font-semibold text-zinc-400 dark:text-zinc-500">
+            <h3 className="mb-2 text-base font-semibold text-light-foreground font-display theme-trans">
               {formatTimelineDateHeading(event.date)}
             </h3>
             <EventCard event={event} disabled />
@@ -89,10 +89,11 @@ export function EventTimeline({ events }: EventTimelineProps) {
     return (
       <div
         role="status"
-        className="rounded-xl border border-dashed border-zinc-200 px-6 py-12 text-center dark:border-zinc-800"
+        className="rounded-xl border border-dashed border-border px-6 py-12 flex flex-col items-center theme-trans"
       >
-        <p className="text-sm text-zinc-500 dark:text-zinc-400">No events to show</p>
-        <p className="mt-1 text-xs text-zinc-400 dark:text-zinc-500">Try adjusting your filters</p>
+        <Logo sad={true} className="w-36 h-36 mb-5"/>
+        <p className="text-sm text-muted-foreground theme-trans">No events to show</p>
+        <p className="mt-1 text-xs text-light-foreground theme-trans">Try adjusting your filters</p>
       </div>
     )
   }
@@ -107,7 +108,7 @@ export function EventTimeline({ events }: EventTimelineProps) {
         {timelineRows.length > 0 ? (
           <UpcomingTimeline rows={timelineRows} todayEventIds={todayEventIds} />
         ) : (
-          <p className="mb-8 text-sm text-zinc-500 dark:text-zinc-400">No upcoming events to show.</p>
+          <p className="mb-8 text-sm text-muted-foreground theme-trans">No upcoming events to show.</p>
         )}
 
         {/* {archivedEvents.length > 0 && <MissedEventsSection events={archivedEvents} />} */}

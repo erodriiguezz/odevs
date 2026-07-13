@@ -38,7 +38,7 @@ export function CalendarShell({ events }: CalendarShellProps) {
         {/* On mobile: collapsible MiniCalendar; on md+: always visible */}
         <div className="md:contents">
           <details className="md:hidden" open={false}>
-            <summary className="cursor-pointer text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors py-2">
+            <summary className="cursor-pointer text-sm text-muted-foreground hover:text-foreground theme-trans py-2">
               Show calendar
             </summary>
             <MiniCalendar events={events} />

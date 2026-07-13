@@ -1,6 +1,6 @@
 import type { Event } from '@/lib/types/event'
 import { getGroupBrandColor } from '@/lib/group-brand-color'
-import { EventCard } from '@/app/calendar/_components/event-card'
+import { EventCard } from '@/components/ui/event-card'
 
 const DOT_SIZE_PX = 10
 const DOT_WRAPPER_SIZE_PX = 24
@@ -81,7 +81,7 @@ export function TimelineEventItem({
         {showDateHeading && <div aria-hidden="true" className={DATE_HEADING_BLOCK_CLASSES} />}
 
         <div
-          className="relative z-10 flex items-center justify-center rounded-full border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950"
+          className="relative z-10 flex items-center justify-center rounded-full border border-border bg-background theme-trans"
           style={{ width: DOT_WRAPPER_SIZE_PX, height: DOT_WRAPPER_SIZE_PX }}
         >
           <TimelineDot
@@ -94,10 +94,10 @@ export function TimelineEventItem({
 
       <div className="min-w-0 flex-1 overflow-visible">
         {showDateHeading && dateHeading && (
-          <h3 className={`${DATE_HEADING_BLOCK_CLASSES} text-lg font-semibold text-zinc-600 dark:text-zinc-300`}>{dateHeading}</h3>
+          <h3 className={`${DATE_HEADING_BLOCK_CLASSES} text-lg font-semibold text-muted-foreground font-display theme-trans`}>{dateHeading}</h3>
         )}
 
-        <EventCard event={event} disabled={disabled} compact={compact} />
+        <EventCard event={event} disabled={disabled} />
       </div>
     </div>
   )

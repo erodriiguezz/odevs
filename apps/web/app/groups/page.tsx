@@ -1,8 +1,8 @@
-import { Suspense } from "react";
 import GroupsClientPage from "./clientPage";
+import GroupsSuspenseFallback from "@/components/GroupsSuspenseFallback";
 
 export default function GroupsPage() {
-  return  <Suspense fallback={<div className="text-center py-10 text-zinc-500">Loading groups...</div>}>
+  return  <GroupsSuspenseFallback>
             <GroupsClientPage/>
-          </Suspense>;
+          </GroupsSuspenseFallback>;
 }

@@ -1,63 +1,92 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --muted-foreground: #71717a;
-  --border: #e4e4e7;
-  --surface: #f4f4f5;
-  --card: #ffffff;
   --primary: #5b4fe9;
   --primary-glow: #7b6ff5;
+  
+  --zinc-5-95: var(--color-zinc-50);
+  --zinc-10-90: var(--color-zinc-100);
+  --zinc-20-80: var(--color-zinc-200);
+  --zinc-30-70: var(--color-zinc-300);
+  --zinc-40-50: var(--color-zinc-400);
+  --zinc-50-40: var(--color-zinc-500);
+  --zinc-60-20: var(--color-zinc-600);
+  --zinc-95-5: var(--color-zinc-950);
+  
+  --zinc-20-60: var(--color-zinc-200);
+  --zinc-70-30: var(--color-zinc-700);
+  
+  --surface: oklch(97% .006 275);
+  --muted-primary: #EAE8FD;
+}
+
+:root.dark, .dark :root {
+  --zinc-5-95: var(--color-zinc-950);
+  --zinc-10-90: var(--color-zinc-900);
+  --zinc-20-80: var(--color-zinc-800);
+  --zinc-30-70: var(--color-zinc-700);
+  --zinc-40-50: var(--color-zinc-500);
+  --zinc-50-40: var(--color-zinc-400);
+  --zinc-60-20: var(--color-zinc-200);
+  --zinc-95-5: var(--color-zinc-50);
+
+  --zinc-20-60: var(--color-zinc-600);
+  --zinc-70-30: var(--color-zinc-300);
+  
+  --surface: oklch(23% .045 275);
+  --muted-primary: #22234e;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--zinc-5-95);
+  --color-muted-background: var(--zinc-10-90);
+  --color-border: var(--zinc-20-80);
+  --color-border-glow: var(--zinc-30-70);
+  --color-light-foreground: var(--zinc-40-50);
+  --color-muted-foreground: var(--zinc-50-40);
+  --color-foreground: var(--zinc-95-5);
+
+  --color-separator: var(--zinc-20-60);
+  --color-soft-foreground: var(--zinc-60-20);
+  --color-medium-foreground: var(--zinc-70-30);
+
   --color-primary: var(--primary);
   --color-primary-glow: var(--primary-glow);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-border: var(--border);
+  --color-muted-primary: var(--muted-primary);
+
   --color-surface: var(--surface);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --muted-foreground: #a1a1aa;
-    --border: #27272a;
-    --surface: #18181b;
-    --card: rgb(24 24 27 / 0.8);
-  }
-}
-
 .font-display {
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
-}
-
-.text-primary-glow {
-  color: var(--color-primary-glow);
+  font-family: var(--font-space-grotesk), Arial, Helvetica, sans-serif;
 }
 
 .card-elev {
-  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  background: var(--card);
+  border: 1px solid color-mix(in srgb, var(--color-border) 80%, transparent);
+  background: color-mix(in oklab, var(--color-surface) 70%, transparent);
   box-shadow:
     0 1px 2px rgb(0 0 0 / 0.04),
     0 4px 16px rgb(0 0 0 / 0.04);
 }
 
+@utility theme-trans {
+  @apply transition-all duration-300;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-background);
+  color: var(--color-foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
+  color-scheme: light;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,4 +1,5 @@
-import type { SourcePlatform } from './platform'
+import type { SourcePlatform } from './platform';
+import { IconType } from '@/components/icons/icon';
 
 export interface EventSource {
   platform: SourcePlatform
@@ -15,7 +16,7 @@ export interface CommunityGroup {
   description: string
   longDescription?: string
   topic: string
-  icon: string
+  icon: IconType
   logo?: string
   websiteUrl?: string
   brandColor?: string
