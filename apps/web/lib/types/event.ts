@@ -1,14 +1,22 @@
-export type EventType =
-  | 'meetup'
-  | 'workshop'
-  | 'conference'
-  | 'hackathon'
-  | 'webinar'
-  | 'social'
-  | 'other'
+export const EventTypes = [
+  'meetup',
+  'workshop',
+  'conference',
+  'hackathon',
+  'webinar',
+  'social',
+  'other',
+] as const;
 
-import type { SourcePlatform } from './platform'
-import { CommunityGroup } from './group'
+export type EventType = typeof EventTypes[number];
+
+const eventTypes = new Set<string>(EventTypes);
+export function isEventType(str: string): str is EventType {
+  return eventTypes.has(str);
+}
+
+import type { SourcePlatform } from './platform';
+import { CommunityGroup } from './group';
 
 export type { SourcePlatform }
 

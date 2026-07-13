@@ -1,26 +1,28 @@
 'use client'
 
-import type { EventType } from '@/lib/types/event'
+import { EventTypes } from '@/lib/types/event';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
-const EVENT_TYPES: EventType[] = [
-  'meetup',
-  'workshop',
-  'conference',
-  'hackathon',
-  'webinar',
-  'social',
-  'other',
-]
-
-interface FilterBarProps {
-  selectedTypes: Set<EventType>
-  onToggle: (type: EventType) => void
+interface FilterBarProps<T> {
+  selectedTypes: Set<T>,
+  types: T[],
+  paramName: string,
 }
 
-export function FilterBar({ selectedTypes, onToggle }: FilterBarProps) {
+export function FilterBar<T extends string>({ selectedTypes, types, paramName }: FilterBarProps<T>) {
+  const params = new URLSearchParams(useSearchParams());
+  const { replace } = useRouter();
+  const pathname = usePathname();
+
+  function onToggle(type: T) {
+    if (selectedTypes.has(type)) params.delete(paramName, type);
+    else params.append(paramName, type);
+    replace(pathname + "?" + params.toString());
+  }
+  
   return (
     <div className="flex flex-wrap gap-2 overflow-x-auto">
-      {EVENT_TYPES.map(type => {
+      {types.map(type => {
         const isSelected = selectedTypes.has(type)
         return (
           <button

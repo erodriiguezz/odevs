@@ -1,36 +1,29 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import type { Event, EventType } from '@/lib/types/event'
-import { filterEvents } from '@/lib/calendar/filter'
-import { FilterBar } from '@/app/calendar/_components/filter-bar'
-import { EventTimeline } from '@/app/calendar/_components/event-timeline'
-import { MiniCalendar } from '@/app/calendar/_components/mini-calendar'
+import type { Event, EventType, } from '@/lib/types/event';
+import { isEventType, EventTypes } from '@/lib/types/event';
+import { filterEvents } from '@/lib/calendar/filter';
+import { FilterBar } from '@/app/calendar/_components/filter-bar';
+import { EventTimeline } from '@/app/calendar/_components/event-timeline';
+import { MiniCalendar } from '@/app/calendar/_components/mini-calendar';
+import { useSearchParams } from 'next/navigation';
 
 interface CalendarShellProps {
   events: Event[]
 }
 
 export function CalendarShell({ events }: CalendarShellProps) {
-  const [selectedTypes, setSelectedTypes] = useState<Set<EventType>>(new Set())
+  const searchParams = useSearchParams();
 
-  const filteredEvents = filterEvents(events, selectedTypes)
+  const eventTypes = new Set<EventType>(
+    searchParams.getAll("types").filter(isEventType)
+  );
 
-  function handleToggle(type: EventType) {
-    setSelectedTypes(prev => {
-      const next = new Set(prev)
-      if (next.has(type)) {
-        next.delete(type)
-      } else {
-        next.add(type)
-      }
-      return next
-    })
-  }
+  const filteredEvents = filterEvents(events, eventTypes);
 
   return (
     <div className="flex flex-col gap-6">
-      <FilterBar selectedTypes={selectedTypes} onToggle={handleToggle} />
+      <FilterBar selectedTypes={eventTypes} paramName="types" types={EventTypes} />
       <div className="flex min-w-0 flex-col-reverse gap-6 md:grid md:grid-cols-[2fr_1fr]">
         <div className="min-w-0 overflow-visible">
           <EventTimeline events={filteredEvents} />
