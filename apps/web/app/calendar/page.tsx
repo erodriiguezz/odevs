@@ -1,6 +1,8 @@
 import { getAllEvents } from '@/lib/data/get-events'
 import { CalendarShell } from '@/app/calendar/_components/calendar-shell'
 import { PageHeader } from '@/components/page-header'
+import { Suspense } from 'react'
+import { MiniCalendar } from './_components/mini-calendar'
 
 export default function CalendarPage() {
   const events = getAllEvents()
@@ -20,7 +22,16 @@ export default function CalendarPage() {
           title="Community Events"
           description="Browse upcoming and past events from the Orlando developer community."
         />
-        <CalendarShell events={events} />
+        
+        <Suspense fallback={
+          <div className="flex justify-end">
+            <div className="min-w-100">
+              <MiniCalendar events={events} />
+            </div>
+          </div>
+        }>
+          <CalendarShell events={events} />
+        </Suspense>
       </div>
     </section>
   )
