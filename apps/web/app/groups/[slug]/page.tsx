@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import groups from '@/lib/data/groups';
+import { Groups } from '@/lib/data/groups';
 import Image from 'next/image';
 import Link from 'next/link';
 import { platforms } from '@/lib/data/platforms';
@@ -7,7 +7,7 @@ import { platforms } from '@/lib/data/platforms';
 export default async function GroupPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   
-  const group = groups[slug];
+  const group = Groups[slug];
   if (!group) notFound();
 
   return (

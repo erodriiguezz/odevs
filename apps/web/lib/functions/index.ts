@@ -6,7 +6,6 @@ export {
   formatTimelineDateTime,
   parseStartTimeMinutes,
 } from './format'
-export { filterEvents } from './filter'
 export {
   getTodayEventIds,
   groupEventsByDate,
