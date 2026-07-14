@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Groups } from '@/lib/data/groups';
-import groupCategories from '@/lib/data/groupCategories';
+import { GroupCategoryNames, GroupCategoryType, isGroupCategory } from '@/lib/data/groupCategories';
+import { FilterBar, filterIfAny } from './ui/filter-bar';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Icon } from './icons/icon';
@@ -11,23 +12,11 @@ export default ({ maxGroups, overflowPages, linkToGroupPage=false }: { maxGroups
   const { replace } = useRouter();
   const pathname = usePathname();
 
-  const [category, setSelectedCategory] = useState(params.get("category") ?? "any");
-  const [search, setSearch] = useState(params.get("search") ?? "");
-  
-  const handleChange = <T,>(param: string, set: ((newVal: string) => void)) =>
-    (event: React.ChangeEvent<T> & {target: {value: string}}) => {
-      const val: string = event.target.value;
-      set(val);
+  const categories = new Set<GroupCategoryType>(params.getAll("categories").filter(isGroupCategory));
 
-      params.set(param, val);
-      if (overflowPages !== undefined) params.set("page", "1");
-      const newPath = pathname + "?" + params.toString();
-      replace(pathname == "/" ? newPath + "#explore-groups" : newPath);
-    };
+  const search = params.get("search") ?? "";
 
-  let selectedGroups = Object.values(Groups);
-  const cat = category.toLowerCase();
-  if (cat != "any") selectedGroups = selectedGroups.filter(group => group.category.name.toLowerCase() == cat);
+  let selectedGroups = filterIfAny(Object.values(Groups), group => group.category.name, categories);
 
   const searchWords = search.toLowerCase().split(" ");
   if (search != "") selectedGroups = selectedGroups.filter((group) => searchWords.every(word => group.name.toLowerCase().includes(word))
@@ -52,23 +41,19 @@ export default ({ maxGroups, overflowPages, linkToGroupPage=false }: { maxGroups
     return params.toString();
   };
 
-  return  <>
-            <div className="text-zinc-600 dark:text-zinc-400 flex flex-row flex-wrap gap-10 mb-4 theme-trans">
-              <div className="flex flex-row gap-2 items-center border border-border focus-within:border-border-glow rounded-full px-2 w-10 grow bg-surface/60 theme-trans">
-                <Icon icon="magnifying-glass" className="w-5 h-5 ml-2"/>
-                <input value={search} onChange={handleChange("search", setSearch)} className="w-full py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none" placeholder="Search Groups"/>
-              </div>
-
-              <div className="flex flex-row gap-2 items-center border border-border focus-within:border-border-glow text-sm rounded-full p-2 bg-surface/60 theme-trans">
-                <label htmlFor="category" className="whitespace-nowrap">Category:</label>
-                <select value={category} onChange={handleChange("category", setSelectedCategory)} className="focus:outline-none">
-                  <option value="any" className="bg-background theme-trans">Any</option>
-                  {Object.values(groupCategories).map(({ name }, i) =>
-                    <option value={name} key={i} className="bg-background theme-trans">{name}</option>
-                  )}
-                </select>
-              </div>
+  return  <div className="flex flex-col gap-5 items-center">
+            <div className="text-zinc-600 dark:text-zinc-400 flex flex-row gap-2 items-center border border-border focus-within:border-border-glow w-full rounded-full px-2 bg-surface/60 theme-trans">
+              <Icon icon="magnifying-glass" className="w-5 h-5 ml-2 theme-trans "/>
+              <input value={search} onChange={
+                  event => {
+                    params.set("search", event.target.value);
+                    if (overflowPages !== undefined) params.set("page", "1");
+                    replace(pathname + "?" + params.toString(), { scroll: false });
+                  }
+              } className="w-full py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none theme-trans" placeholder="Search Groups"/>
             </div>
+
+            <FilterBar selectedValues={categories} values={GroupCategoryNames} paramName="categories"/>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5" role="list">
             {pageGroups.map(({ name, icon, category, description, eventSources, websiteUrl, background, id }, i) => (
@@ -94,13 +79,13 @@ export default ({ maxGroups, overflowPages, linkToGroupPage=false }: { maxGroups
 
             {pageGroups.length == 0 &&
               <div className="flex flex-col justify-center items-center">
-                <Logo sad={true} className="w-36 h-36 my-5"/>
+                <Logo sad={true} className="w-36 h-36 mb-5"/>
                 <p className="text-zinc-700 dark:text-zinc-300 text-xl font-bold theme-trans">No results found!</p>
               </div>
             }
 
             {overflowPages !== undefined && pageGroups.length != 0 &&
-              <div className="flex flex-row justify-center items-center gap-2 mt-10">
+              <div className="flex flex-row items-center gap-2">
                 <Link
                   href={(overflowPages !== undefined && (overflowPages.page-1 < 1) ? "#" : (pathname ?? "/")  + "?" + changeQueryString("page", (overflowPages.page-1).toString()))}
                   className={"transition-all duration-500 hover:scale-120 " + ((overflowPages.page-1 < 1) ? "pointer-events-none opacity-50" : "")}
@@ -136,5 +121,5 @@ export default ({ maxGroups, overflowPages, linkToGroupPage=false }: { maxGroups
                 </Link>
               </div>
             }
-          </>;
+          </div>;
 };

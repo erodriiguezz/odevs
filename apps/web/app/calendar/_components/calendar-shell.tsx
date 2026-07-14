@@ -3,7 +3,7 @@
 import type { Event, EventType, } from '@/lib/types/event';
 import { isEventType, EventTypes } from '@/lib/types/event';
 import { isGroupID, GroupID, GroupIDs, Groups } from '@/lib/data/groups';
-import { FilterBar, filterIfAny } from '@/app/calendar/_components/filter-bar';
+import { FilterBar, filterIfAny } from '@/components/ui/filter-bar';
 import { EventTimeline } from '@/app/calendar/_components/event-timeline';
 import { MiniCalendar } from '@/app/calendar/_components/mini-calendar';
 import { useSearchParams } from 'next/navigation';

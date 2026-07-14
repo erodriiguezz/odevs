@@ -10,7 +10,7 @@ export default function GroupsClientPage() {
 
   const maxGroups = isMobile ? 6 : 12;
 
-  return  <section className="bg-background py-[36]">
+  return  <section className="bg-background pt-2 pb-9 theme-trans ">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <h2
                   id="browse-groups-heading"

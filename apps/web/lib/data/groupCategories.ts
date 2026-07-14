@@ -1,7 +1,7 @@
 import { GroupCategory } from "../types/group";
 import propFromKeys from "./propFromKeys";
 
-const groupCategories: Record<string, GroupCategory> = propFromKeys("name", {
+export const GroupCategories: Record<string, GroupCategory> = propFromKeys("name", {
   "General": { background: "bg-blue-600", darkBackground: "bg-blue-700" },
   "Community": { background: "bg-purple-600", darkBackground: "bg-purple-700" },
   "Innovation": { background: "bg-orange-600", darkBackground: "bg-orange-700" },
@@ -15,4 +15,11 @@ const groupCategories: Record<string, GroupCategory> = propFromKeys("name", {
   "Startup": { background: "bg-yellow-600", darkBackground: "bg-yellow-700" },
 });
 
-export default groupCategories;
+export type GroupCategoryType = keyof typeof GroupCategories;
+
+export const GroupCategoryNames = Object.keys(GroupCategories);
+
+const groupCats = new Set<GroupCategoryType>(Object.keys(GroupCategories));
+export function isGroupCategory(str: string) {
+  return groupCats.has(str);
+}

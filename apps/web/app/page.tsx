@@ -71,8 +71,8 @@ export default function HomePage() {
 
           <div className="flex gap-16 mt-12 pt-8 border-t border-foreground/10 theme-trans">
             {[
-              { value: groups['orlando-devs'].eventSources[0].members, label: 'Members' }, // change this in the future
-              { value: Object.keys(groups).length, label: 'Groups' },
+              { value: Groups['orlando-devs'].eventSources[0].members, label: 'Members' }, // change this in the future
+              { value: Object.keys(Groups).length, label: 'Groups' },
               { value: events.filter(event => new Date(event.date).getMonth() == new Date(Date.now()).getMonth()).length, label: 'Events this month' },
             ].map(s => (
               <div key={s.label}>

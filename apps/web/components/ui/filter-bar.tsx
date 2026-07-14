@@ -24,7 +24,7 @@ export function FilterBar<V extends string>({ selectedValues, values, paramName,
   function onToggle(type: V) {
     if (selectedValues.has(type)) params.delete(paramName, type);
     else params.append(paramName, type);
-    replace(pathname + "?" + params.toString());
+    replace(pathname + "?" + params.toString(), { scroll: false });
   }
 
   const PAD_Y_CLASS = "py-1";
@@ -80,7 +80,7 @@ export function FilterBar<V extends string>({ selectedValues, values, paramName,
         <button 
           onClick={() => {
             params.delete(paramName);
-            replace(pathname + "?" + params.toString());
+            replace(pathname + "?" + params.toString(), { scroll:  false });
           }}
           className={containerClass(selectedValues.size > 0, `px-1`)}
         >

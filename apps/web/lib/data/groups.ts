@@ -1,4 +1,4 @@
-import groupCategories from './groupCategories';
+import { GroupCategories } from './groupCategories';
 import { CommunityGroup } from '../types/group';
 import propFromKeys from './propFromKeys';
 import { brandColorFromBackground } from '../group-brand-color';
@@ -7,7 +7,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
   'lady-devs': {
     name: 'Lady Devs',
     icon: 'people',
-    category: groupCategories['Community'],
+    category: GroupCategories['Community'],
     topic: 'Women in Technology',
     description: 'Supporting women in technology through networking and professional development',
     eventSources: [
@@ -28,7 +28,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
   'orlando-devs': {
     name: 'Orlando Devs',
     icon: 'tag-markup',
-    category: groupCategories['General'],
+    category: GroupCategories['General'],
     topic: 'Software Development',
     description: 'The main Orlando developer community meetup group',
     longDescription: 'A close-knit community sculpted by the talent of Orlando and Central Florida developers.',
@@ -55,7 +55,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
   'open-orlando': {
     name: 'Open Orlando',
     icon: 'globe',
-    category: groupCategories['Civic Tech'],
+    category: GroupCategories['Civic Tech'],
     topic: 'Open Source Civic Technology',
     description: 'Civic technology and open source projects for Orlando',
     websiteUrl: 'https://codefororlando.com/',
@@ -79,7 +79,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
   'orlando-innovation-league': {
     name: 'Orlando Innovation League',
     icon: 'lightning',
-    category: groupCategories['Innovation'],
+    category: GroupCategories['Innovation'],
     topic: 'innovation and entrepreneurship',
     description: 'Innovation and entrepreneurship in the Orlando tech scene',
     eventSources: [
@@ -101,7 +101,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
   'php-orlando': {
     name: 'PHP Orlando',
     icon: 'tag-markup',
-    category: groupCategories['Language'],
+    category: GroupCategories['Language'],
     topic: 'PHP',
     description: 'PHP developers and enthusiasts in Central Florida',
     eventSources: [
@@ -121,7 +121,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
   'orlando-js': {
     name: 'Orlando JS',
     icon: 'tag-markup',
-    category: groupCategories['Language'],
+    category: GroupCategories['Language'],
     topic: 'JavaScript',
     description: 'JavaScript developers and modern web technologies',
     eventSources: [
@@ -140,7 +140,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
   'project-codex': {
     name: 'Project Codex',
     icon: 'tag-markup',
-    category: groupCategories['Projects'],
+    category: GroupCategories['Projects'],
     topic: 'Project development',
     description: 'Collaborative coding and project development',
     eventSources: [
@@ -157,7 +157,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
   'orlando-devops': {
     name: 'Orlando DevOps',
     icon: 'tag-markup',
-    category: groupCategories['DevOps'],
+    category: GroupCategories['DevOps'],
     topic: 'DevOps',
     description: 'DevOps practices, tools, and culture',
     longDescription:
@@ -177,7 +177,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
   'central-florida-android': {
     name: 'Central Florida Android',
     icon: 'smartphone',
-    category: groupCategories['Mobile'],
+    category: GroupCategories['Mobile'],
     topic: 'Mobile and Android Development',
     description: 'Android development and mobile technologies',
     eventSources: [
@@ -196,7 +196,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
   'front-end-orlando': {
     name: 'Front End Orlando',
     icon: 'tag-markup',
-    category: groupCategories['Frontend'],
+    category: GroupCategories['Frontend'],
     topic: 'Frontend Development',
     description: 'Front-end development, UI/UX, and modern web frameworks',
     eventSources: [
@@ -214,7 +214,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
   'orlando-aws': {
     name: 'Orlando AWS',
     icon: 'cloud',
-    category: groupCategories['Cloud'],
+    category: GroupCategories['Cloud'],
     topic: 'AWS',
     description: 'Amazon Web Services user group for cloud computing enthusiasts',
     logo: '/images/groups/logos/orlando-aws-logo.avif',
@@ -239,7 +239,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
     description: 'Startup acceleration and entrepreneurship events',
     topic: 'Technology and Future',
     icon: 'lightning',
-    category: groupCategories['Startup'],
+    category: GroupCategories['Startup'],
     brandColor: '#EA580C',
     eventSources: [
       {
@@ -254,7 +254,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
   'build-the-future': {
     name: 'Build the Future',
     icon: 'lightning',
-    category: groupCategories['Innovation'],
+    category: GroupCategories['Innovation'],
     topic: 'The Future',
     description: 'Future-focused technology and innovation discussions',
     logo: '/images/groups/logos/build-the-future-orlando-logo.avif',
@@ -271,7 +271,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
   'otab': {
     name: 'Orlando Tech and Beer',
     icon: 'people',
-    category: groupCategories['Community'],
+    category: GroupCategories['Community'],
     topic: 'Social',
     description: 'Connect. Collaborate. Inspire.',
     longDescription: 'A monthly networking and social event hosted by Accelerate Orlando & Orlando Devs.',
@@ -288,7 +288,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
   'ai-plus-data-orlando': {
     name: 'AI + Data Orlando',
     icon: 'lightning',
-    category: groupCategories['Innovation'],
+    category: GroupCategories['Innovation'],
     topic: 'AI and Data',
     description: 'Orlando based AI, Data Analytics and Data Science Meetup group',
     eventSources: [
