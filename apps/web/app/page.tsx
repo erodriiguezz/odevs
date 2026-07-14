@@ -8,7 +8,7 @@ import GroupsSection from './_components/groupsSection';
 import { ArrowUpRightIcon } from '@/components/icons';
 import { EventCard } from '@/components/ui/event-card';
 import { events } from '@/lib/data/events';
-import groups from '@/lib/data/groups';
+import { Groups } from '@/lib/data/groups';
 import Logo from '@/components/logo';
 import { Icon, IconType } from '@/components/icons/icon';
 

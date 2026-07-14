@@ -1,7 +1,7 @@
 import type { Event } from '@/lib/types/event'
-import { getTodayEventIds, groupEventsByDate } from '@/lib/calendar/group-events'
-import { formatTimelineDateHeading } from '@/lib/calendar/format'
-import { splitTimelineEvents } from '@/lib/calendar/split-timeline-events'
+import { getTodayEventIds, groupEventsByDate } from '@/lib/functions/group-events'
+import { formatTimelineDateHeading } from '@/lib/functions/format'
+import { splitTimelineEvents } from '@/lib/functions/split-timeline-events'
 import { EventCard } from '@/components/ui/event-card'
 import {
   TIMELINE_RAIL_CENTER_PX,
@@ -85,7 +85,7 @@ function MissedEventsSection({ events }: { events: Event[] }) {
 export function EventTimeline({ events }: EventTimelineProps) {
   const { upcomingEvents, archivedEvents } = splitTimelineEvents(events)
 
-  if (upcomingEvents.length === 0 && archivedEvents.length === 0) {
+  if (upcomingEvents.length === 0 /*&& archivedEvents.length === 0*/) {
     return (
       <div
         role="status"

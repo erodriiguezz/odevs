@@ -1,8 +1,8 @@
 'use client'
 
 import type { Event } from '@/lib/types/event'
-import { generateCalendarGrid } from '@/lib/calendar/grid'
-import { formatMonthHeading } from '@/lib/calendar/format'
+import { generateCalendarGrid } from '@/lib/functions/grid'
+import { formatMonthHeading } from '@/lib/functions/format'
 
 interface MiniCalendarProps {
   events: Event[]

@@ -301,7 +301,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
       }
     ],
   },
-};
+} as const;
 
 export const colors = [
   { background: 'bg-[#5B4FE9]'},
@@ -321,7 +321,7 @@ export const colors = [
   { background: 'bg-[#475569]'},
 ]
 
-const groups: Record<string, CommunityGroup> =
+export const Groups: Record<string, CommunityGroup> =
   Object.fromEntries(
     Object.values(propFromKeys('id', uncoloredGroups))
       .map((group, i) => {
@@ -337,4 +337,9 @@ const groups: Record<string, CommunityGroup> =
       .map(group => [group.id, group])
   );
 
-export default groups;
+export type GroupID = keyof typeof Groups;
+export const GroupIDs = Object.keys(Groups);
+const groupIDs = new Set<GroupID>(Object.keys(Groups));
+export function isGroupID(str: string) {
+  return groupIDs.has(str);
+}

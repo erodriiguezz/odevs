@@ -1,7 +1,7 @@
 import type { Event } from "@/lib/types/event";
 import type { SourcePlatform } from "@/lib/types/platform";
 import { ArrowUpRightIcon, ClockIcon, MapPinIcon } from "@/components/icons";
-import { formatTimelineDateHeadingShort } from "@/lib/calendar/format";
+import { formatTimelineDateHeadingShort } from "@/lib/functions/format";
 import eventTypes from "@/lib/data/eventTypes";
 
 export type EventFormat = "In-Person" | "Virtual" | "Hybrid";

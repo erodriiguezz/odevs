@@ -2,8 +2,8 @@
 
 import type { Event, EventType, } from '@/lib/types/event';
 import { isEventType, EventTypes } from '@/lib/types/event';
-import { filterEvents } from '@/lib/calendar/filter';
-import { FilterBar } from '@/app/calendar/_components/filter-bar';
+import { isGroupID, GroupID, GroupIDs, Groups } from '@/lib/data/groups';
+import { FilterBar, filterIfAny } from '@/app/calendar/_components/filter-bar';
 import { EventTimeline } from '@/app/calendar/_components/event-timeline';
 import { MiniCalendar } from '@/app/calendar/_components/mini-calendar';
 import { useSearchParams } from 'next/navigation';
@@ -15,15 +15,15 @@ interface CalendarShellProps {
 export function CalendarShell({ events }: CalendarShellProps) {
   const searchParams = useSearchParams();
 
-  const eventTypes = new Set<EventType>(
-    searchParams.getAll("types").filter(isEventType)
-  );
-
-  const filteredEvents = filterEvents(events, eventTypes);
+  const eventTypes = new Set<EventType>(searchParams.getAll("types").filter(isEventType));
+  const groups = new Set<GroupID>(searchParams.getAll("groups").filter(isGroupID));
+  
+  const filteredEvents = filterIfAny(filterIfAny(events, event => event.eventType, eventTypes), event => event.group.id, groups);
 
   return (
     <div className="flex flex-col gap-6">
-      <FilterBar selectedTypes={eventTypes} paramName="types" types={EventTypes} />
+      <FilterBar selectedValues={eventTypes} paramName="types" values={EventTypes} display={(eventType: string) => eventType.charAt(0).toUpperCase() + eventType.substring(1)} />
+      <FilterBar selectedValues={groups} paramName="groups" values={GroupIDs} display={(group: string) => Groups[group].name} />
       <div className="flex min-w-0 flex-col-reverse gap-6 md:grid md:grid-cols-[2fr_1fr]">
         <div className="min-w-0 overflow-visible">
           <EventTimeline events={filteredEvents} />

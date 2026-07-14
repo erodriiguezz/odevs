@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import groups from '@/lib/data/groups';
+import { Groups } from '@/lib/data/groups';
 import groupCategories from '@/lib/data/groupCategories';
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Icon } from './icons/icon';
@@ -26,7 +25,7 @@ export default ({ maxGroups, overflowPages, linkToGroupPage=false }: { maxGroups
       replace(pathname == "/" ? newPath + "#explore-groups" : newPath);
     };
 
-  let selectedGroups = Object.values(groups);
+  let selectedGroups = Object.values(Groups);
   const cat = category.toLowerCase();
   if (cat != "any") selectedGroups = selectedGroups.filter(group => group.category.name.toLowerCase() == cat);
 

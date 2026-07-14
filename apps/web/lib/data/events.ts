@@ -1,6 +1,6 @@
 import type { Event } from '@/lib/types/event';
 import sponsors from '@/lib/data/sponsors';
-import groups from './groups';
+import { Groups } from './groups';
 
 export const events: Event[] = [
   {
@@ -20,7 +20,7 @@ export const events: Event[] = [
     eventType: 'meetup',
     registrationUrl: 'https://www.meetup.com/orlandodevs/events/314888792/',
     sourcePlatform: 'meetup',
-    group: groups['orlando-devs'],
+    group: Groups['orlando-devs'],
     tags: ['ai', 'agents', 'workshop', 'networking', 'hands-on'],
     featured: true,
   },
@@ -36,7 +36,7 @@ export const events: Event[] = [
     eventType: 'meetup',
     registrationUrl: 'https://www.meetup.com/orlandodevs/',
     sourcePlatform: 'meetup',
-    group: groups['orlando-devs'],
+    group: Groups['orlando-devs'],
     tags: ['ai', 'office-hours', 'networking'],
     featured: false,
   },
@@ -58,7 +58,7 @@ export const events: Event[] = [
     eventType: 'social',
     registrationUrl: 'https://www.meetup.com/orlandodevs/events/315228902/',
     sourcePlatform: 'meetup',
-    group: groups['orlando-devs'],
+    group: Groups['orlando-devs'],
     tags: ['social', 'networking', 'beer', 'community'],
     featured: false,
   },
@@ -74,7 +74,7 @@ export const events: Event[] = [
     eventType: 'meetup',
     registrationUrl: 'https://luma.com/dbuew9sl',
     sourcePlatform: 'luma',
-    group: groups['accelerate-orlando'],
+    group: Groups['accelerate-orlando'],
     tags: ['ai', 'economics', 'agi', 'future', 'e/acc'],
     featured: false,
   },
@@ -90,7 +90,7 @@ export const events: Event[] = [
     eventType: 'meetup',
     registrationUrl: 'https://luma.com/p2isxegr',
     sourcePlatform: 'luma',
-    group: groups['accelerate-orlando'],
+    group: Groups['accelerate-orlando'],
     tags: ['ai', 'open-source', 'robotics', 'hands-on'],
     featured: false,
   },
@@ -108,7 +108,7 @@ export const events: Event[] = [
     eventType: 'social',
     registrationUrl: 'https://www.meetup.com/orlando-devops/events/315423579/',
     sourcePlatform: 'meetup',
-    group: groups['orlando-devops'],
+    group: Groups['orlando-devops'],
     tags: ['devops', 'social', 'storytelling', 'networking'],
     featured: false,
   },
@@ -124,7 +124,7 @@ export const events: Event[] = [
     eventType: 'meetup',
     registrationUrl: 'https://luma.com/accelerateorlando',
     sourcePlatform: 'luma',
-    group: groups['accelerate-orlando'],
+    group: Groups['accelerate-orlando'],
     tags: ['startups', 'demos', 'networking', 'community'],
     featured: false,
   },
@@ -140,7 +140,7 @@ export const events: Event[] = [
     eventType: 'meetup',
     registrationUrl: 'https://www.meetup.com/orlandodevs/',
     sourcePlatform: 'meetup',
-    group: groups['orlando-devs'],
+    group: Groups['orlando-devs'],
     tags: ['community', 'networking', 'announcements'],
     featured: true,
   },
@@ -156,7 +156,7 @@ export const events: Event[] = [
     eventType: 'social',
     registrationUrl: 'https://luma.com/accelerateorlando',
     sourcePlatform: 'luma',
-    group: groups['accelerate-orlando'],
+    group: Groups['accelerate-orlando'],
     tags: ['startups', 'founders', 'networking', 'lunch'],
     featured: false,
   },
