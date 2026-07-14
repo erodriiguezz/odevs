@@ -47,7 +47,7 @@ export default ({ maxGroups, overflowPages, linkToGroupPage=false }: { maxGroups
               <input value={search} onChange={
                   event => {
                     params.set("search", event.target.value);
-                    if (overflowPages !== undefined) params.set("page", "1");
+                    if (overflowPages !== undefined) params.set("page", "1"); 
                     replace(pathname + "?" + params.toString(), { scroll: false });
                   }
               } className="w-full py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none theme-trans" placeholder="Search Groups"/>

@@ -10,7 +10,7 @@ import { EventCard } from '@/components/ui/event-card';
 import { events } from '@/lib/data/events';
 import { Groups } from '@/lib/data/groups';
 import Logo from '@/components/logo';
-import { Icon, IconType } from '@/components/icons/icon';
+import { Icon, StaticIconType } from '@/components/icons/icon';
 
 export default function HomePage() {
   const upcomingEvents = events.filter(event => new Date(event.date).getTime() > Date.now())
@@ -170,7 +170,7 @@ export default function HomePage() {
                 { title: 'Engagement', desc: 'Active Discord community for daily discussions', icon: 'speech-bubble'  },
                 { title: 'Practical', desc: 'Technical workshops and learning sessions', icon: 'hand'  },
                 { title: 'Events', desc: 'Regular meetups and networking events', icon: 'calendar'  },] as
-                  Array<{ title: string, desc: string, icon: IconType }>).map(({ title, desc, icon }) => (
+                  Array<{ title: string, desc: string, icon: StaticIconType }>).map(({ title, desc, icon }) => (
                 <div
                   className="bg-surface border border-border rounded-xl p-5 theme-trans"
                   key={title}

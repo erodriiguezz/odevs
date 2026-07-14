@@ -80,6 +80,10 @@ export type IconType = keyof typeof icons;
 
 export type IconState<T extends IconType> = Parameters<typeof icons[T]>[0];
 
+export type StaticIconType = {
+  [I in IconType]: Parameters<typeof icons[I]>[0] extends undefined ? I : never;
+}[IconType];
+
 export const Icon = <T extends IconType>({ className, icon, width = 2, state }: {
   className?: string;
   icon: T;
