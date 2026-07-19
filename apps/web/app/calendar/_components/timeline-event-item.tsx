@@ -13,7 +13,6 @@ interface TimelineEventItemProps {
   isHighlighted?: boolean
   isLast?: boolean
   disabled?: boolean
-  compact?: boolean
   showDateHeading?: boolean
   dateHeading?: string
 }
@@ -65,23 +64,21 @@ export function TimelineEventItem({
   isHighlighted = false,
   isLast = false,
   disabled = false,
-  compact = false,
   showDateHeading = false,
   dateHeading,
 }: TimelineEventItemProps) {
   const brandColor = getGroupBrandColor(event.group)
-  const itemGap = compact ? 20 : ITEM_GAP_PX
 
   return (
     <div
-      className="relative flex gap-2 md:gap-4 overflow-visible"
-      style={{ paddingBottom: isLast ? 8 : itemGap }}
+      className="relative flex gap-2 overflow-visible md:gap-4"
+      style={{ paddingBottom: isLast ? 8 : ITEM_GAP_PX }}
     >
       <div className="relative w-7 shrink-0">
         {showDateHeading && <div aria-hidden="true" className={DATE_HEADING_BLOCK_CLASSES} />}
 
         <div
-          className="relative z-10 flex items-center justify-center rounded-full border border-border bg-background theme-trans"
+          className="relative z-10 flex items-center justify-center rounded-full border border-border bg-background"
           style={{ width: DOT_WRAPPER_SIZE_PX, height: DOT_WRAPPER_SIZE_PX }}
         >
           <TimelineDot
@@ -94,7 +91,7 @@ export function TimelineEventItem({
 
       <div className="min-w-0 flex-1 overflow-visible">
         {showDateHeading && dateHeading && (
-          <h3 className={`${DATE_HEADING_BLOCK_CLASSES} text-lg font-semibold text-muted-foreground font-display theme-trans`}>{dateHeading}</h3>
+          <h3 className={`${DATE_HEADING_BLOCK_CLASSES} font-display text-lg font-semibold text-muted-foreground`}>{dateHeading}</h3>
         )}
 
         <EventCard event={event} disabled={disabled} />

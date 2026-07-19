@@ -1,35 +1,65 @@
-import type { Event } from '@/lib/types/event'
-import { events } from './events'
+import type { Event, EventType } from '@/lib/types/event'
+import type { SourcePlatform } from '@/lib/types/platform'
+import { splitTimelineEvents } from '@/lib/calendar/split-timeline-events'
+import groups from './groups'
 
-export function getAllEvents(): Event[] {
-  return [...events].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001'
+
+interface ApiEvent {
+  id: string
+  title: string
+  description: string
+  thumbnailUrl?: string
+  date: string
+  time: string
+  location: string
+  eventType: string
+  registrationUrl: string
+  sourcePlatform: string
+  groupId: string
+  tags: string[]
+  featured: boolean
 }
 
-export function getUpcomingEvents(): Event[] {
-  const now = new Date()
-  now.setHours(0, 0, 0, 0)
-  return getAllEvents().filter(e => new Date(e.date) >= now)
+function hydrate(row: ApiEvent): Event | null {
+  const group = groups[row.groupId]
+  if (!group) {
+    console.error(`Unknown groupId "${row.groupId}" on event "${row.id}" — skipping`)
+    return null
+  }
+
+  return {
+    id: row.id,
+    title: row.title,
+    description: row.description,
+    thumbnailUrl: row.thumbnailUrl,
+    sponsors: [],
+    date: row.date,
+    time: row.time,
+    location: row.location,
+    eventType: row.eventType as EventType,
+    registrationUrl: row.registrationUrl,
+    sourcePlatform: row.sourcePlatform as SourcePlatform,
+    group,
+    tags: row.tags,
+    featured: row.featured,
+  }
 }
 
-export function getPastEvents(): Event[] {
-  const now = new Date()
-  now.setHours(0, 0, 0, 0)
-  return getAllEvents()
-    .filter(e => new Date(e.date) < now)
-    .reverse()
+export async function getAllEvents(): Promise<Event[]> {
+  const res = await fetch(`${API_URL}/events`, { next: { revalidate: 60 } })
+  if (!res.ok) {
+    throw new Error(`Failed to fetch events: ${res.status} ${res.statusText}`)
+  }
+
+  const { events }: { events: ApiEvent[] } = await res.json()
+  return events
+    .map(hydrate)
+    .filter((event): event is Event => event !== null)
+    .sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time))
 }
 
-export function getFeaturedEvents(): Event[] {
-  return getUpcomingEvents().filter(e => e.featured)
-}
-
-export function getNextEvents(count: number): Event[] {
-  return getUpcomingEvents().slice(0, count)
-}
-
-export function getEventsByMonth(year: number, month: number): Event[] {
-  return getAllEvents().filter(e => {
-    const d = new Date(e.date)
-    return d.getFullYear() === year && d.getMonth() + 1 === month
-  })
+export async function getNextEvents(count: number): Promise<Event[]> {
+  const events = await getAllEvents()
+  return splitTimelineEvents(events).upcomingEvents.slice(0, count)
 }

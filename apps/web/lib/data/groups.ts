@@ -244,7 +244,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
     eventSources: [
       {
         platform: 'luma',
-        url: 'https://luma.com/accelerateorlando',
+        url: 'https://lu.ma/accelerateorlando',
         title: 'Accelerate Orlando',
         description: 'Accelerate Orlando is a new local group focused on principles from the techno-optimist and e/acc movements.',
         image: '/images/groups/images/accelerate-orlando-luma.avif',
@@ -304,7 +304,7 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
 };
 
 export const colors = [
-  { background: 'bg-[#5B4FE9]'},
+  { background: 'bg-[#EC4899]'},
   { background: 'bg-[#EA580C]'},
   { background: 'bg-[#0D9488]'},
   { background: 'bg-[#E11D48]'},
@@ -325,12 +325,16 @@ const groups: Record<string, CommunityGroup> =
   Object.fromEntries(
     Object.values(propFromKeys('id', uncoloredGroups))
       .map((group, i) => {
-        const { background } = colors[i]
+        const paletteBackground = colors[i % colors.length].background
+        const brandColor =
+          group.brandColor ??
+          brandColorFromBackground(paletteBackground) ??
+          '#5B4FE9'
 
         return {
           ...group,
-          background,
-          brandColor: group.brandColor ?? brandColorFromBackground(background) ?? '#5B4FE9',
+          background: `bg-[${brandColor}]`,
+          brandColor,
         }
       })
       .sort((groupA, groupB) => (groupB.eventSources[0].members ?? 0) - (groupA.eventSources[0].members ?? 0))

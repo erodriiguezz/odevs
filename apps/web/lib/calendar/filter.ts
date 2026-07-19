@@ -1,12 +1,25 @@
 import type { Event, EventType } from '@/lib/types/event'
 
+export type CalendarFilters = {
+  eventType: EventType | 'All'
+  groupName: string | 'All'
+}
+
 /**
- * Filters events by selected event types.
- * When selectedTypes is empty, all events pass through unfiltered.
+ * Filters events by category and/or group.
+ * "All" (or empty) means that dimension is unfiltered.
  */
-export function filterEvents(events: Event[], selectedTypes: Set<EventType>): Event[] {
-  if (selectedTypes.size === 0) {
-    return events
-  }
-  return events.filter(e => selectedTypes.has(e.eventType))
+export function filterEvents(
+  events: Event[],
+  { eventType, groupName }: CalendarFilters,
+): Event[] {
+  return events.filter((event) => {
+    if (eventType !== 'All' && event.eventType !== eventType) {
+      return false
+    }
+    if (groupName !== 'All' && event.group.name !== groupName) {
+      return false
+    }
+    return true
+  })
 }

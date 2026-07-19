@@ -1,6 +1,6 @@
-import {pgTable,text, timestamp, boolean, jsonb, uniqueIndex} from 'drizzle-orm/pg-core'
+import { sqliteTable, text, integer, uniqueIndex } from 'drizzle-orm/sqlite-core'
 
-export const events = pgTable('events', {
+export const events = sqliteTable('events', {
     id: text('id').primaryKey(),
     sourcePlatform: text('source_platform').notNull(),
     sourceEventId: text('source_event_id').notNull(),
@@ -15,29 +15,30 @@ export const events = pgTable('events', {
     thumbnailUrl: text('thumbnail_url'),
     eventType: text('event_type').notNull().default('meetup'),
     registrationUrl: text('registration_url').notNull(),
-    tags: jsonb('tags').$type<string[]>().notNull().default([]),
-    featured: boolean('featured').notNull().default(false),
+    tags: text('tags', { mode: 'json' }).$type<string[]>().notNull().default([]),
+    featured: integer('featured', { mode: 'boolean' }).notNull().default(false),
+    status: text('status', { enum: ['pending', 'approved', 'rejected'] }).notNull().default('pending'),
 
-    rawPayload: jsonb('raw_payload').$type<Record<string, unknown>>(),
+    rawPayload: text('raw_payload', { mode: 'json' }).$type<Record<string, unknown>>(),
 
-    firstSeenAt: timestamp('first_seen_at', { withTimezone: true }).notNull(),
-    lastSeenAt: timestamp('last_seen_at', { withTimezone: true }).notNull(),
-    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull(),
+    firstSeenAt: integer('first_seen_at', { mode: 'timestamp' }).notNull(),
+    lastSeenAt: integer('last_seen_at', { mode: 'timestamp' }).notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull(),
 }, (table) => [
     uniqueIndex('event_source_unique').on(table.sourcePlatform, table.sourceEventId),
 ])
 
-export const syncRuns = pgTable('sync_runs', {
+export const syncRuns = sqliteTable('sync_runs', {
     id: text('id').primaryKey(),
     source: text('source').notNull(),
     status: text('status').notNull(), // 'success' | 'failed'
-    startedAt: timestamp('started_at', { withTimezone: true }).notNull(),
-    finishedAt: timestamp('finished_at', { withTimezone: true }),
+    startedAt: integer('started_at', { mode: 'timestamp' }).notNull(),
+    finishedAt: integer('finished_at', { mode: 'timestamp' }),
     eventsFound: text('events_found').notNull().default('0'),
     eventsNew: text('events_new').notNull().default('0'),
     eventsUpdated: text('events_updated').notNull().default('0'),
     errorMessage: text('error_message'),
 })
 
-export type EventRow = typeof events.$inferSelect; 
+export type EventRow = typeof events.$inferSelect;
 export type NewEventRow = typeof events.$inferInsert;

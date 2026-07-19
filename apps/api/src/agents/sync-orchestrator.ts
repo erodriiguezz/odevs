@@ -38,6 +38,7 @@ async function upsertEvent(
     if (!existing) {
         await db.insert(events).values({
             ...normalized,
+            status: 'pending',
             firstSeenAt: now,
             lastSeenAt: now,
             updatedAt: now,

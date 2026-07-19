@@ -68,10 +68,12 @@ export function formatTimelineDateHeading(isoDate: string): string {
   }
 }
 
-export function formatTimelineDateHeadingShort(isoDate: string): string {
+/** e.g. "Mon, Jul 13" — used on homepage event cards */
+export function formatEventCardDate(isoDate: string): string {
   try {
     return new Intl.DateTimeFormat('en-US', {
-      month: 'long',
+      weekday: 'short',
+      month: 'short',
       day: 'numeric',
     }).format(new Date(`${isoDate}T00:00:00`))
   } catch {

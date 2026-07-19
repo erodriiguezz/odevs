@@ -1,92 +1,144 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-:root {
+:root,
+.light {
+  --radius: 0.75rem;
+
+  --background: oklch(99% 0.003 275);
+  --foreground: oklch(18% 0.03 275);
+  --surface: oklch(97% 0.006 275);
+  --surface-2: oklch(94% 0.012 275);
+  --card: oklch(100% 0 0);
+
   --primary: #5b4fe9;
-  --primary-glow: #7b6ff5;
-  
-  --zinc-5-95: var(--color-zinc-50);
-  --zinc-10-90: var(--color-zinc-100);
-  --zinc-20-80: var(--color-zinc-200);
-  --zinc-30-70: var(--color-zinc-300);
-  --zinc-40-50: var(--color-zinc-400);
-  --zinc-50-40: var(--color-zinc-500);
-  --zinc-60-20: var(--color-zinc-600);
-  --zinc-95-5: var(--color-zinc-950);
-  
-  --zinc-20-60: var(--color-zinc-200);
-  --zinc-70-30: var(--color-zinc-700);
-  
-  --surface: oklch(97% .006 275);
-  --muted-primary: #EAE8FD;
+  --primary-foreground: oklch(99% 0 0);
+  --primary-glow: #8b83f0;
+  --muted-primary: #eae8fd;
+
+  --muted: oklch(95% 0.008 275);
+  --muted-foreground: oklch(48% 0.02 275);
+
+  --border: oklch(18% 0.03 275 / 0.1);
+  --border-strong: oklch(18% 0.03 275 / 0.2);
+
+  --tile-orange: oklch(68% 0.19 45);
+  --tile-red: oklch(62% 0.22 20);
+  --tile-teal: oklch(60% 0.13 190);
+  --tile-blue: oklch(58% 0.16 235);
+  --tile-purple: oklch(56% 0.2 300);
+  --tile-pink: oklch(66% 0.22 350);
+  --tile-green: oklch(60% 0.16 155);
+  --tile-amber: oklch(72% 0.16 80);
+
+  --shadow-glow-value: 0 0 0 1px #5b4fe940, 0 12px 40px -12px #5b4fe973;
+  --shadow-card-value: 0 1px 0 0 #fff9 inset, 0 12px 32px -18px #0f0f282e;
+
+  color-scheme: light;
 }
 
-:root.dark, .dark :root {
-  --zinc-5-95: var(--color-zinc-950);
-  --zinc-10-90: var(--color-zinc-900);
-  --zinc-20-80: var(--color-zinc-800);
-  --zinc-30-70: var(--color-zinc-700);
-  --zinc-40-50: var(--color-zinc-500);
-  --zinc-50-40: var(--color-zinc-400);
-  --zinc-60-20: var(--color-zinc-200);
-  --zinc-95-5: var(--color-zinc-50);
+.dark {
+  --background: oklch(13% 0.03 275);
+  --foreground: oklch(96% 0.005 275);
+  --surface: oklch(18% 0.045 275);
+  --surface-2: oklch(22% 0.06 275);
+  --card: oklch(18% 0.045 275);
 
-  --zinc-20-60: var(--color-zinc-600);
-  --zinc-70-30: var(--color-zinc-300);
-  
-  --surface: oklch(23% .045 275);
+  --primary: #5b4fe9;
+  --primary-foreground: oklch(99% 0 0);
+  --primary-glow: #8b83f0;
   --muted-primary: #22234e;
+
+  --muted: oklch(22% 0.045 275);
+  --muted-foreground: oklch(72% 0.02 275);
+
+  --border: oklch(100% 0 0 / 0.08);
+  --border-strong: oklch(100% 0 0 / 0.16);
+
+  --shadow-glow-value: 0 0 0 1px #5b4fe959, 0 12px 40px -12px #5b4fe98c;
+  --shadow-card-value: 0 1px 0 0 #ffffff0a inset, 0 24px 60px -30px #000000b3;
+
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--zinc-5-95);
-  --color-muted-background: var(--zinc-10-90);
-  --color-border: var(--zinc-20-80);
-  --color-border-glow: var(--zinc-30-70);
-  --color-light-foreground: var(--zinc-40-50);
-  --color-muted-foreground: var(--zinc-50-40);
-  --color-foreground: var(--zinc-95-5);
-
-  --color-separator: var(--zinc-20-60);
-  --color-soft-foreground: var(--zinc-60-20);
-  --color-medium-foreground: var(--zinc-70-30);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-card: var(--card);
+  --color-muted-background: var(--muted);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted-primary: var(--muted-primary);
+  --color-medium-foreground: var(--foreground);
+  --color-soft-foreground: var(--muted-foreground);
+  --color-light-foreground: var(--muted-foreground);
+  --color-separator: var(--border);
 
   --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
   --color-primary-glow: var(--primary-glow);
-  --color-muted-primary: var(--muted-primary);
 
-  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-border-glow: var(--border-strong);
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-tile-orange: var(--tile-orange);
+  --color-tile-red: var(--tile-red);
+  --color-tile-teal: var(--tile-teal);
+  --color-tile-blue: var(--tile-blue);
+  --color-tile-purple: var(--tile-purple);
+  --color-tile-pink: var(--tile-pink);
+  --color-tile-green: var(--tile-green);
+  --color-tile-amber: var(--tile-amber);
+
+  --shadow-glow: var(--shadow-glow-value);
+  --shadow-card: var(--shadow-card-value);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --radius-lg: var(--radius);
 }
 
 .font-display {
-  font-family: var(--font-space-grotesk), Arial, Helvetica, sans-serif;
+  font-family: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
 }
 
 .card-elev {
-  border: 1px solid color-mix(in srgb, var(--color-border) 80%, transparent);
   background: color-mix(in oklab, var(--color-surface) 70%, transparent);
-  box-shadow:
-    0 1px 2px rgb(0 0 0 / 0.04),
-    0 4px 16px rgb(0 0 0 / 0.04);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
 }
 
-@utility theme-trans {
-  @apply transition-all duration-300;
+.shadow-glow {
+  box-shadow: var(--shadow-glow-value);
+}
+
+.grid-lines {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in oklab, var(--color-foreground) 6%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--color-foreground) 6%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 48px 48px;
 }
 
 body {
   background: var(--color-background);
   color: var(--color-foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
-  color-scheme: light;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -100,13 +152,15 @@ html {
   100% {
     opacity: 0.55;
     transform: scale(1);
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--dot-brand-color) 55%, transparent);
+    box-shadow: 0 0 0 0
+      color-mix(in srgb, var(--dot-brand-color) 55%, transparent);
   }
 
   50% {
     opacity: 1;
     transform: scale(1.45);
-    box-shadow: 0 0 0 7px color-mix(in srgb, var(--dot-brand-color) 20%, transparent);
+    box-shadow: 0 0 0 7px
+      color-mix(in srgb, var(--dot-brand-color) 20%, transparent);
   }
 }
 
@@ -119,6 +173,7 @@ html {
     animation: none;
     opacity: 0.85;
     transform: scale(1.15);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--dot-brand-color) 30%, transparent);
+    box-shadow: 0 0 0 4px
+      color-mix(in srgb, var(--dot-brand-color) 30%, transparent);
   }
 }

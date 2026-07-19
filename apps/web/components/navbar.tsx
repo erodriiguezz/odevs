@@ -2,131 +2,137 @@
 
 import { useIsMobile } from "../hooks/isMobile";
 import { usePathname } from "next/navigation";
-import { useState, CSSProperties } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import ThemeToggle from "./themeToggle";
 import Logo from "./logo";
 
 export default function Header() {
-    const pathname = usePathname(); // to show current location
-    const isMobile = useIsMobile(); // to choose which menu
+  const pathname = usePathname();
+  const isMobile = useIsMobile();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navItems = [
+    { href: "/", label: "Home" },
+    { href: "/calendar", label: "Calendar" },
+    { href: "/groups", label: "Groups" },
+    { href: "/code-of-conduct", label: "Code of Conduct" },
+  ] as const;
 
-    const navItems = [
-        { href: "/", label: "Home" },
-        { href: "/calendar", label: "Calendar" },
-        { href: "/groups", label: "Groups" },
-        { href: "/newsletter", label: "Newsletters" },
-        { href: "/code-of-conduct", label: "Code of Conduct" },
-    ] as const;
-
-    const linkClass = (href: string) => [
-        "px-4 py-2 text-sm font-medium rounded-md theme-trans leading-none theme-trans",
-        pathname === href
-            ? "bg-zinc-100 dark:bg-zinc-700 text-foreground shadow-lg"
-            : "text-zinc-700 hover:text-zinc-500 dark:text-zinc-400 dark:hover:text-zinc-200",
+  const linkClass = (href: string) =>
+    [
+      "rounded-full px-3 py-1.5 text-sm font-medium transition-colors",
+      pathname === href
+        ? "bg-primary/15 text-foreground"
+        : "text-muted-foreground hover:text-foreground",
     ].join(" ");
-    
-    const discordButton = (style: CSSProperties | undefined, onClick: () => void, className: string[]) =>
-        <Link
-            href="https://discord.gg/v6gchdH43K"
-            target="_blank"
-            rel="noreferrer"
-            className={["flex items-center bg-[#5865F2] hover:bg-[#4e5dEC] text-white px-4 py-2 rounded-lg text-sm font-medium shadow-sm", ...className].join(" ")}
-            onClick={onClick}
-            style={style}
-        >
-            <Image
-                src="/images/platform-logos/discord.svg"
-                alt="Discord Logo"
-                aria-hidden="true"
-                className="w-4 h-4 mr-2"
-                width={16}
-                height={16}
-            />
 
-            <span>Join Discord</span>
-        </Link>;
+  const discordButton = (onClick: () => void, className: string[] = []) => (
+    <Link
+      href="https://discord.gg/v6gchdH43K"
+      target="_blank"
+      rel="noreferrer"
+      className={[
+        "inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-glow transition-transform hover:-translate-y-px",
+        ...className,
+      ].join(" ")}
+      onClick={onClick}
+    >
+      <Image
+        src="/images/platform-logos/discord.svg"
+        alt=""
+        aria-hidden="true"
+        className="h-4 w-4 shrink-0"
+        width={16}
+        height={16}
+      />
+      <span>Join Discord</span>
+    </Link>
+  );
 
-    const delayStyle: (index: number) => CSSProperties = (index: number) => ({
-        transitionDelay: isMenuOpen
-            ? `${index*40 + 75}ms`
-            : `${(navItems.length+1 - index) * 25}ms`
-    });
+  const hamburger = (open: string, closed: string, always: string) => (
+    <span
+      className={[
+        `absolute left-0 h-0.5 w-5 rounded-full bg-current transition-all duration-300 ease-in-out ${always}`,
+        isMenuOpen ? open : closed,
+      ].join(" ")}
+    />
+  );
 
-    const hamburger = (open: string, closed: string, always: string) =>
-        <span className={[
-            `absolute left-0 h-0.5 w-5 rounded-full bg-current transition-all duration-300 ease-in-out ${always}`,
-            isMenuOpen ? open : closed,
-        ].join(" ")}/>;
+  const hamburgerTopBottom = (rotate: string, top: string) =>
+    hamburger(`top-[7px] ${rotate}`, top, "");
 
-    const hamburgerTopBottom = (rotate: string, top: string) => hamburger(`top-[7px] ${rotate}`, top, "");
+  return (
+    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/70 backdrop-blur-xl">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
+        <Link href="/" className="flex items-center">
+          <Logo className="w-9 h-9 object-cover text-foreground" />
+        </Link>
 
-    return  <div className="sticky top-0 z-40 bg-zinc-100/80 dark:bg-zinc-950/80 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-900 transition-all duration-300">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                        <Logo className="w-9 h-9 object-cover text-black dark:text-white transition-all duration-300" />
-                    </div>
-                    {isMobile ?
-                        <div className="relative flex items-center gap-5">
-                            <ThemeToggle></ThemeToggle>
-                            <button
-                                type="button"
-                                className="md:hidden relative flex h-10 w-10 items-center justify-center rounded-lg text-foreground hover:bg-muted-background active:scale-95 theme-trans"
-                                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                                aria-expanded={isMenuOpen}
-                                aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                            >
-                                {/* 3 lines of menu hamburger, middle fades top/bottom become X*/}
-                                <span className="relative block h-4 w-5">
-                                    {hamburgerTopBottom("rotate-45", "top-0")}
-                                    {hamburger("scale-x-0 opacity-0", "scale-x-100 opacity-100", "top-[7px]")}
-                                    {hamburgerTopBottom("-rotate-45", "top-[14px]")}
-                                </span>
-                            </button>
-                            
-                            <div
-                                aria-hidden={!isMenuOpen}
-                                className={[
-                                    "absolute top-full right-0 z-50 mt-2 flex-col min-w-44 overflow-hidden rounded-lg border border-border bg-background py-4 px-4 shadow-lg shadow-black/40 origin-top-right theme-trans ease-[cubic-bezier(0.16,1,0.3,1)]",
-                                    isMenuOpen
-                                        ? "pointer-events-auto visible opacity-100 scale-100 translate-y-0"
-                                        : "pointer-events-none invisible opacity-0 scale-80 -translate-y-10",
-                                ].join(" ")}
-                            >
-                                {navItems.map(({ href, label }, index) => (
-                                    <Link
-                                        key={href}
-                                        href={href}
-                                        tabIndex={isMenuOpen ? 0 : -1}
-                                        onClick={() => setIsMenuOpen(false)}
-                                        style={delayStyle(index)}
-                                        className={[
-                                            linkClass(href),
-                                            "w-full text-left ease-out inline-flex",
-                                            isMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-3 opacity-0",
-                                        ].join(" ")}
-                                    >{label}</Link>))}
-                                    
-                                    {discordButton(delayStyle(navItems.length), // geist sans is 0.71% font height  font-sm is 0.875rem
-                                        () => setIsMenuOpen(false), [`transition-all duration-300 ease-out mt-2`,
-                                                                     isMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-3 opacity-0",])}
-                            </div>
-                        </div>
-                     : // desktop
-                        <>
-                            <nav className="hidden md:flex items-center gap-1 bg-zinc-200 dark:bg-zinc-900 p-0.5 rounded-lg border border-zinc-300 dark:border-zinc-800 transition-all duration-300">
-                                {navItems.map(({ href, label }) => (
-                                    <Link key={href} href={href} className={linkClass(href)}>{label}</Link>
-                                ))}
-                            </nav>
-                            <div className="flex items-center gap-5">
-                                {discordButton(undefined, () => {}, ["transition duration-150"])}
-                                <ThemeToggle></ThemeToggle>
-                            </div>
-                        </>}
-                </div>
-            </div>;
+        {isMobile ? (
+          <div className="relative flex items-center gap-2">
+            <button
+              type="button"
+              className="relative flex h-10 w-10 items-center justify-center rounded-lg text-foreground hover:bg-muted active:scale-95"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-expanded={isMenuOpen}
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            >
+              <span className="relative block h-4 w-5">
+                {hamburgerTopBottom("rotate-45", "top-0")}
+                {hamburger(
+                  "scale-x-0 opacity-0",
+                  "scale-x-100 opacity-100",
+                  "top-[7px]",
+                )}
+                {hamburgerTopBottom("-rotate-45", "top-[14px]")}
+              </span>
+            </button>
+
+            <div
+              aria-hidden={!isMenuOpen}
+              className={[
+                "absolute top-full right-0 z-50 mt-2 flex-col min-w-48 overflow-hidden rounded-2xl border border-border bg-background py-3 px-3 shadow-lg shadow-black/40 origin-top-right ease-[cubic-bezier(0.16,1,0.3,1)]",
+                isMenuOpen
+                  ? "pointer-events-auto visible opacity-100 scale-100 translate-y-0"
+                  : "pointer-events-none invisible opacity-0 scale-[0.8] -translate-y-10",
+              ].join(" ")}
+            >
+              {navItems.map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  tabIndex={isMenuOpen ? 0 : -1}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={[
+                    linkClass(href),
+                    "inline-flex w-full text-left",
+                  ].join(" ")}
+                >
+                  {label}
+                </Link>
+              ))}
+
+              {discordButton(() => setIsMenuOpen(false), [
+                "mt-2 w-full justify-center",
+              ])}
+            </div>
+          </div>
+        ) : (
+          <>
+            <nav className="hidden items-center gap-1 rounded-full border border-border/70 bg-surface/60 px-1.5 py-1 md:flex">
+              {navItems.map(({ href, label }) => (
+                <Link key={href} href={href} className={linkClass(href)}>
+                  {label}
+                </Link>
+              ))}
+            </nav>
+            <div className="flex items-center gap-2">
+              {discordButton(() => {})}
+            </div>
+          </>
+        )}
+      </div>
+    </header>
+  );
 }

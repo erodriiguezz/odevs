@@ -9,7 +9,7 @@ eventsRoute.get('/', async (c) => {
     const upcoming = c.req.query('upcoming') === 'true'
     const groupId = c.req.query('groupId')
 
-    const conditions = []
+    const conditions = [eq(events.status, 'approved')]
 
     if (upcoming) {
         const today = new Intl.DateTimeFormat('en-CA').format(new Date())
@@ -21,7 +21,7 @@ eventsRoute.get('/', async (c) => {
     }
 
     const rows = await db.query.events.findMany({
-        where: conditions.length ? and(...conditions) : undefined,
+        where: and(...conditions),
         orderBy: [asc(events.date)],
     })
 
