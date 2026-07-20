@@ -47,16 +47,23 @@ function hydrate(row: ApiEvent): Event | null {
 }
 
 export async function getAllEvents(): Promise<Event[]> {
-  const res = await fetch(`${API_URL}/events`, { next: { revalidate: 60 } })
-  if (!res.ok) {
-    throw new Error(`Failed to fetch events: ${res.status} ${res.statusText}`)
-  }
+  try {
+    const res = await fetch(`${API_URL}/events`, { next: { revalidate: 60 } })
+    if (!res.ok) {
+      console.error(`Failed to fetch events: ${res.status} ${res.statusText}`)
+      return []
+    }
 
-  const { events }: { events: ApiEvent[] } = await res.json()
-  return events
-    .map(hydrate)
-    .filter((event): event is Event => event !== null)
-    .sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time))
+    const { events }: { events: ApiEvent[] } = await res.json()
+    return events
+      .map(hydrate)
+      .filter((event): event is Event => event !== null)
+      .sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time))
+  } catch (error) {
+    // Build/deploy environments won't have the local API; don't fail the whole build.
+    console.error(`Failed to fetch events from ${API_URL}/events`, error)
+    return []
+  }
 }
 
 export async function getNextEvents(count: number): Promise<Event[]> {
