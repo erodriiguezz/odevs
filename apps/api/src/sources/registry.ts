@@ -9,13 +9,22 @@ export interface LumaSource {
 export const lumaSources: LumaSource[] = [
     {
         platform: 'luma',
-        slug: 'BuildTheFutureOrlando',
+        slug: 'buildthefutureorlando',
         groupId: 'build-the-future',
-        url: 'https://lu.ma/BuildTheFutureOrlando',
+        url: 'https://lu.ma/buildthefutureorlando',
     },
-    // Later:
-    // { platform: 'luma', slug: 'accelerateorlando', groupId: 'accelerate-orlando', url: '...' },
-    // { platform: 'luma', slug: 'otab', groupId: 'otab', url: '...' },
+    {
+        platform: 'luma',
+        slug: 'accelerateorlando',
+        groupId: 'accelerate-orlando',
+        url: 'https://lu.ma/accelerateorlando',
+    },
+    {
+        platform: 'luma',
+        slug: 'otab',
+        groupId: 'otab',
+        url: 'https://lu.ma/otab',
+    },
 ]
 
 /** Extract slug from https://lu.ma/BuildTheFutureOrlando or https://luma.com/... */
