@@ -4,8 +4,9 @@ import { config } from './src/config.js'
 export default defineConfig({
     schema: './src/db/schema.ts',
     out: './drizzle',
-    dialect: 'postgresql',
+    dialect: 'turso',
     dbCredentials: {
-        url: config.databaseUrl,
+        url: config.tursoDatabaseUrl,
+        authToken: config.tursoAuthToken,
     },
 })

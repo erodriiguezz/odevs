@@ -1,27 +1,38 @@
-import Link from 'next/link'
-import { type AnchorHTMLAttributes } from 'react'
+import Link from "next/link";
+import { type AnchorHTMLAttributes } from "react";
 
-type ButtonVariant = 'primary' | 'secondary'
+type ButtonVariant = "primary" | "secondary";
 
 interface ButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
-  variant?: ButtonVariant
-  href: string
-  flex?: boolean
+  variant?: ButtonVariant;
+  href: string;
+  flex?: boolean;
 }
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    'bg-primary hover:bg-primary-glow text-white px-7 py-3.5 font-bold',
+    "bg-primary text-primary-foreground px-5 py-3 font-medium shadow-glow",
   secondary:
-    'bg-transparent text-muted-foreground hover:text-foreground border border-zinc-400 dark:border-zinc-600 hover:border-zinc-600 dark:hover:border-zinc-400 rounded-full px-7 py-3.5 font-semibold',
-}
+    "bg-transparent text-foreground border border-foreground/40 hover:border-foreground px-5 py-3 font-medium",
+};
 
-export function Button({ variant = 'primary', flex = false, className, href, ...props }: ButtonProps) {
+export function Button({
+  variant = "primary",
+  flex = false,
+  className,
+  href,
+  ...props
+}: ButtonProps) {
   return (
     <Link
       href={href}
-      className={`inline-block hover:-translate-y-px theme-trans rounded-full w-max text-sm ${variantClasses[variant]} ${flex ? 'inline-flex gap-2 items-center' : ''} ${className ? ` ${className} ` : ''}`}
+      className={[
+        "hover:-translate-y-px rounded-full text-sm transition-transform",
+        flex ? "inline-flex items-center gap-2" : "inline-block",
+        variantClasses[variant],
+        className ?? "w-max",
+      ].join(" ")}
       {...props}
     />
-  )
+  );
 }

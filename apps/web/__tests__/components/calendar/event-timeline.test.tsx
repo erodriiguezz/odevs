@@ -1,7 +1,14 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
-import { EventTimeline } from '@/components/calendar/event-timeline'
+import { EventTimeline } from '@/app/calendar/_components/event-timeline'
 import type { Event } from '@/lib/types/event'
+import groupCategories from '@/lib/data/groupCategories'
+
+function daysFromNow(days: number): string {
+  const d = new Date()
+  d.setDate(d.getDate() + days)
+  return d.toISOString().slice(0, 10)
+}
 
 function makeEvent(overrides: Partial<Event> = {}): Event {
   return {
@@ -9,7 +16,7 @@ function makeEvent(overrides: Partial<Event> = {}): Event {
     title: 'Test Event',
     description: 'A test event',
     sponsors: [],
-    date: '2026-06-15',
+    date: daysFromNow(7),
     time: '18:00',
     location: 'Orlando, FL',
     eventType: 'meetup',
@@ -20,11 +27,13 @@ function makeEvent(overrides: Partial<Event> = {}): Event {
       name: 'Test Group',
       description: 'A test group',
       topic: 'Tech',
+      icon: 'people',
       logo: '',
       websiteUrl: 'https://example.com',
-      discordUrl: '',
-      brandColor: '#000',
+      brandColor: '#5B4FE9',
       eventSources: [],
+      category: groupCategories.General,
+      background: 'bg-[#5B4FE9]',
     },
     tags: [],
     featured: false,
@@ -35,9 +44,9 @@ function makeEvent(overrides: Partial<Event> = {}): Event {
 describe('EventTimeline', () => {
   it('renders one EventCard per event', () => {
     const events: Event[] = [
-      makeEvent({ id: '1', title: 'Event One' }),
-      makeEvent({ id: '2', title: 'Event Two' }),
-      makeEvent({ id: '3', title: 'Event Three' }),
+      makeEvent({ id: '1', title: 'Event One', date: daysFromNow(1) }),
+      makeEvent({ id: '2', title: 'Event Two', date: daysFromNow(2) }),
+      makeEvent({ id: '3', title: 'Event Three', date: daysFromNow(3) }),
     ]
 
     render(<EventTimeline events={events} />)
@@ -61,14 +70,13 @@ describe('EventTimeline', () => {
     expect(screen.queryByText('No events to show')).not.toBeInTheDocument()
   })
 
-  it('uses vertical flex layout with gap', () => {
+  it('renders timeline wrapper for upcoming events', () => {
     const events: Event[] = [makeEvent({ id: '1', title: 'Event' })]
 
     const { container } = render(<EventTimeline events={events} />)
 
     const wrapper = container.firstElementChild
-    expect(wrapper?.className).toContain('flex')
-    expect(wrapper?.className).toContain('flex-col')
-    expect(wrapper?.className).toContain('gap-4')
+    expect(wrapper?.className).toContain('relative')
+    expect(wrapper?.className).toContain('overflow-visible')
   })
 })

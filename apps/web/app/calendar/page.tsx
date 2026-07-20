@@ -1,27 +1,20 @@
-import { getAllEvents } from '@/lib/data/get-events'
-import { CalendarShell } from '@/app/calendar/_components/calendar-shell'
-import { PageHeader } from '@/components/page-header'
+import { getAllEvents } from "@/lib/data/get-events";
+import { CalendarShell } from "@/app/calendar/_components/calendar-shell";
+import { PageHeader } from "@/components/page-header";
 
-export default function CalendarPage() {
-  const events = getAllEvents()
+export default async function CalendarPage() {
+  const events = await getAllEvents();
 
   return (
-    <section className="bg-background text-foreground py-16 lg:py-28 min-h-screen relative theme-trans">
-      <div
-        className="absolute inset-0 pointer-events-none dark:block hidden"
-        style={{
-          background:
-            'radial-gradient(ellipse 60% 40% at 80% 0%, rgba(91,79,233,0.12) 0%, transparent 70%)',
-        }}
-      />
+    <section className="bg-background text-foreground py-14 min-h-screen relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <PageHeader
           label="Calendar"
-          title="Community Events"
-          description="Browse upcoming and past events from the Orlando developer community."
+          title="Community events, one place"
+          description="Everything happening across the Orlando developer community. Filter by category, jump around by month, and register directly from the organizer."
         />
         <CalendarShell events={events} />
       </div>
     </section>
-  )
+  );
 }

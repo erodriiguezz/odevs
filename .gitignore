@@ -11,6 +11,10 @@ node_modules
 !.yarn/releases
 !.yarn/versions
 
+# npm (repo uses pnpm — nested lockfiles break Vercel installs)
+package-lock.json
+**/package-lock.json
+
 # testing
 coverage
 
@@ -51,6 +55,9 @@ next-env.d.ts
 dist/
 build/
 *.js.map
+*.db
+*.db-shm
+*.db-wal
 
 # logs
 logs/
