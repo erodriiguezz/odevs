@@ -4,7 +4,8 @@ import {
   TimelineEventItem,
 } from '@/app/calendar/_components/timeline-event-item'
 import Logo from '@/components/logo'
-import { TimelineRow } from './calendar-shell'
+import { buildTimelineRows, TimelineRow } from './calendar-shell'
+import { getTodayEventIds, groupEventsByDate } from '@/lib/calendar'
 
 interface EventTimelineProps {
   previousLen: number
@@ -12,8 +13,6 @@ interface EventTimelineProps {
   setPreviousLen: (len: number) => void
   upcomingEvents: Event[]
   prevTimelineRows: TimelineRow[]
-  upcomingTimelineRows: TimelineRow[]
-  todayEventIds: Set<string>
 }
 
 function Timeline({
@@ -57,7 +56,7 @@ function Timeline({
   )
 }
 
-export function EventTimeline({ upcomingEvents, prevTimelineRows, upcomingTimelineRows, todayEventIds, previousLen, setPreviousLen, fullPreviousLen }: EventTimelineProps) {
+export function EventTimeline({ upcomingEvents, prevTimelineRows, previousLen, setPreviousLen, fullPreviousLen }: EventTimelineProps) {
   if (upcomingEvents.length === 0 && prevTimelineRows.length === 0) {
     return (
       <div
@@ -71,11 +70,13 @@ export function EventTimeline({ upcomingEvents, prevTimelineRows, upcomingTimeli
     )
   }
 
+  const upcomingTimelineRows = buildTimelineRows(groupEventsByDate(upcomingEvents), false);
+
   return (
     <div className="relative max-w-full overflow-visible pb-8">
       <div className="flex flex-col overflow-visible">
         {upcomingTimelineRows.length > 0 ? (
-          <Timeline rows={upcomingTimelineRows} todayEventIds={todayEventIds} />
+          <Timeline rows={upcomingTimelineRows} todayEventIds={getTodayEventIds(upcomingEvents)} />
         ) : (
           <div
             role="status"

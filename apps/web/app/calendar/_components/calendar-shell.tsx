@@ -19,21 +19,27 @@ export interface TimelineRow {
   dateHeading: string
 }
 
-function buildTimelineRows(groups: ReturnType<typeof groupEventsByDate>): { rows: TimelineRow[], firstDateIndex: Map<string, number> } {
-  const firstDateIndex: Map<string, number> = new Map();
+export function buildTimelineRows<T extends boolean>(
+  groups: ReturnType<typeof groupEventsByDate>,
+  makeDateIndex: T
+): T extends true ? { rows: TimelineRow[]; firstDateIndex: Map<string, number> } : TimelineRow[] {
+  let firstDateIndex: Map<string, number>;
+  if (makeDateIndex) firstDateIndex = new Map();
   let ind = 0;
-  return { rows: groups.flatMap(group =>
+
+  const rows = groups.flatMap(group =>
     group.events.map((event, index) => {
       const isFirst = index === 0;
-      if (isFirst) firstDateIndex.set(event.date, ind);
-      ind++;
-      return ({
+      if (isFirst && makeDateIndex) firstDateIndex.set(event.date, ++ind);
+      return {
         event,
         showDateHeading: isFirst,
         dateHeading: group.dateHeading,
-      });
+      };
     }),
-  ), firstDateIndex: firstDateIndex };
+  );
+
+  return (makeDateIndex ? { rows, firstDateIndex: firstDateIndex! } : rows) as any;
 }
 
 export function CalendarShell({ events }: CalendarShellProps) {
@@ -55,11 +61,8 @@ export function CalendarShell({ events }: CalendarShellProps) {
   }
 
   let { upcomingEvents, archivedEvents } = splitTimelineEvents(filteredEvents);
-  const todayEventIds = getTodayEventIds(upcomingEvents);
-  const prevTimelineRows = buildTimelineRows(groupEventsByDate(archivedEvents, true));
+  const prevTimelineRows = buildTimelineRows(groupEventsByDate(archivedEvents, true), true);
   prevTimelineRows.rows = prevTimelineRows.rows.slice(0, previousLen);
-  const upcomingGroups = groupEventsByDate(upcomingEvents);
-  const upcomingTimelineRows = buildTimelineRows(upcomingGroups);
 
   const path = usePathname();
   const params = useSearchParams();
@@ -84,7 +87,7 @@ export function CalendarShell({ events }: CalendarShellProps) {
       <FilterBar selectedTypes={selectedTypes} onToggle={handleToggle} />
       <div className="flex min-w-0 flex-col-reverse gap-6 md:grid md:grid-cols-[2fr_1fr]">
         <div className="min-w-0 overflow-visible">
-          <EventTimeline upcomingEvents={upcomingEvents} prevTimelineRows={prevTimelineRows.rows} upcomingTimelineRows={upcomingTimelineRows.rows} todayEventIds={todayEventIds} previousLen={previousLen} setPreviousLen={setPreviousLen} fullPreviousLen={archivedEvents.length} />
+          <EventTimeline upcomingEvents={upcomingEvents} prevTimelineRows={prevTimelineRows.rows} previousLen={previousLen} setPreviousLen={setPreviousLen} fullPreviousLen={archivedEvents.length} />
         </div>
         {/* On mobile: collapsible MiniCalendar; on md+: always visible */}
         <div className="md:contents">
