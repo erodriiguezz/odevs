@@ -41,7 +41,8 @@ export function generateCalendarGrid(year: number, month: number, events: Event[
     const date = daysInPrevMonth - firstDayOfWeek + 1 + i
     grid.push({
       date,
-      isCurrentMonth: false,
+      month: (month+10)%12 + 1,
+      year: month == 1 ? year-1 : year,
       isToday: false,
       hasEvents: false,
     })
@@ -51,7 +52,8 @@ export function generateCalendarGrid(year: number, month: number, events: Event[
   for (let day = 1; day <= daysInMonth; day++) {
     grid.push({
       date: day,
-      isCurrentMonth: true,
+      month: month,
+      year: year,
       isToday: year === todayYear && month === todayMonth && day === todayDate,
       hasEvents: eventDays.has(day),
     })
@@ -62,7 +64,8 @@ export function generateCalendarGrid(year: number, month: number, events: Event[
   for (let day = 1; day <= remaining; day++) {
     grid.push({
       date: day,
-      isCurrentMonth: false,
+      month:  month%12 + 1,
+      year: month == 12 ? year+1 : year,
       isToday: false,
       hasEvents: false,
     })

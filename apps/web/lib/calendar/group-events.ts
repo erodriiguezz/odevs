@@ -18,8 +18,9 @@ export function sortEventsByDateTime(events: Event[]): Event[] {
   })
 }
 
-export function groupEventsByDate(events: Event[]): EventDateGroup[] {
-  const sorted = sortEventsByDateTime(events)
+export function groupEventsByDate(events: Event[], reverse: boolean = false): EventDateGroup[] {
+  let sorted = sortEventsByDateTime(events)
+  if (reverse) sorted.reverse()
   const groups: EventDateGroup[] = []
 
   for (const event of sorted) {

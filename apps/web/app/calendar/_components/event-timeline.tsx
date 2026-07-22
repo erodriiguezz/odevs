@@ -1,39 +1,29 @@
 import type { Event } from '@/lib/types/event'
-import { getTodayEventIds, groupEventsByDate } from '@/lib/calendar/group-events'
-import { formatTimelineDateHeading } from '@/lib/calendar/format'
-import { splitTimelineEvents } from '@/lib/calendar/split-timeline-events'
-import { EventCard } from '@/components/ui/event-card'
 import {
   TIMELINE_RAIL_CENTER_PX,
   TimelineEventItem,
 } from '@/app/calendar/_components/timeline-event-item'
 import Logo from '@/components/logo'
+import { TimelineRow } from './calendar-shell'
+
 interface EventTimelineProps {
-  events: Event[]
+  previousLen: number
+  fullPreviousLen: number
+  setPreviousLen: (len: number) => void
+  upcomingEvents: Event[]
+  prevTimelineRows: TimelineRow[]
+  upcomingTimelineRows: TimelineRow[]
+  todayEventIds: Set<string>
 }
 
-interface TimelineRow {
-  event: Event
-  showDateHeading: boolean
-  dateHeading: string
-}
-
-function buildTimelineRows(groups: ReturnType<typeof groupEventsByDate>): TimelineRow[] {
-  return groups.flatMap(group =>
-    group.events.map((event, index) => ({
-      event,
-      showDateHeading: index === 0,
-      dateHeading: group.dateHeading,
-    })),
-  )
-}
-
-function UpcomingTimeline({
+function Timeline({
   rows,
   todayEventIds,
+  upcoming = true,
 }: {
   rows: TimelineRow[]
-  todayEventIds: Set<string>
+  todayEventIds?: Set<string>
+  upcoming?: boolean
 }) {
   const lastIndex = rows.length - 1
 
@@ -45,47 +35,30 @@ function UpcomingTimeline({
         style={{ left: TIMELINE_RAIL_CENTER_PX }}
       />
 
-      {rows.map((row, index) => (
-        <TimelineEventItem
-          key={row.event.id}
-          event={row.event}
-          isHighlighted={todayEventIds.has(row.event.id)}
-          isLast={index === lastIndex}
-          showDateHeading={row.showDateHeading}
-          dateHeading={row.dateHeading}
-        />
-      ))}
+      {rows.map((row, index) => {
+        const timelineEventItem = <TimelineEventItem
+            key={row.event.id}
+            event={row.event}
+            isHighlighted={todayEventIds && todayEventIds.has(row.event.id)}
+            isLast={index === lastIndex}
+            showDateHeading={row.showDateHeading}
+            dateHeading={row.dateHeading}
+            disabled={!upcoming}
+          />;
+        return row.showDateHeading ?
+            <section key={row.event.id} id={row.event.date} className="scroll-mt-20">
+              {timelineEventItem}
+            </section>
+          : 
+            timelineEventItem;
+        }
+      )}
     </div>
   )
 }
 
-function MissedEventsSection({ events }: { events: Event[] }) {
-  return (
-    <section
-      aria-label="Here is what you missed"
-      className="mt-12 border-t border-border pt-8 theme-trans"
-    >
-      <h2 className="mb-6 text-base font-semibold text-soft-foreground theme-trans">
-        Here is what you missed
-      </h2>
-      <div className="flex flex-col gap-6">
-        {events.map(event => (
-          <div key={event.id}>
-            <h3 className="mb-2 text-base font-semibold text-light-foreground font-display theme-trans">
-              {formatTimelineDateHeading(event.date)}
-            </h3>
-            <EventCard event={event} disabled />
-          </div>
-        ))}
-      </div>
-    </section>
-  )
-}
-
-export function EventTimeline({ events }: EventTimelineProps) {
-  const { upcomingEvents, archivedEvents } = splitTimelineEvents(events)
-
-  if (upcomingEvents.length === 0 && archivedEvents.length === 0) {
+export function EventTimeline({ upcomingEvents, prevTimelineRows, upcomingTimelineRows, todayEventIds, previousLen, setPreviousLen, fullPreviousLen }: EventTimelineProps) {
+  if (upcomingEvents.length === 0 && prevTimelineRows.length === 0) {
     return (
       <div
         role="status"
@@ -98,20 +71,38 @@ export function EventTimeline({ events }: EventTimelineProps) {
     )
   }
 
-  const upcomingGroups = groupEventsByDate(upcomingEvents)
-  const todayEventIds = getTodayEventIds(upcomingEvents)
-  const timelineRows = buildTimelineRows(upcomingGroups)
-
   return (
     <div className="relative max-w-full overflow-visible pb-8">
       <div className="flex flex-col overflow-visible">
-        {timelineRows.length > 0 ? (
-          <UpcomingTimeline rows={timelineRows} todayEventIds={todayEventIds} />
+        {upcomingTimelineRows.length > 0 ? (
+          <Timeline rows={upcomingTimelineRows} todayEventIds={todayEventIds} />
         ) : (
-          <p className="mb-8 text-sm text-muted-foreground theme-trans">No upcoming events to show.</p>
+          <div
+            role="status"
+            className="rounded-xl border border-dashed border-border px-6 py-12 flex flex-col items-center theme-trans"
+          >
+            <Logo sad={true} className="w-36 h-36 mb-5"/>
+            <p className="mb-8 text-sm text-muted-foreground theme-trans">No upcoming events to show.</p>
+          </div>
         )}
 
-        {/* {archivedEvents.length > 0 && <MissedEventsSection events={archivedEvents} />} */}
+        {prevTimelineRows.length > 0 && 
+          <section
+            aria-label="Previous events"
+            className="mt-12 border-t border-border pt-8 theme-trans"
+          >
+            <h2 className="mb-6 text-base font-semibold text-soft-foreground theme-trans">
+              Previous events
+            </h2>
+            <Timeline rows={prevTimelineRows} upcoming={false} />
+            {previousLen < fullPreviousLen &&
+              <button onClick={() => {
+                setPreviousLen(Math.min(previousLen + 2, fullPreviousLen));
+              }}>
+                See more
+              </button>}
+          </section>
+        }
       </div>
     </div>
   )

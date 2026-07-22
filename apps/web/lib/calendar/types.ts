@@ -1,6 +1,7 @@
 export interface DayCell {
   date: number
-  isCurrentMonth: boolean
+  month: number
+  year: number
   isToday: boolean
   hasEvents: boolean
 }
