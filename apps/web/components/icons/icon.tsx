@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 
 export type IconType = "magnifying-glass" | "people" | "book" | "calendar" | "graduation" | "hand" | "handshake" | "heart" | "location" | "people" | "speech-bubble" | "cloud"
- | "globe" | "lightning" | "smartphone" | "tag-markup";
+ | "globe" | "lightning" | "smartphone" | "tag-markup" | "right-arrow" | "left-arrow";
 
 export const icons: Record<IconType, ReactElement> = {
   "magnifying-glass":  <>
@@ -70,6 +70,8 @@ export const icons: Record<IconType, ReactElement> = {
     <polyline points="16 18 22 12 16 6"/>
     <polyline points="8 6 2 12 8 18"/>
   </>,
+  "right-arrow": <path d="m9 18 6-6-6-6"/>,
+  "left-arrow": <path d="m15 18-6-6 6-6"/>,
 };
 
 export const Icon =  ({ className, icon, width = 2 }: { className?: string, icon: IconType, width?: number }) => 
