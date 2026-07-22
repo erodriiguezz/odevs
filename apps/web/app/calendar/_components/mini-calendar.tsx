@@ -9,14 +9,12 @@ import { Icon } from '@/components/icons/icon';
 interface MiniCalendarProps {
   events: Event[],
   className?: string,
-  previousLen: number,
-  setPreviousLen: (len: number) => void
   firstDateIndex: Map<string, number>,
 }
 
 const WEEKDAY_LABELS = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
-export function MiniCalendar({ events, className, previousLen, setPreviousLen, firstDateIndex }: MiniCalendarProps) {
+export function MiniCalendar({ events, className, firstDateIndex }: MiniCalendarProps) {
   const params = useSearchParams();
   const router = useRouter();
   const path = usePathname();
@@ -64,12 +62,7 @@ export function MiniCalendar({ events, className, previousLen, setPreviousLen, f
               cell.isToday ? 'ring-2 ring-[#5B4FE9]' : ''
             } ${cell.month == month ? 'text-foreground' : 'text-border-glow'} ${cell.hasEvents && 'hover:scale-110'}`}
             onClick={() => {
-              if (cell.hasEvents) {
-                const date = `${cell.year}-${String(cell.month).padStart(2, '0')}-${String(cell.date).padStart(2, '0')}`;
-                let ind = firstDateIndex.get(date);
-                if (ind && ++ind > previousLen) setPreviousLen(ind + ind%2);
-                router.replace(`${path}?${params.toString()}#${date}`);
-              }
+              if (cell.hasEvents) router.replace(`${path}?${params.toString()}#${cell.year}-${String(cell.month).padStart(2, '0')}-${String(cell.date).padStart(2, '0')}`);
             }}
           >
             <span className="text-sm">{cell.date}</span>

@@ -1,3 +1,5 @@
+'use client';
+
 import type { Event } from '@/lib/types/event'
 import {
   TIMELINE_RAIL_CENTER_PX,
@@ -6,11 +8,11 @@ import {
 import Logo from '@/components/logo'
 import { buildTimelineRows, TimelineRow } from './calendar-shell'
 import { getTodayEventIds, groupEventsByDate } from '@/lib/calendar'
+import { List, AutoSizer, CellMeasurer, CellMeasurerCache, WindowScroller, InfiniteLoader } from 'react-virtualized'
+import 'react-virtualized/styles.css'
+import { useEffect, useState, useMemo } from 'react';
 
 interface EventTimelineProps {
-  previousLen: number
-  fullPreviousLen: number
-  setPreviousLen: (len: number) => void
   upcomingEvents: Event[]
   prevTimelineRows: TimelineRow[]
 }
@@ -56,7 +58,24 @@ function Timeline({
   )
 }
 
-export function EventTimeline({ upcomingEvents, prevTimelineRows, previousLen, setPreviousLen, fullPreviousLen }: EventTimelineProps) {
+export function EventTimeline({ upcomingEvents, prevTimelineRows }: EventTimelineProps) {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const cache = useMemo(() => {
+    return new CellMeasurerCache({
+      fixedWidth: true,
+      defaultHeight: 100,
+    });
+  }, []);
+
+  useEffect(() => {
+    cache.clearAll();
+  }, [prevTimelineRows, cache]);
+  
   if (upcomingEvents.length === 0 && prevTimelineRows.length === 0) {
     return (
       <div
@@ -71,12 +90,13 @@ export function EventTimeline({ upcomingEvents, prevTimelineRows, previousLen, s
   }
 
   const upcomingTimelineRows = buildTimelineRows(groupEventsByDate(upcomingEvents), false);
+  const todayEventIds = getTodayEventIds(upcomingEvents);
 
   return (
     <div className="relative max-w-full overflow-visible pb-8">
       <div className="flex flex-col overflow-visible">
         {upcomingTimelineRows.length > 0 ? (
-          <Timeline rows={upcomingTimelineRows} todayEventIds={getTodayEventIds(upcomingEvents)} />
+          <Timeline rows={upcomingTimelineRows} todayEventIds={todayEventIds} />
         ) : (
           <div
             role="status"
@@ -95,13 +115,50 @@ export function EventTimeline({ upcomingEvents, prevTimelineRows, previousLen, s
             <h2 className="mb-6 text-base font-semibold text-soft-foreground theme-trans">
               Previous events
             </h2>
-            <Timeline rows={prevTimelineRows} upcoming={false} />
-            {previousLen < fullPreviousLen &&
-              <button onClick={() => {
-                setPreviousLen(Math.min(previousLen + 2, fullPreviousLen));
-              }}>
-                See more
-              </button>}
+            {isMounted &&
+              <WindowScroller>
+                {({ height, isScrolling, onChildScroll, scrollTop }) => (
+                  <div className="w-full">
+                    <AutoSizer disableHeight>
+                      {({ width }) => (
+                        <List
+                          width={width}
+                          autoHeight
+                          height={height}
+                          isScrolling={isScrolling}
+                          onScroll={onChildScroll}
+                          scrollTop={scrollTop}
+                          rowCount={prevTimelineRows.length}
+                          deferredMeasurementCache={cache}
+                          rowHeight={cache.rowHeight}
+                          rowRenderer={({ key, index, parent, style }) => (
+                            <CellMeasurer
+                              cache={cache}
+                              columnIndex={0}
+                              key={key}
+                              parent={parent}
+                              rowIndex={index}
+                            >
+                              <section key={prevTimelineRows[index].event.id} id={prevTimelineRows[index].event.date} className="scroll-mt-20" style={style}>
+                                <TimelineEventItem
+                                  key={prevTimelineRows[index].event.id}
+                                  event={prevTimelineRows[index].event}
+                                  isHighlighted={todayEventIds && todayEventIds.has(prevTimelineRows[index].event.id)}
+                                  isLast={index === prevTimelineRows.length-1}
+                                  showDateHeading={prevTimelineRows[index].showDateHeading}
+                                  dateHeading={prevTimelineRows[index].dateHeading}
+                                  disabled={true}
+                                />
+                              </section>
+                            </CellMeasurer>
+                          )}
+                        />
+                      )}
+                    </AutoSizer>
+                  </div>
+                )}
+              </WindowScroller>
+            }
           </section>
         }
       </div>
