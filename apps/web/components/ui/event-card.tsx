@@ -102,7 +102,7 @@ export function EventCard({
         </div>
 
         {event.description && (
-          <p className="mt-4 text-sm text-muted-foreground">
+          <p className="mt-4 text-sm text-muted-foreground line-clamp-3">
             {event.description}
           </p>
         )}
