@@ -1,11 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { EventType } from "@/lib/types/event";
-import {
-  EVENT_TYPE_OPTIONS,
-  formatEventTypeLabel,
-} from "@/lib/data/eventTypes";
+import { EVENT_TYPE_OPTIONS } from "@/lib/data/eventTypes";
 
 function FilterIcon({ className }: { className?: string }) {
   return (
@@ -66,11 +63,6 @@ function ChevronDownIcon({ className }: { className?: string }) {
   );
 }
 
-function formatCategoryLabel(eventType: EventType | "All"): string {
-  if (eventType === "All") return "";
-  return formatEventTypeLabel(eventType);
-}
-
 interface FilterBarProps {
   eventType: EventType | "All";
   groupName: string | "All";
@@ -91,69 +83,13 @@ export function FilterBar({
   onResetFilters,
 }: FilterBarProps) {
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const [categoryDraft, setCategoryDraft] = useState(() =>
-    formatCategoryLabel(eventType),
-  );
-  const [groupDraft, setGroupDraft] = useState(() =>
-    groupName === "All" ? "" : groupName,
-  );
-
-  useEffect(() => {
-    setCategoryDraft(formatCategoryLabel(eventType));
-  }, [eventType]);
-
-  useEffect(() => {
-    setGroupDraft(groupName === "All" ? "" : groupName);
-  }, [groupName]);
 
   const activeFilterCount =
     (eventType !== "All" ? 1 : 0) +
     (groupName !== "All" ? 1 : 0) +
     (hasDateFilter ? 1 : 0);
 
-  function handleCategoryDraftChange(value: string) {
-    setCategoryDraft(value);
-
-    if (!value || value === "All") {
-      onEventTypeChange("All");
-      return;
-    }
-
-    const match = EVENT_TYPE_OPTIONS.find(
-      (option) => option.label.toLowerCase() === value.toLowerCase(),
-    );
-    if (match) {
-      onEventTypeChange(match.value);
-    }
-  }
-
-  function handleGroupDraftChange(value: string) {
-    setGroupDraft(value);
-
-    if (!value || value === "All") {
-      onGroupNameChange("All");
-      return;
-    }
-
-    const match = groupNames.find(
-      (name) => name.toLowerCase() === value.toLowerCase(),
-    );
-    if (match) {
-      onGroupNameChange(match);
-    }
-  }
-
-  function handleResetFilters() {
-    setCategoryDraft("");
-    setGroupDraft("");
-    onResetFilters();
-  }
-
-  const canReset =
-    categoryDraft !== "" ||
-    groupDraft !== "" ||
-    hasDateFilter ||
-    activeFilterCount > 0;
+  const canReset = hasDateFilter || activeFilterCount > 0;
 
   return (
     <div className="sticky top-16 z-30 -mx-4 mt-0 border-b border-border/60 bg-background/95 px-4 py-3 backdrop-blur sm:static sm:mx-0 sm:border-0 sm:bg-transparent sm:p-0">
@@ -194,20 +130,27 @@ export function FilterBar({
           <label htmlFor="category-filter" className="sr-only">
             Filter by category
           </label>
-          <input
+          <select
             id="category-filter"
-            list="category-options"
-            value={categoryDraft}
-            onChange={(e) => handleCategoryDraftChange(e.target.value)}
-            placeholder="All categories"
-            className="w-full min-w-[10rem] appearance-none rounded-full border border-border bg-surface/60 py-2.5 pl-4 pr-10 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary/60 focus:outline-none sm:w-auto [&::-webkit-calendar-picker-indicator]:opacity-0"
-          />
-          <datalist id="category-options">
-            <option value="All">All categories</option>
+            value={eventType}
+            onChange={(e) =>
+              onEventTypeChange(e.target.value as EventType | "All")
+            }
+            className="w-full min-w-[10rem] appearance-none rounded-full border border-border bg-surface/60 py-2.5 pl-4 pr-10 text-sm text-foreground focus:border-primary/60 focus:outline-none sm:w-auto"
+          >
+            <option value="All" className="bg-background">
+              All categories
+            </option>
             {EVENT_TYPE_OPTIONS.map((option) => (
-              <option key={option.value} value={option.label} />
+              <option
+                key={option.value}
+                value={option.value}
+                className="bg-background"
+              >
+                {option.label}
+              </option>
             ))}
-          </datalist>
+          </select>
           <ChevronDownIcon className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         </div>
 
@@ -215,27 +158,28 @@ export function FilterBar({
           <label htmlFor="group-filter" className="sr-only">
             Filter by group
           </label>
-          <input
+          <select
             id="group-filter"
-            list="group-options"
-            value={groupDraft}
-            onChange={(e) => handleGroupDraftChange(e.target.value)}
-            placeholder="All groups"
-            className="w-full min-w-[10rem] appearance-none rounded-full border border-border bg-surface/60 py-2.5 pl-4 pr-10 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary/60 focus:outline-none sm:w-auto [&::-webkit-calendar-picker-indicator]:opacity-0"
-          />
-          <datalist id="group-options">
-            <option value="All">All groups</option>
+            value={groupName}
+            onChange={(e) => onGroupNameChange(e.target.value)}
+            className="w-full min-w-[10rem] appearance-none rounded-full border border-border bg-surface/60 py-2.5 pl-4 pr-10 text-sm text-foreground focus:border-primary/60 focus:outline-none sm:w-auto"
+          >
+            <option value="All" className="bg-background">
+              All groups
+            </option>
             {groupNames.map((name) => (
-              <option key={name} value={name} />
+              <option key={name} value={name} className="bg-background">
+                {name}
+              </option>
             ))}
-          </datalist>
+          </select>
           <ChevronDownIcon className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         </div>
 
         {canReset && (
           <button
             type="button"
-            onClick={handleResetFilters}
+            onClick={onResetFilters}
             className="inline-flex cursor-pointer items-center justify-center rounded-full border border-border px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground"
           >
             Reset

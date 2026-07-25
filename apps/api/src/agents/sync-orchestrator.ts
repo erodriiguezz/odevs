@@ -1,9 +1,14 @@
 import { eq, and } from 'drizzle-orm'
 import { db } from '../db/index.js'
 import { events, syncRuns } from '../db/schema.js'
-import { lumaSources } from '../sources/registry.js'
+import type { NewEventRow } from '../db/schema.js'
+import { lumaSources, meetupSources } from '../sources/registry.js'
 import { fetchLumaCalendar } from '../sources/luma/fetch-calendar.js'
 import { normalizeLumaEvent } from '../sources/luma/normalize.js'
+import { fetchMeetupEvents } from '../sources/meetup/fetch-events.js'
+import { normalizeMeetupEvent } from '../sources/meetup/normalize.js'
+
+type NormalizedEvent = Omit<NewEventRow, 'firstSeenAt' | 'lastSeenAt' | 'updatedAt'>
 
 export interface SyncSourceResult {
     source: string
@@ -23,9 +28,7 @@ function newSyncRunId(): string {
     return `sync-${Date.now()}`
 }
 
-async function upsertEvent(
-    normalized: ReturnType<typeof normalizeLumaEvent>,
-): Promise<'new' | 'updated'> {
+async function upsertEvent(normalized: NormalizedEvent): Promise<'new' | 'updated'> {
     const now = new Date()
 
     const existing = await db.query.events.findFirst({
@@ -58,8 +61,11 @@ async function upsertEvent(
     return 'updated'
 }
 
-async function syncOneSource(source: (typeof lumaSources)[number]): Promise<SyncSourceResult> {
-    const sourceKey = `luma:${source.slug}`
+async function runSourceSync<Raw>(
+    sourceKey: string,
+    fetchRaw: () => Promise<Raw[]>,
+    normalize: (raw: Raw) => NormalizedEvent,
+): Promise<SyncSourceResult> {
     const runId = newSyncRunId()
     const startedAt = new Date()
     const errors: string[] = []
@@ -69,16 +75,12 @@ async function syncOneSource(source: (typeof lumaSources)[number]): Promise<Sync
     let eventsUpdated = 0
 
     try {
-        const { events: rawEvents } = await fetchLumaCalendar(source.slug)
+        const rawEvents = await fetchRaw()
         eventsFound = rawEvents.length
 
         for (const raw of rawEvents) {
             try {
-                const normalized = normalizeLumaEvent({
-                    raw,
-                    calendarSlug: source.slug,
-                    groupId: source.groupId,
-                })
+                const normalized = normalize(raw)
                 const outcome = await upsertEvent(normalized)
                 if (outcome === 'new') eventsNew++
                 else eventsUpdated++
@@ -118,12 +120,43 @@ async function syncOneSource(source: (typeof lumaSources)[number]): Promise<Sync
     return { source: sourceKey, eventsFound, eventsNew, eventsUpdated, errors }
 }
 
+function syncOneLumaSource(source: (typeof lumaSources)[number]): Promise<SyncSourceResult> {
+    return runSourceSync(
+        `luma:${source.slug}`,
+        async () => (await fetchLumaCalendar(source.slug)).events,
+        (raw) => normalizeLumaEvent({ raw, calendarSlug: source.slug, groupId: source.groupId }),
+    )
+}
+
+function syncOneMeetupSource(source: (typeof meetupSources)[number]): Promise<SyncSourceResult> {
+    return runSourceSync(
+        `meetup:${source.urlname}`,
+        async () => (await fetchMeetupEvents(source.urlname)).events,
+        (raw) => normalizeMeetupEvent({ raw, urlname: source.urlname, groupId: source.groupId }),
+    )
+}
+
 export async function runLumaSync(): Promise<SyncSummary> {
     const startedAt = new Date()
     const results: SyncSourceResult[] = []
 
     for (const source of lumaSources) {
-        results.push(await syncOneSource(source))
+        results.push(await syncOneLumaSource(source))
+    }
+
+    return {
+        startedAt: startedAt.toISOString(),
+        finishedAt: new Date().toISOString(),
+        results,
+    }
+}
+
+export async function runMeetupSync(): Promise<SyncSummary> {
+    const startedAt = new Date()
+    const results: SyncSourceResult[] = []
+
+    for (const source of meetupSources) {
+        results.push(await syncOneMeetupSource(source))
     }
 
     return {

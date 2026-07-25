@@ -11,7 +11,7 @@ function isUpcoming(event: Event, today: Date): boolean {
   return new Date(`${event.date}T00:00:00`) >= today
 }
 
-export function splitTimelineEvents(events: Event[], recentPastCount = 2) {
+export function splitTimelineEvents(events: Event[], recentPastCount = 3) {
   const today = startOfToday()
   const upcomingEvents = sortEventsByDateTime(events.filter(event => isUpcoming(event, today)))
   const archivedEvents = sortEventsByDateTime(events.filter(event => !isUpcoming(event, today)))

@@ -68,9 +68,7 @@ export function MiniCalendar({
   return (
     <div>
       <div className="flex items-center justify-between gap-2">
-        <div className="font-display text-xs font-semibold md:text-sm">
-          {heading}
-        </div>
+        <div className="font-display text-sm font-semibold">{heading}</div>
         <div className="flex items-center gap-1">
           <button
             type="button"
@@ -83,7 +81,7 @@ export function MiniCalendar({
           <button
             type="button"
             onClick={onToday}
-            className="h-6 cursor-pointer rounded-md border border-border px-2 text-[10px] font-medium text-muted-foreground hover:bg-surface hover:text-foreground md:h-7 md:text-xs"
+            className="h-6 cursor-pointer rounded-md border border-border px-2 text-xs font-medium text-muted-foreground hover:bg-surface hover:text-foreground md:h-7"
           >
             Today
           </button>
@@ -104,7 +102,7 @@ export function MiniCalendar({
         ))}
       </div>
 
-      <div className="mt-0.5 grid grid-cols-7 gap-y-0.5 text-center text-xs md:mt-1 md:gap-y-1 md:text-sm">
+      <div className="mt-1 grid grid-cols-7 gap-y-1 text-center text-sm md:mt-1 md:gap-y-1 md:text-sm">
         {grid.map((cell, i) => {
           const isSelected =
             cell.isoDate != null && cell.isoDate === selectedDate;
@@ -120,11 +118,9 @@ export function MiniCalendar({
               }}
               aria-pressed={isSelected}
               aria-label={
-                cell.isoDate
-                  ? `Show events on ${cell.isoDate}`
-                  : undefined
+                cell.isoDate ? `Show events on ${cell.isoDate}` : undefined
               }
-              className={`flex flex-col items-center gap-0.5 rounded-md px-0.5 py-1 transition-colors md:py-1.5 ${
+              className={`flex min-h-11 flex-col items-center justify-center gap-0.5 rounded-md px-0.5 py-2 transition-colors md:min-h-0 md:py-1.5 ${
                 cell.isCurrentMonth
                   ? "text-foreground"
                   : "text-muted-foreground/40"

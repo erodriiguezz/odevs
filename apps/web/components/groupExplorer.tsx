@@ -79,7 +79,7 @@ export default function GroupExplorer() {
           />
         </div>
 
-        <div className="relative">
+        <div className="relative fit-content">
           <select
             value={category}
             onChange={(e) => updateParam("category", e.target.value)}
