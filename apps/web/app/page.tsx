@@ -5,6 +5,7 @@ import sponsors from "@/lib/data/sponsors";
 import { GroupsGrid } from "@/components/groups-grid";
 import { ArrowUpRightIcon } from "@/components/icons";
 import { EventCard } from "@/components/ui/event-card";
+import { EmptyState } from "@/components/ui/empty-state";
 import { getAllEvents } from "@/lib/data/get-events";
 import { splitTimelineEvents } from "@/lib/calendar/split-timeline-events";
 import groups from "@/lib/data/groups";
@@ -22,7 +23,7 @@ export default async function HomePage() {
     return year === currentYear && month === currentMonth;
   }).length;
 
-  const previewGroups = Object.values(groups).slice(0, 8);
+  const previewGroups = Object.values(groups).slice(0, 6);
   const activeGroups = Object.keys(groups).length;
 
   return (
@@ -169,10 +170,11 @@ export default async function HomePage() {
           </div>
 
           {upcomingEvents.length < 1 ? (
-            <div className="mt-8 flex flex-col items-start gap-5">
-              <p className="text-muted-foreground font-semibold text-xl">
-                Check back later for future events!
-              </p>
+            <div className="mt-8">
+              <EmptyState
+                title="No events to show"
+                description="Check back later for upcoming events."
+              />
             </div>
           ) : (
             <div
@@ -208,11 +210,27 @@ export default async function HomePage() {
               <br />
               for the community
             </h2>
-            <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg leading-relaxed">
+          </div>
+
+          <div className="mx-auto mt-12 grid max-w-5xl gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
+            <div className="overflow-hidden rounded-3xl border border-border">
+              <Image
+                src="/images/OTAB_PHOTO.jpg"
+                alt="Orlando Devs community members gathered at a meetup"
+                width={800}
+                height={600}
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <p className="text-base text-muted-foreground sm:text-lg leading-relaxed">
               Orlando Devs is a vibrant community of volunteer software
               developers, designers, and tech enthusiasts in the Orlando and
-              Central Florida area. We&apos;re dedicated to fostering growth,
-              collaboration, and knowledge sharing among our members.
+              Central Florida area. Whether you&apos;re a seasoned
+              professional or just starting your journey in tech, we&apos;re
+              dedicated to fostering growth, collaboration, and knowledge
+              sharing among our members &mdash; providing a supportive
+              environment where you can learn, network, and contribute to the
+              local tech ecosystem.
             </p>
           </div>
 
@@ -231,13 +249,6 @@ export default async function HomePage() {
               people making software here.
             </p>
           </div>
-
-          <p className="mx-auto mt-8 max-w-2xl text-center leading-relaxed text-muted-foreground">
-            Whether you&apos;re a seasoned professional or just starting your
-            journey in tech, our community provides a supportive environment
-            where you can learn, network, and contribute to the local tech
-            ecosystem.
-          </p>
 
           <div
             className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"

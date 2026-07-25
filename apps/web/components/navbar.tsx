@@ -22,6 +22,7 @@ export default function Header() {
   const linkClass = (href: string) =>
     [
       "rounded-full px-3 py-1.5 text-sm font-medium transition-colors",
+      isMobile ? "px-4 py-3 text-base" : "",
       pathname === href
         ? "bg-primary/15 text-foreground"
         : "text-muted-foreground hover:text-foreground",
@@ -65,7 +66,11 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/70 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center">
+        <Link
+          href="/"
+          className="flex items-center"
+          onClick={() => setIsMenuOpen(false)}
+        >
           <Logo className="w-9 h-9 object-cover text-foreground" />
         </Link>
 

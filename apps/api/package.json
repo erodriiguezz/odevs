@@ -11,7 +11,8 @@
     "test": "vitest --run",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "sync:luma": "tsx src/cli/sync-luma.ts"
+    "sync:luma": "tsx src/cli/sync-luma.ts",
+    "sync:meetup": "tsx src/cli/sync-meetup.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.14.4",

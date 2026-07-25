@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import type { Event } from "@/lib/types/event";
 import {
   getTodayEventIds,
@@ -11,6 +10,7 @@ import {
   TIMELINE_RAIL_CENTER_PX,
   TimelineEventItem,
 } from "@/app/calendar/_components/timeline-event-item";
+import { EmptyState } from "@/components/ui/empty-state";
 
 interface EventTimelineProps {
   events: Event[];
@@ -18,6 +18,7 @@ interface EventTimelineProps {
   onClearDateFilter?: () => void;
   hasCategoryFilters?: boolean;
   onResetFilters?: () => void;
+  pastEvents?: Event[];
 }
 
 interface TimelineRow {
@@ -75,7 +76,34 @@ export function EventTimeline({
   onClearDateFilter,
   hasCategoryFilters = false,
   onResetFilters,
+  pastEvents = [],
 }: EventTimelineProps) {
+  return (
+    <>
+      <UpcomingSection
+        events={events}
+        selectedDate={selectedDate}
+        onClearDateFilter={onClearDateFilter}
+        hasCategoryFilters={hasCategoryFilters}
+        onResetFilters={onResetFilters}
+      />
+      {pastEvents.length > 0 && (
+        <PastEventsSection
+          events={pastEvents}
+          disabled={Boolean(selectedDate)}
+        />
+      )}
+    </>
+  );
+}
+
+function UpcomingSection({
+  events,
+  selectedDate = null,
+  onClearDateFilter,
+  hasCategoryFilters = false,
+  onResetFilters,
+}: Omit<EventTimelineProps, "pastEvents">) {
   const isDateFiltered = Boolean(selectedDate);
 
   const visibleEvents = isDateFiltered
@@ -86,7 +114,7 @@ export function EventTimeline({
     if (hasCategoryFilters && onResetFilters) {
       return (
         <div className="relative max-w-full overflow-visible pb-8">
-          <EmptyFilterCard
+          <EmptyState
             title="No matches"
             description={
               isDateFiltered && selectedDate ? (
@@ -101,7 +129,7 @@ export function EventTimeline({
                 "No upcoming events match your filters."
               )
             }
-            onReset={onResetFilters}
+            action={{ label: "Reset", onClick: onResetFilters }}
           />
         </div>
       );
@@ -110,7 +138,7 @@ export function EventTimeline({
     if (isDateFiltered && selectedDate && onClearDateFilter) {
       return (
         <div className="relative max-w-full overflow-visible pb-8">
-          <EmptyFilterCard
+          <EmptyState
             title="Nothing scheduled"
             description={
               <>
@@ -121,7 +149,7 @@ export function EventTimeline({
                 .
               </>
             }
-            onReset={onClearDateFilter}
+            action={{ label: "See all upcoming events", onClick: onClearDateFilter }}
           />
         </div>
       );
@@ -129,15 +157,10 @@ export function EventTimeline({
 
     return (
       <div className="relative max-w-full overflow-visible pb-8">
-        <div
-          role="status"
-          className="flex flex-col items-center rounded-xl border border-dashed border-border px-6 py-12"
-        >
-          <p className="text-sm text-muted-foreground">No events to show</p>
-          <p className="mt-1 text-xs text-light-foreground">
-            Check back later for upcoming events
-          </p>
-        </div>
+        <EmptyState
+          title="No events to show"
+          description="Check back later for upcoming events."
+        />
       </div>
     );
   }
@@ -162,33 +185,36 @@ export function EventTimeline({
   );
 }
 
-function EmptyFilterCard({
-  title,
-  description,
-  onReset,
+function PastEventsSection({
+  events,
+  disabled,
 }: {
-  title: string;
-  description: ReactNode;
-  onReset: () => void;
+  events: Event[];
+  disabled: boolean;
 }) {
+  const lastIndex = events.length - 1;
+
   return (
-    <div
-      role="status"
-      className="card-elev flex flex-col items-start gap-4 rounded-2xl px-5 py-6 sm:flex-row sm:items-center sm:justify-between"
-    >
-      <div>
-        <p className="font-display text-base font-semibold text-foreground">
-          {title}
-        </p>
-        <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+    <div className="mt-10 max-w-full">
+      <h3 className="font-display text-lg font-semibold text-muted-foreground">
+        Past events
+      </h3>
+      <div className="relative mt-4 overflow-visible">
+        <div
+          aria-hidden="true"
+          className="absolute top-0 bottom-0 w-px bg-border"
+          style={{ left: TIMELINE_RAIL_CENTER_PX }}
+        />
+
+        {events.map((event, index) => (
+          <TimelineEventItem
+            key={event.id}
+            event={event}
+            isLast={index === lastIndex}
+            disabled={disabled}
+          />
+        ))}
       </div>
-      <button
-        type="button"
-        onClick={onReset}
-        className="inline-flex cursor-pointer items-center justify-center rounded-full border border-border px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground"
-      >
-        Reset
-      </button>
     </div>
   );
 }

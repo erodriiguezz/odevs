@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import type { Event, EventType } from "@/lib/types/event";
 import { filterEvents } from "@/lib/calendar/filter";
+import { splitTimelineEvents } from "@/lib/calendar/split-timeline-events";
 import { FilterBar } from "@/app/calendar/_components/filter-bar";
 import { EventTimeline } from "@/app/calendar/_components/event-timeline";
 import { MiniCalendar } from "@/app/calendar/_components/mini-calendar";
@@ -38,6 +39,8 @@ export function CalendarShell({ events }: CalendarShellProps) {
   const timelineEvents = selectedDate
     ? filteredEvents.filter((event) => event.date === selectedDate)
     : filteredEvents;
+
+  const pastEvents = splitTimelineEvents(filteredEvents).archivedEvents;
 
   function handleSelectDate(isoDate: string) {
     if (selectedDate === isoDate) {
@@ -79,7 +82,7 @@ export function CalendarShell({ events }: CalendarShellProps) {
         onGroupNameChange={setGroupName}
         onResetFilters={handleResetFilters}
       />
-      <div className="flex min-w-0 flex-col-reverse gap-4 md:grid md:grid-cols-[2fr_1fr] md:gap-6">
+      <div className="flex min-w-0 flex-col-reverse gap-4 md:grid md:grid-cols-[1fr_0.5fr] md:gap-6">
         <div className="min-w-0 overflow-visible">
           <EventTimeline
             events={timelineEvents}
@@ -87,6 +90,7 @@ export function CalendarShell({ events }: CalendarShellProps) {
             onClearDateFilter={handleClearDateFilter}
             hasCategoryFilters={hasCategoryFilters}
             onResetFilters={handleResetFilters}
+            pastEvents={pastEvents}
           />
         </div>
 
