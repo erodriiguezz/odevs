@@ -5,7 +5,10 @@ import {
   sortEventsByDateTime,
 } from "@/lib/calendar/group-events";
 import { formatTimelineDateHeading } from "@/lib/calendar/format";
-import { splitTimelineEvents } from "@/lib/calendar/split-timeline-events";
+import {
+  isPastDate,
+  splitTimelineEvents,
+} from "@/lib/calendar/split-timeline-events";
 import {
   TIMELINE_RAIL_CENTER_PX,
   TimelineEventItem,
@@ -27,6 +30,28 @@ interface TimelineRow {
   dateHeading: string;
 }
 
+function PillActionButton({
+  label,
+  onClick,
+}: {
+  label: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="inline-flex cursor-pointer items-center justify-center rounded-full border border-border px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground"
+    >
+      {label}
+    </button>
+  );
+}
+
+function SeeAllUpcomingEventsButton({ onClick }: { onClick: () => void }) {
+  return <PillActionButton label="See all upcoming events" onClick={onClick} />;
+}
+
 function buildTimelineRows(
   groups: ReturnType<typeof groupEventsByDate>,
 ): TimelineRow[] {
@@ -42,9 +67,11 @@ function buildTimelineRows(
 function UpcomingTimeline({
   rows,
   todayEventIds,
+  disabled = false,
 }: {
   rows: TimelineRow[];
   todayEventIds: Set<string>;
+  disabled?: boolean;
 }) {
   const lastIndex = rows.length - 1;
 
@@ -64,6 +91,7 @@ function UpcomingTimeline({
           isLast={index === lastIndex}
           showDateHeading={row.showDateHeading}
           dateHeading={row.dateHeading}
+          disabled={disabled}
         />
       ))}
     </div>
@@ -78,6 +106,8 @@ export function EventTimeline({
   onResetFilters,
   pastEvents = [],
 }: EventTimelineProps) {
+  const isPastSelectedDate = selectedDate !== null && isPastDate(selectedDate);
+
   return (
     <>
       <UpcomingSection
@@ -86,12 +116,10 @@ export function EventTimeline({
         onClearDateFilter={onClearDateFilter}
         hasCategoryFilters={hasCategoryFilters}
         onResetFilters={onResetFilters}
+        isPastSelectedDate={isPastSelectedDate}
       />
-      {pastEvents.length > 0 && (
-        <PastEventsSection
-          events={pastEvents}
-          disabled={Boolean(selectedDate)}
-        />
+      {pastEvents.length > 0 && !isPastSelectedDate && (
+        <PastEventsSection events={pastEvents} disabled />
       )}
     </>
   );
@@ -103,7 +131,8 @@ function UpcomingSection({
   onClearDateFilter,
   hasCategoryFilters = false,
   onResetFilters,
-}: Omit<EventTimelineProps, "pastEvents">) {
+  isPastSelectedDate,
+}: Omit<EventTimelineProps, "pastEvents"> & { isPastSelectedDate: boolean }) {
   const isDateFiltered = Boolean(selectedDate);
 
   const visibleEvents = isDateFiltered
@@ -129,7 +158,7 @@ function UpcomingSection({
                 "No upcoming events match your filters."
               )
             }
-            action={{ label: "Reset", onClick: onResetFilters }}
+            action={<PillActionButton label="Reset" onClick={onResetFilters} />}
           />
         </div>
       );
@@ -149,7 +178,7 @@ function UpcomingSection({
                 .
               </>
             }
-            action={{ label: "See all upcoming events", onClick: onClearDateFilter }}
+            action={<SeeAllUpcomingEventsButton onClick={onClearDateFilter} />}
           />
         </div>
       );
@@ -172,13 +201,18 @@ function UpcomingSection({
   return (
     <div className="relative max-w-full overflow-visible pb-8">
       <div className="flex flex-col overflow-visible">
-        <UpcomingTimeline rows={timelineRows} todayEventIds={todayEventIds} />
+        <UpcomingTimeline
+          rows={timelineRows}
+          todayEventIds={todayEventIds}
+          disabled={isPastSelectedDate}
+        />
       </div>
 
       {isDateFiltered && selectedDate && onClearDateFilter && (
         <DateFilterBanner
           selectedDate={selectedDate}
           onClear={onClearDateFilter}
+          isPastSelectedDate={isPastSelectedDate}
         />
       )}
     </div>
@@ -197,7 +231,7 @@ function PastEventsSection({
   return (
     <div className="mt-10 max-w-full">
       <h3 className="font-display text-lg font-semibold text-muted-foreground">
-        Past events
+        Recent events
       </h3>
       <div className="relative mt-4 overflow-visible">
         <div
@@ -222,25 +256,24 @@ function PastEventsSection({
 function DateFilterBanner({
   selectedDate,
   onClear,
+  isPastSelectedDate,
 }: {
   selectedDate: string;
   onClear: () => void;
+  isPastSelectedDate: boolean;
 }) {
   return (
     <div className="mt-6 flex flex-col gap-2 rounded-xl border border-border bg-surface/60 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-      <p className="text-sm text-foreground">
-        Showing events for{" "}
-        <span className="font-medium">
+      <p className="text-sm text-muted-foreground">
+        {isPastSelectedDate ? "Showing past events on" : "Showing events for"}{" "}
+        <span className="text-foreground">
           {formatTimelineDateHeading(selectedDate)}
         </span>
+        .
       </p>
-      <button
-        type="button"
-        onClick={onClear}
-        className="inline-flex cursor-pointer items-center self-start text-sm font-medium text-primary-glow hover:text-foreground sm:self-auto"
-      >
-        See all upcoming events
-      </button>
+      <div className="self-start sm:self-auto">
+        <SeeAllUpcomingEventsButton onClick={onClear} />
+      </div>
     </div>
   );
 }

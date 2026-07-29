@@ -1,9 +1,34 @@
 import Image from "next/image";
+import Markdown, { type Components } from "react-markdown";
 import type { Event } from "@/lib/types/event";
 import type { SourcePlatform } from "@/lib/types/platform";
 import { ArrowUpRightIcon, ClockIcon, MapPinIcon } from "@/components/icons";
 import { formatEventCardDate } from "@/lib/calendar/format";
 import { formatEventTypeLabel } from "@/lib/data/eventTypes";
+
+const descriptionMarkdownComponents: Components = {
+  p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+  a: ({ children, ...props }) => (
+    <a
+      {...props}
+      target="_blank"
+      rel="noreferrer"
+      className="text-foreground underline underline-offset-2"
+    >
+      {children}
+    </a>
+  ),
+  ul: ({ children }) => <ul className="list-disc pl-4">{children}</ul>,
+  ol: ({ children }) => <ol className="list-decimal pl-4">{children}</ol>,
+  h1: ({ children }) => <p className="font-semibold">{children}</p>,
+  h2: ({ children }) => <p className="font-semibold">{children}</p>,
+  h3: ({ children }) => <p className="font-semibold">{children}</p>,
+  h4: ({ children }) => <p className="font-semibold">{children}</p>,
+  h5: ({ children }) => <p className="font-semibold">{children}</p>,
+  h6: ({ children }) => <p className="font-semibold">{children}</p>,
+  blockquote: ({ children }) => <p>{children}</p>,
+  img: () => null,
+};
 
 export interface EventCardProps {
   event: Event;
@@ -102,9 +127,11 @@ export function EventCard({
         </div>
 
         {event.description && (
-          <p className="mt-4 text-sm text-muted-foreground line-clamp-3">
-            {event.description}
-          </p>
+          <div className="mt-4 line-clamp-3 text-sm text-muted-foreground">
+            <Markdown components={descriptionMarkdownComponents}>
+              {event.description}
+            </Markdown>
+          </div>
         )}
 
         <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
