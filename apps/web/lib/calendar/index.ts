@@ -13,5 +13,5 @@ export {
   sortEventsByDateTime,
 } from './group-events'
 export type { EventDateGroup } from './group-events'
-export { splitTimelineEvents } from './split-timeline-events'
+export { splitTimelineEvents, isPastDate } from './split-timeline-events'
 export type { DayCell } from './types'

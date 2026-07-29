@@ -136,7 +136,7 @@ export function FilterBar({
             onChange={(e) =>
               onEventTypeChange(e.target.value as EventType | "All")
             }
-            className="w-full min-w-[10rem] appearance-none rounded-full border border-border bg-surface/60 py-2.5 pl-4 pr-10 text-sm text-foreground focus:border-primary/60 focus:outline-none sm:w-auto"
+            className="w-full appearance-none rounded-full border border-border bg-surface/60 py-2.5 pl-4 pr-10 text-sm text-foreground focus:border-primary/60 focus:outline-none sm:w-56"
           >
             <option value="All" className="bg-background">
               All categories
@@ -162,7 +162,7 @@ export function FilterBar({
             id="group-filter"
             value={groupName}
             onChange={(e) => onGroupNameChange(e.target.value)}
-            className="w-full min-w-[10rem] appearance-none rounded-full border border-border bg-surface/60 py-2.5 pl-4 pr-10 text-sm text-foreground focus:border-primary/60 focus:outline-none sm:w-auto"
+            className="w-full appearance-none rounded-full border border-border bg-surface/60 py-2.5 pl-4 pr-10 text-sm text-foreground focus:border-primary/60 focus:outline-none sm:w-56"
           >
             <option value="All" className="bg-background">
               All groups

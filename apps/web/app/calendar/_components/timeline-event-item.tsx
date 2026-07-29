@@ -91,7 +91,7 @@ export function TimelineEventItem({
 
       <div className="min-w-0 flex-1 overflow-visible">
         {showDateHeading && dateHeading && (
-          <h3 className={`${DATE_HEADING_BLOCK_CLASSES} font-display text-lg font-semibold text-muted-foreground`}>{dateHeading}</h3>
+          <h3 className={`${DATE_HEADING_BLOCK_CLASSES} font-display text-lg font-semibold text-foreground`}>{dateHeading}</h3>
         )}
 
         <EventCard event={event} disabled={disabled} thumbnailPosition="side" />

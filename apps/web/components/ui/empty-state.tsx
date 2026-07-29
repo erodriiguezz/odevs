@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 interface EmptyStateProps {
   title: string;
   description?: ReactNode;
-  action?: { label: string; onClick: () => void };
+  action?: ReactNode;
 }
 
 export function EmptyState({ title, description, action }: EmptyStateProps) {
@@ -20,15 +20,7 @@ export function EmptyState({ title, description, action }: EmptyStateProps) {
           <p className="mt-1 text-sm text-muted-foreground">{description}</p>
         )}
       </div>
-      {action && (
-        <button
-          type="button"
-          onClick={action.onClick}
-          className="inline-flex cursor-pointer items-center justify-center self-start rounded-full border border-border px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground sm:self-auto"
-        >
-          {action.label}
-        </button>
-      )}
+      {action && <div className="self-start sm:self-auto">{action}</div>}
     </div>
   );
 }
