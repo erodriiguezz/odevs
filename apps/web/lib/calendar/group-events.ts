@@ -1,5 +1,5 @@
 import type { Event } from '@/lib/types/event'
-import { formatTimelineDateHeading, parseStartTimeMinutes } from './format'
+import { formatTimelineDateHeading, parseEndTimeMinutes, parseStartTimeMinutes } from './format'
 
 export interface EventDateGroup {
   date: string
@@ -15,6 +15,18 @@ export function sortEventsByDateTime(events: Event[]): Event[] {
     }
 
     return parseStartTimeMinutes(a.time) - parseStartTimeMinutes(b.time)
+  })
+}
+
+/** Sorts by when each event ends, not starts — used to order past events by how recently they wrapped up. */
+export function sortEventsByEndDateTime(events: Event[]): Event[] {
+  return [...events].sort((a, b) => {
+    const dateCompare = a.date.localeCompare(b.date)
+    if (dateCompare !== 0) {
+      return dateCompare
+    }
+
+    return parseEndTimeMinutes(a.time) - parseEndTimeMinutes(b.time)
   })
 }
 

@@ -36,7 +36,7 @@ export function GroupsGrid({ groups }: { groups: CommunityGroup[] }) {
           >
             <div className="flex items-start justify-between">
               <span
-                className="grid h-11 w-11 place-items-center rounded-xl text-white shadow-glow"
+                className="grid h-11 w-11 place-items-center rounded-xl text-white"
                 style={{ backgroundColor: brandColor }}
               >
                 <Icon className="h-5 w-5" icon={group.icon} width={2.2} />

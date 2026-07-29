@@ -29,15 +29,21 @@ export function extractStartTime(timeStr: string): string {
   return start.replace(/\s+(?:[A-Z]{3,5})$/i, '').trim()
 }
 
-export function parseStartTimeMinutes(timeStr: string): number {
-  const start = extractStartTime(timeStr)
+/** For "7:00 PM - 8:00 PM EDT" → "8:00 PM". Falls back to the start time when there's no range. */
+export function extractEndTime(timeStr: string): string {
+  const dashIdx = timeStr.indexOf(' - ')
+  if (dashIdx === -1) return extractStartTime(timeStr)
 
-  const match24 = start.match(/^(\d{1,2}):(\d{2})$/)
+  return timeStr.slice(dashIdx + 3).replace(/\s+(?:[A-Z]{3,5})$/i, '').trim()
+}
+
+function parseTimeMinutes(time: string): number {
+  const match24 = time.match(/^(\d{1,2}):(\d{2})$/)
   if (match24) {
     return Number.parseInt(match24[1], 10) * 60 + Number.parseInt(match24[2], 10)
   }
 
-  const match12 = start.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i)
+  const match12 = time.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i)
   if (match12) {
     let hours = Number.parseInt(match12[1], 10)
     const minutes = Number.parseInt(match12[2], 10)
@@ -54,6 +60,14 @@ export function parseStartTimeMinutes(timeStr: string): number {
   }
 
   return 0
+}
+
+export function parseStartTimeMinutes(timeStr: string): number {
+  return parseTimeMinutes(extractStartTime(timeStr))
+}
+
+export function parseEndTimeMinutes(timeStr: string): number {
+  return parseTimeMinutes(extractEndTime(timeStr))
 }
 
 export function formatTimelineDateHeading(isoDate: string): string {

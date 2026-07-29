@@ -1,17 +1,12 @@
 import type { NextConfig } from 'next'
+import { ALLOWED_IMAGE_HOSTS } from './lib/data/allowed-image-hosts'
 
 const nextConfig: NextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'secure.meetupstatic.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.lumacdn.com',
-      },
-    ],
+    remotePatterns: ALLOWED_IMAGE_HOSTS.map((hostname) => ({
+      protocol: 'https' as const,
+      hostname,
+    })),
   },
 }
 

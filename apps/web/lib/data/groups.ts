@@ -301,6 +301,16 @@ const uncoloredGroups: Record<string, Omit<Omit<CommunityGroup, 'background'>, '
       }
     ],
   },
+  'community-events': {
+    name: 'Community Events',
+    icon: 'globe',
+    category: groupCategories['Community'],
+    topic: 'Outside the Network',
+    description: 'Notable Central Florida tech events that aren\'t hosted by an Orlando Devs member group.',
+    brandColor: '#78716C',
+    isExternal: true,
+    eventSources: [],
+  },
 };
 
 export const colors = [
@@ -337,7 +347,7 @@ const groups: Record<string, CommunityGroup> =
           brandColor,
         }
       })
-      .sort((groupA, groupB) => (groupB.eventSources[0].members ?? 0) - (groupA.eventSources[0].members ?? 0))
+      .sort((groupA, groupB) => (groupB.eventSources[0]?.members ?? 0) - (groupA.eventSources[0]?.members ?? 0))
       .map(group => [group.id, group])
   );
 

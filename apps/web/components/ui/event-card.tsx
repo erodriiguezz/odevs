@@ -1,10 +1,10 @@
-import Image from "next/image";
 import Markdown, { type Components } from "react-markdown";
 import type { Event } from "@/lib/types/event";
 import type { SourcePlatform } from "@/lib/types/platform";
 import { ArrowUpRightIcon, ClockIcon, MapPinIcon } from "@/components/icons";
 import { formatEventCardDate } from "@/lib/calendar/format";
 import { formatEventTypeLabel } from "@/lib/data/eventTypes";
+import { EventThumbnail } from "@/components/ui/event-thumbnail";
 
 const descriptionMarkdownComponents: Components = {
   p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
@@ -82,25 +82,7 @@ export function EventCard({
   }${disabled ? " pointer-events-none opacity-70 saturate-50" : ""}`;
 
   const thumbnail = event.thumbnailUrl && (
-    <div
-      className={
-        isSideThumbnail
-          ? "relative hidden shrink-0 overflow-hidden rounded-xl bg-surface sm:order-last sm:block sm:aspect-video sm:w-28 md:w-36"
-          : "relative aspect-video w-full shrink-0 overflow-hidden bg-surface"
-      }
-    >
-      <Image
-        src={event.thumbnailUrl}
-        alt=""
-        fill
-        className="object-cover"
-        sizes={
-          isSideThumbnail
-            ? "(min-width: 768px) 144px, 112px"
-            : "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-        }
-      />
-    </div>
+    <EventThumbnail src={event.thumbnailUrl} isSideThumbnail={isSideThumbnail} />
   );
 
   return (
