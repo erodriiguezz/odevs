@@ -32,7 +32,7 @@ export default function GroupExplorer() {
     replace(href);
   }
 
-  let selectedGroups = Object.values(groups);
+  let selectedGroups = Object.values(groups).filter((group) => !group.isExternal);
   const cat = category.toLowerCase();
   if (cat !== "any") {
     selectedGroups = selectedGroups.filter(

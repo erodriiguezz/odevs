@@ -23,8 +23,9 @@ export default async function HomePage() {
     return year === currentYear && month === currentMonth;
   }).length;
 
-  const previewGroups = Object.values(groups).slice(0, 6);
-  const activeGroups = Object.keys(groups).length;
+  const memberGroups = Object.values(groups).filter((group) => !group.isExternal);
+  const previewGroups = memberGroups.slice(0, 6);
+  const activeGroups = memberGroups.length;
 
   return (
     <>

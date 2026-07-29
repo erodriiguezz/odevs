@@ -12,6 +12,13 @@ export default function Header() {
   const isMobile = useIsMobile();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // On prerendered pages, usePathname() can disagree with the real browser
+  // URL (see Next.js docs on hydration mismatch with usePathname on
+  // prerendered routes). Reading window.location.pathname directly on the
+  // client keeps the active nav item from getting stuck unhighlighted.
+  const activePathname =
+    typeof window !== "undefined" ? window.location.pathname : pathname;
+
   const navItems = [
     { href: "/", label: "Home" },
     { href: "/calendar", label: "Calendar" },
@@ -23,7 +30,7 @@ export default function Header() {
     [
       "rounded-full px-3 py-1.5 text-sm font-medium transition-colors",
       isMobile ? "px-4 py-3 text-base" : "",
-      pathname === href
+      activePathname === href
         ? "bg-primary/15 text-foreground"
         : "text-muted-foreground hover:text-foreground",
     ].join(" ");

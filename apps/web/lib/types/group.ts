@@ -1,33 +1,35 @@
-import type { SourcePlatform } from './platform';
-import { IconType } from '@/components/icons/icon';
+import type { SourcePlatform } from "./platform";
+import { IconType } from "@/components/icons/icon";
 
 export interface EventSource {
-  platform: SourcePlatform
-  url: string
-  title?: string
-  description?: string
-  members?: number
-  image?: string
+  platform: SourcePlatform;
+  url: string;
+  title?: string;
+  description?: string;
+  members?: number;
+  image?: string;
 }
 
 export interface CommunityGroup {
-  id: string
-  name: string
-  description: string
-  longDescription?: string
-  topic: string
-  icon: IconType
-  logo?: string
-  websiteUrl?: string
-  brandColor?: string
-  eventSources: EventSource[]
-  category: GroupCategory
-  background: string
+  id: string;
+  name: string;
+  description: string;
+  longDescription?: string;
+  topic: string;
+  icon: IconType;
+  logo?: string;
+  websiteUrl?: string;
+  brandColor?: string;
+  eventSources: EventSource[];
+  category: GroupCategory;
+  background: string;
+  /** True for pseudo-groups that bucket outside-of-network events; hidden from the /groups directory. */
+  isExternal?: boolean;
 }
 
 // categories from previous website, potentially change to something different in the future
 export interface GroupCategory {
-  name: string
-  background: string
-  darkBackground: string
+  name: string;
+  background: string;
+  darkBackground: string;
 }

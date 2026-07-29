@@ -1,5 +1,5 @@
 import type { Event } from '@/lib/types/event'
-import { sortEventsByDateTime } from './group-events'
+import { sortEventsByDateTime, sortEventsByEndDateTime } from './group-events'
 
 function startOfToday(): Date {
   const today = new Date()
@@ -18,7 +18,7 @@ export function isPastDate(isoDate: string): boolean {
 export function splitTimelineEvents(events: Event[], recentPastCount = 3) {
   const today = startOfToday()
   const upcomingEvents = sortEventsByDateTime(events.filter(event => isUpcoming(event, today)))
-  const archivedEvents = sortEventsByDateTime(events.filter(event => !isUpcoming(event, today)))
+  const archivedEvents = sortEventsByEndDateTime(events.filter(event => !isUpcoming(event, today)))
     .reverse()
     .slice(0, recentPastCount)
 
